@@ -68,3 +68,11 @@
   position: absolute;
   width: 260px;
 }
+
+.sidebar{
+  background-color:#3a3333;
+}
+
+.sidebarFont{
+  color:#F0FFFF;
+}

@@ -34,7 +34,7 @@ function login()
 
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          window.location = 'user.html';
+          window.location = 'dashboard.html';
         }
       })
      /* alert(firebase.auth().currentUser);
