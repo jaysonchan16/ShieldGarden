@@ -18,6 +18,10 @@ $(document).ready(function(){
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
+
+    $("#AddNewUser").off('click').on('click', function(){
+        localStorage.setItem("")
+    });
 });
 
 function loadDetails()
@@ -50,8 +54,10 @@ function property(propertyID,unitID)
 
     propertydocRef.get().then(function(querySnapshot){
         querySnapshot.forEach(function(doc){
-            
-            $(".table tbody").append("<tr><td class='name'>"+doc.data().member_name+"</td><td></tr>");
+            console.log(doc.data());
+            $(".table tbody").append("<tr><td class='name'>"+doc.data().member_name+"</td><td>"+doc.data().member_email+
+                                          "</td><td>"+doc.data().member_ContactNumber+"</td><td>"+doc.data().member_property+
+                                          "</td><td>"+doc.data().member_unit+"</td></tr>");
         });
     });
 }
