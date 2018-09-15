@@ -76,3 +76,15 @@
 .sidebarFont{
   color:#F0FFFF;
 }
+
+.line{
+  width:230px;
+}
+
+.borderSearch
+{
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  padding-left: 10px;
+}
