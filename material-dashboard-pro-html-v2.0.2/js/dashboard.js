@@ -1,5 +1,6 @@
 var db = firebase.firestore();
-
+var propertyID;
+var unitID;
 $(document).ready(function(){
     loadDetails();
 
@@ -20,7 +21,9 @@ $(document).ready(function(){
       });
 
     $("#AddNewUser").off('click').on('click', function(){
-        localStorage.setItem("")
+        sessionStorage.setItem("propertyID",propertyID);
+        sessionStorage.setItem("unitID",unitID);
+        window.location = 'AddNewUser.html';
     });
 });
 
@@ -32,13 +35,18 @@ function loadDetails()
         }
         $('#userprofile').html(user.email);
         
+        sessionStorage.removeItem("propertyID");
+        sessionStorage.removeItem("unitID");
+
         var userId = user.uid;
 
         var userdocRef = db.collection("users").doc(userId);
 
         userdocRef.get().then(function(doc) {
             if (doc.exists) {
-               property(doc.data().property_id,doc.data().unit_id);
+                propertyID = doc.data().property_id;
+                unitID = doc.data().unit_id; 
+               property(propertyID,unitID);
             }
             else {
                 // doc.data() will be undefined in this case
@@ -54,7 +62,7 @@ function property(propertyID,unitID)
 
     propertydocRef.get().then(function(querySnapshot){
         querySnapshot.forEach(function(doc){
-            console.log(doc.data());
+            //console.log(doc.data());
             $(".table tbody").append("<tr><td class='name'>"+doc.data().member_name+"</td><td>"+doc.data().member_email+
                                           "</td><td>"+doc.data().member_ContactNumber+"</td><td>"+doc.data().member_property+
                                           "</td><td>"+doc.data().member_unit+"</td></tr>");
