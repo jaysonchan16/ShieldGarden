@@ -1,6 +1,8 @@
 var db = firebase.firestore();
 var propertyID;
 var unitID;
+var findID;
+
 $(document).ready(function(){
     loadDetails();
 
@@ -37,6 +39,7 @@ function loadDetails()
         
         sessionStorage.removeItem("propertyID");
         sessionStorage.removeItem("unitID");
+        sessionStorage.removeItem("findID");
 
         var userId = user.uid;
 
@@ -60,9 +63,10 @@ function property(propertyID,unitID)
 {
     var propertyName = db.collection("properties").doc(propertyID);
 
+    // hardcode and pass the property name to the AddNewUser page and UpdateUser page
     propertyName.get().then(function(doc){
         if (doc.exists) {
-            console.log("Document data:", doc.data());
+           // console.log("Document data:", doc.data());
             sessionStorage.setItem("propertyName",doc.data().property_name);
         } else {
             console.log("No such document!");
@@ -76,9 +80,19 @@ function property(propertyID,unitID)
     propertydocRef.get().then(function(querySnapshot){
         querySnapshot.forEach(function(doc){
             //console.log(doc.data());
-            $(".table tbody").append("<tr><td class='name'>"+doc.data().member_name+"</td><td>"+doc.data().member_email+
+            console.log(doc.id)
+            $(".table tbody").append("<tr><td class='name findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().member_name+"</td><td>"+doc.data().member_email+
                                           "</td><td>"+doc.data().member_ContactNumber+"</td><td>"+doc.data().member_property+
                                           "</td><td>"+doc.data().member_unit+"</td></tr>");
         });
     });
+}
+
+function details(ID)
+{
+    //console.log(ID);
+    sessionStorage.setItem("propertyID",propertyID);
+    sessionStorage.setItem("unitID",unitID);
+    sessionStorage.setItem("findID",ID);
+    window.location = 'UpdateUser.html';
 }

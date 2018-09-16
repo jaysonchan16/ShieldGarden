@@ -88,3 +88,19 @@
   border-radius: 10px;
   padding-left: 10px;
 }
+
+.NoBorderButton{
+  padding: 0;
+  border: none;
+  background: none;
+  cursor:pointer;
+  text-decoration: underline;
+  color:blue;
+}
+
+.findButton
+{
+  cursor:pointer;
+  color:blue;
+  text-decoration: underline;
+}

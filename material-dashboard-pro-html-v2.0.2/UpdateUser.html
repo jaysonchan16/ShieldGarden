@@ -73,7 +73,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <span class="navbar-brand titlePage">Manage Users / Add User</span>
+            <span class="navbar-brand titlePage">Manage Users / <span id="member_name"></span></span>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -93,27 +93,41 @@
                   <div class="card-body">
                     <div class="row" style="padding-left:20px;">
                         <form style="width: 73vw;">
+                            <input class="NoBorderButton" style="float:right;" id="EditUser" type="button" value="Edit">
                         <div class="form-group">
                             <div class="col-md-12">
                             <label for="usr">Name:</label>
-                            <input type="text" class="form-control" id="newusername">
+                            <input type="text" class="form-control" id="newusername" disabled>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
                             <label for="pwd">Email:</label>
-                            <input type="email" class="form-control" id="newemail">
+                            <input type="email" class="form-control" id="newemail" disabled>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
                             <label for="pwd">Contact Number:</label>
-                            <input type="text" class="form-control" id="newcontact">
+                            <input type="text" class="form-control" id="newcontact" disabled>
+                            </div>
+                        </div>
+                        </form>
+                        </div>
+                        <div class="row">
+                            <div class='col-md-4'>
+                                <button type="submit" class="btn btn-success" id="SaveUser" disabled>Save</button>
+                            </div>
+                            <div class='col-md-4'>
+                                <button type="submit" class="btn" style="background-color:purple;" id="CancelUser" disabled>Cancel</button>
                             </div>
                         </div>
                         <br>
                         <hr color="darkgrey" style="border-width: 2px;">
                         <br>
+                        <div class="row" style="padding-left:20px;">
+                        <form style="width: 73vw;">
+                            <input class="NoBorderButton" style="float:right;" id="EditProperty" type="button" value="Edit">
                         <div class="form-group">
                             <div class="col-md-12">
                             <label for="pwd">Assigned Property:</label>
@@ -127,11 +141,18 @@
                             </div>
                         </div>
                     </form>
+                    
                     </div>
                     <br><br>
-                        <div class='col-md-12'>
-                            <button style="float:left;" type="submit" class="btn btn-success" id="Add">Add New User</button>
+                    <div class="row">
+                            <div class='col-md-4'>
+                                <button type="submit" class="btn btn-success" id="SaveProperty" disabled>Save</button>
+                            </div>
+                            <div class='col-md-4'>
+                                <button type="submit" class="btn" style="background-color:purple;" id="CancelProperty" disabled>Cancel</button>
+                            </div>
                         </div>
+                    </div>
                       </div>
                   </div>
                 </div>
@@ -201,7 +222,7 @@
               <script src="js/material-dashboard.min.js?v=2.0.2" type="text/javascript"></script>
               <!-- Material Dashboard DEMO methods, don't include it in your project! -->
               <script src="js/demo.js"></script>
-              <script src="js/AddNewUser.js"></script>
+              <script src="js/UpdateUser.js"></script>
               <script>
                 $(document).ready(function() {
                   $().ready(function() {
