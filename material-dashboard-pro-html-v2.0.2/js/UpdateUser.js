@@ -102,22 +102,112 @@ function UpdateUser()
     var memberEmail = $("#newemail").val();
     var memberContactNumber = '+6' + $("#newcontact").val();
 
-    propertydocRef.update({
-        member_name: memberName,
-        member_email: memberEmail,
-        member_ContactNumber:memberContactNumber,
-        member_property:propertyName,
-        member_unit:unitID
-    })
-    .then(function() {
-        alert("The data has been saved successfully!");
-    })
+    if(memberName == "")
+    {
+        propertydocRef.update({
+            member_name: name,
+            member_email: memberEmail,
+            member_ContactNumber:memberContactNumber,
+            member_property:propertyName,
+            member_unit:unitID
+        })
+        .then(function() {
+            alert("The data has been saved successfully!");
+        })
+    }
+    else if(memberEmail == "")
+    {
+        propertydocRef.update({
+            member_name: memberName,
+            member_email: email,
+            member_ContactNumber:memberContactNumber,
+            member_property:propertyName,
+            member_unit:unitID
+        })
+        .then(function() {
+            alert("The data has been saved successfully!");
+        })
+    }
+    else if(memberContactNumber == "")
+    {
+        propertydocRef.update({
+            member_name: memberName,
+            member_email: memberEmail,
+            member_ContactNumber:contactNumber,
+            member_property:propertyName,
+            member_unit:unitID
+        })
+        .then(function() {
+            alert("The data has been saved successfully!");
+        })
+    }
+    else if(memberName == "" && memberEmail == "")
+    {
+        propertydocRef.update({
+            member_name: name,
+            member_email: email,
+            member_ContactNumber:memberContactNumber,
+            member_property:propertyName,
+            member_unit:unitID
+        })
+        .then(function() {
+            alert("The data has been saved successfully!");
+        })
+    }
+    else if(memberName == "" && memberContactNumber == "")
+    {   
+        propertydocRef.update({
+            member_name: name,
+            member_email: memberEmail,
+            member_ContactNumber:contactNumber,
+            member_property:propertyName,
+            member_unit:unitID
+        })
+        .then(function() {
+            alert("The data has been saved successfully!");
+        })
+    }
+    else if(memberEmail == "" && memberContactNumber == "")
+    {
+        propertydocRef.update({
+            member_name: memberName,
+            member_email: email,
+            member_ContactNumber:contactNumber,
+            member_property:propertyName,
+            member_unit:unitID
+        })
+        .then(function() {
+            alert("The data has been saved successfully!");
+        })
+    }
+    else
+    {
+        alert("Please fill at least one of the field");
+    }
 
-    $("#newusername").prop('disabled', false);
-    $("#newemail").prop('disabled', false);
-    $("#newcontact").prop('disabled', false);
-    $("#SaveUser").prop('disabled', false);
-    $("#CancelUser").prop('disabled', false);
+    propertydocRef.get().then(function(doc) {
+        if (doc.exists) {
+            name = doc.data().member_name;
+            email = doc.data().member_email;
+            contactNumber = doc.data().member_ContactNumber;
+
+            $("#assignedproperty").val(propertyName);
+            $("#assignedunit").val(unitID);
+            $("#newusername").val(doc.data().member_name);
+            $("#newemail").val(doc.data().member_email);
+            $("#newcontact").val(doc.data().member_ContactNumber);
+
+            $("#newusername").prop('disabled', false);
+            $("#newemail").prop('disabled', false);
+            $("#newcontact").prop('disabled', false);
+            $("#SaveUser").prop('disabled', false);
+            $("#CancelUser").prop('disabled', false);
+        }
+        else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    });
 }
 
 function UpdateProperty()
