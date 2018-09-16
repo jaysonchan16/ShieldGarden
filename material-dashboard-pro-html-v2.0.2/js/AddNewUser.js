@@ -27,7 +27,7 @@ function addnewuser()
     // console.log(unitID);
     var memberName = $("#newusername").val();
     var memberEmail = $("#newemail").val();
-    var memberContactNumber = $("#newcontact").val();
+    var memberContactNumber = '+6' + $("#newcontact").val();
     var assignedproperty = $("#assignedproperty").val();
     var assignedunit = $("#assignedunit").val();
 
