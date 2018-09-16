@@ -1,9 +1,13 @@
 var db = firebase.firestore();
 var propertyID = sessionStorage.getItem("propertyID");
 var unitID = sessionStorage.getItem("unitID");
+var propertyName = sessionStorage.getItem("propertyName");
+
 $(document).ready(function(){
     loadDetails();
     
+    $("#assignedproperty").val(propertyName);
+    $("#assignedunit").val(unitID);
     
     $("#Add").off('click').on('click', function(){
         addnewuser();
@@ -28,8 +32,6 @@ function addnewuser()
     var memberName = $("#newusername").val();
     var memberEmail = $("#newemail").val();
     var memberContactNumber = '+6' + $("#newcontact").val();
-    var assignedproperty = $("#assignedproperty").val();
-    var assignedunit = $("#assignedunit").val();
 
     var propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
 
@@ -37,8 +39,8 @@ function addnewuser()
         member_name: memberName,
         member_email: memberEmail,
         member_ContactNumber:memberContactNumber,
-        member_property:assignedproperty,
-        member_unit:assignedunit
+        member_property:propertyName,
+        member_unit:unitID
     })
     .then(function() {
         alert("The data has been saved successfully!");

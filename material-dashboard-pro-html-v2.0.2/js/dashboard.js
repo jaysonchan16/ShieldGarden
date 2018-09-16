@@ -58,6 +58,19 @@ function loadDetails()
 
 function property(propertyID,unitID)
 {
+    var propertyName = db.collection("properties").doc(propertyID);
+
+    propertyName.get().then(function(doc){
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            sessionStorage.setItem("propertyName",doc.data().property_name);
+        } else {
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+    
     var propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
 
     propertydocRef.get().then(function(querySnapshot){
