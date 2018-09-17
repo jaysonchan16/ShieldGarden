@@ -6,8 +6,8 @@ var propertyName = sessionStorage.getItem("propertyName");
 $(document).ready(function(){
     loadDetails();
     
-    $("#assignedproperty").val(propertyName);
-    $("#assignedunit").val(unitID);
+    $("#assignedproperty").html("<option>"+propertyName+"</option><option>No Property</option>");
+    $("#assignedunit").html("<option>"+unitID+"</option><option>No Unit</option>");
     
     $("#Add").off('click').on('click', function(){
         addnewuser();

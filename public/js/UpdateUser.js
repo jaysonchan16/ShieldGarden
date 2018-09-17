@@ -80,8 +80,8 @@ function loadDetails()
                 email = doc.data().member_email;
                 contactNumber = doc.data().member_ContactNumber;
 
-                $("#assignedproperty").val(propertyName);
-                $("#assignedunit").val(unitID);
+                $("#assignedproperty").html("<option>"+propertyName+"</option><option>No Property</option>");
+                $("#assignedunit").html("<option>"+unitID+"</option><option>No Unit</option>");
                 $("#newusername").val(doc.data().member_name);
                 $("#newemail").val(doc.data().member_email);
                 $("#newcontact").val(doc.data().member_ContactNumber);
