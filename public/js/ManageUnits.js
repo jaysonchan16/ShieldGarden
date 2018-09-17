@@ -59,7 +59,7 @@ function property(propertyID,unitID)
         if (doc.exists) {
            // console.log("Document data:", doc.data());
            var address = unitID +", "+doc.data().property_name;
-
+           sessionStorage.setItem("propertyName",doc.data().property_name);
           $(".table tbody").append("<tr><td class='name findButton' id='"+unitID+"' onclick='details(this.id)'>"+unitID+"</td><td>"+address+"</td></tr>");
        
         } else {

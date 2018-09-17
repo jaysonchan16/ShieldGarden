@@ -38,13 +38,13 @@
           </div>
         </div>
         <ul class="nav">
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="ManageUnits.html">
               <i class="material-icons">dashboard</i>
               <p class="sidebarFont"> Manage Units </p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="ManageUser.html">
               <i class="material-icons">dashboard</i>
               <p class="sidebarFont"> Manage Users
@@ -53,18 +53,30 @@
           </li>
           <hr color="white" class="line">
           <li class="nav-item ">
-            <a class="nav-link" href="#componentsExamples">
-              <!-- <i class="material-icons">apps</i> -->
-              <p class="sidebarFont" style="text-align: center"> Visitor
-              </p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="#formsExamples">
-              <p class="sidebarFont" style="text-align: center"> Facilities
-              </p>
-            </a>
-          </li>
+                <a class="nav-link" href="Visitor.html">
+                  <!-- <i class="material-icons">apps</i> -->
+                  <p class="sidebarFont" style="text-align: center"> Visitor
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="Facilities.html">
+                  <p class="sidebarFont" style="text-align: center"> Facilities
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                  <a class="nav-link" href="Notices.html">
+                    <p class="sidebarFont" style="text-align: center"> Notices
+                    </p>
+                  </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="Feedback.html">
+                  <p class="sidebarFont" style="text-align: center"> Feedback
+                  </p>
+                </a>
+              </li>
         </ul>
       </div>
     </div>
@@ -73,7 +85,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <span class="navbar-brand titlePage">Manage Users</span>
+            <span class="navbar-brand titlePage">Manage Units / <span class="Units"></span></span>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -91,27 +103,23 @@
               <div class="col-md-12">
                 <div class="card ">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-8">
-                          <input type="text" class="form-control borderSearch" placeholder="Search..." id="SearchText">
-                      </div>
-                      <div class="col-md-4">
-                          <!-- <button type="submit" class="btn btn-primary" id="Search">Search</button> -->
-                      </div>
-                    </div><br><br>
+                    <form>
                       <div class="col-md-12">
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>Units ID</th>
-                              <th>Units Address</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          
-                          </tbody>
-                        </table>
+                            <div class="form-group">
+                                <label for="unit">Unit ID:</label>
+                                <label for="text" class="form-control" id="unit">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Full Address:</label>
+                                <label type="text" class="form-control" id="address">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="member">Members:</label>
+                                <label type="text" class="form-control" id="member"></textarea>
+                            </div>
                         </div>
+                    </form>
                       </div>
                   </div>
                 </div>
