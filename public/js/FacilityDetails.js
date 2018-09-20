@@ -1,12 +1,13 @@
 var db = firebase.firestore();
 var propertyID = sessionStorage.getItem("propertyID");
+var facilityID = sessionStorage.getItem("facilityID");
 var selected_file;
 
 $(document).ready(function(){
     loadDetails();
 
     $("#Add").off('click').on('click', function(){
-        addnewnotice();
+        AddNewFacility();
     });
 });
 
@@ -17,15 +18,25 @@ function loadDetails()
         window.location = 'login.html';
         }
         $('#userprofile').html(user.email);
-
+        console.log(facilityID);
+        FacilityRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID);
+        FacilityRef.get().then(function(doc) {
+            if (doc.exists) {
+                $("#facilities_name").text(doc.data().facility_title);
+            }
+            else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        });
     });
 }
 
-function addnewnotice()
+function AddNewFacility()
 {
     // console.log(propertyID);
     // console.log(unitID);
-    var title = $("#title").val();
+    var name = $("#name").val();
     var description = $("#description").val();
     // var fileButton = $("#fileButton");
 
@@ -81,12 +92,15 @@ function addnewnotice()
     },function(){
         var downloadURL = uploadTask.snapshot.downloadURL;
 
-        var propertydocRef = db.collection("properties").doc(propertyID).collection("notices");
+        var propertydocRef = db.collection("properties").doc(propertyID).collection("facilities");
 
         propertydocRef.add({
-            notice_description: description,
-            notice_image_url: downloadURL,
-            notice_title:title
+            facility_booking_enabled : true,
+            facility_description: description,
+            facility_id:"",
+            facility_image_url: downloadURL,
+            facility_time_description:"",
+            facility_title:name
         })
         .then(function() {
             alert("The data has been saved successfully!");

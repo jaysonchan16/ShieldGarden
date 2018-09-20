@@ -1,9 +1,11 @@
 var db = firebase.firestore();
+var propertyID;
 
 $(document).ready(function(){
     loadDetails();
 
     $("#AddNewNotice").off('click').on('click', function(){
+        sessionStorage.setItem("propertyID",propertyID);
         window.location = 'AddNewNotices.html';
     });
 });
@@ -23,7 +25,6 @@ function loadDetails()
         userdocRef.get().then(function(doc) {
             if (doc.exists) {
                 propertyID = doc.data().property_id;
-                unitID = doc.data().unit_id; 
                property(propertyID);
             }
             else {

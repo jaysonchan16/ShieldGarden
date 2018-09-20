@@ -13,12 +13,12 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-<meta charset=utf-8 />
   <!-- CSS Files -->
   <link href="css/material-dashboard.css?v=2.0.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="css/demo.css" rel="stylesheet" />
 </head>
+
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="rose" >
@@ -53,30 +53,30 @@
           </li>
           <hr color="white" class="line">
           <li class="nav-item ">
-            <a class="nav-link" href="Visitor.html">
-              <!-- <i class="material-icons">apps</i> -->
-              <p class="sidebarFont" style="text-align: center"> Visitor
-              </p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="Facilities.html">
-              <p class="sidebarFont" style="text-align: center"> Facilities
-              </p>
-            </a>
-          </li>
-          <li class="nav-item active">
-              <a class="nav-link" href="Notices.html">
-                <p class="sidebarFont" style="text-align: center"> Notices
+              <a class="nav-link" href="Visitor.html">
+                <!-- <i class="material-icons">apps</i> -->
+                <p class="sidebarFont" style="text-align: center"> Visitor
                 </p>
               </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="Feedback.html">
-              <p class="sidebarFont" style="text-align: center"> Feedback
-              </p>
-            </a>
-          </li>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="Facilities.html">
+                <p class="sidebarFont" style="text-align: center"> Facilities
+                </p>
+              </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="Notices.html">
+                  <p class="sidebarFont" style="text-align: center"> Notices
+                  </p>
+                </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="Feedback.html">
+                <p class="sidebarFont" style="text-align: center"> Feedback
+                </p>
+              </a>
+            </li>
         </ul>
       </div>
     </div>
@@ -85,7 +85,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <span class="navbar-brand titlePage">Add A New Notice</span>
+            <span class="navbar-brand titlePage">Facilities / <span id="facilities_name"></span></span>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -105,36 +105,55 @@
                   <div class="card-body">
                     <div class="row" style="padding-left:20px;">
                         <form style="width: 73vw;">
-                        <div class="form-group">
-                            <div class="col-md-12">
-                            <label for="usr">Image:</label>
-                                <div class="row">
+                            <input class="NoBorderButton" style="float:right;" id="EditUser" type="button" value="Edit">
+                                <div class="form-group">
                                     <div class="col-md-12">
-                                            <img id="blah" src="#" alt="your image" />
-                                            <input type='file' id="fileButton" onchange="readURL(this);" />
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                    <img id="blah" src="#" alt="your image" />
+                                                    <input type='file' id="fileButton" onchange="readURL(this);" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">
+                                                    <label for="title">Name:</label>
+                                                    <input type="text" class="form-control" id="name">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="title">Description:</label>
+                                                    <input type="text" class="form-control" id="description">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <hr color="darkgrey" style="border-width: 2px;">
+                                <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Time Slots</th>
+                                        <th>Description</th>
+                                        <th>Slot - Start Time</th>
+                                        <th>Slot - End Time</th>
+                                        <th>Slot - Interval (minutes)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    
+                                    </tbody>
+                                </table>
+                                </div>
+                        </form>
+                        </div>
+                        <div class="row">
+                            <div class='col-md-4'>
+                                <button type="submit" class="btn btn-success" id="SaveUser" disabled>Save</button>
+                            </div>
+                            <div class='col-md-4'>
+                                <button type="submit" class="btn" style="background-color:purple;" id="Delete" disabled>Delete</button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                            <label for="title">Title:</label>
-                            <input type="text" class="form-control" id="title">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                            <label for="description">Description:</label>
-                            <input type="text" class="form-control" id="description">
-                            </div>
-                        </div>
-                        <br>
-                    </form>
                     </div>
-                    <br><br>
-                        <div class='col-md-12'>
-                            <button style="float:left;" type="submit" class="btn btn-success" id="Add">Add New Notice</button>
-                        </div>
                       </div>
                   </div>
                 </div>
@@ -204,7 +223,7 @@
               <script src="js/material-dashboard.min.js?v=2.0.2" type="text/javascript"></script>
               <!-- Material Dashboard DEMO methods, don't include it in your project! -->
               <script src="js/demo.js"></script>
-              <script src="js/AddNewNotices.js"></script>
+              <script src="js/FacilityDetails.js"></script>
               <script>
                 $(document).ready(function() {
                   $().ready(function() {
