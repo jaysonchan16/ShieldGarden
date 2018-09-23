@@ -29,6 +29,7 @@ function AddNewFacility()
     // console.log(unitID);
     var name = $("#name").val();
     var description = $("#description").val();
+    var timedescription = $("#timedescription").val();
 
     var propertydocRef = db.collection("properties").doc(propertyID).collection("facilities").doc();
 
@@ -56,7 +57,7 @@ function AddNewFacility()
                     facility_description: description,
                     facility_id:propertydocRef.id,
                     facility_image_url: downloadURL,
-                    facility_time_description:"",
+                    facility_time_description:timedescription,
                     facility_title:name
             }).then(function() {
                 var ID = propertydocRef.id;  //when create a new document it will automatically generated new id and then apply the generate id into the facility_id
