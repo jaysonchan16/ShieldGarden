@@ -34,6 +34,8 @@ function AddNewFacility()
     var filename = selected_file.name;
     var storageRef = firebase.storage().ref(filename);
     var uploadTask = storageRef.put(selected_file);
+
+    //upload image step
     uploadTask.on('state_changed',
     
     function(snapshot){
@@ -42,6 +44,7 @@ function AddNewFacility()
 
     }, function() {
         uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            //get the image download url and then when open the website can automatically load the image from firestore
             console.log('File available at', downloadURL);
           
             propertydocRef.set({
@@ -52,7 +55,7 @@ function AddNewFacility()
                     facility_time_description:"",
                     facility_title:name
             }).then(function() {
-                var ID = propertydocRef.id;
+                var ID = propertydocRef.id;  //when create a new document it will automatically generated new id and then apply the generate id into the facility_id
                 console.log(ID);
             })
     });
