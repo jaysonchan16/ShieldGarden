@@ -74,7 +74,7 @@ function readURL(input) {
                 .attr('src', e.target.result)
                 .height(200);
         };
-
+        //get the base 64 image
         selected_file = input.files[0];
       //  console.log(selected_file);
         reader.readAsDataURL(input.files[0]);
