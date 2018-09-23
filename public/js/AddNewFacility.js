@@ -24,6 +24,7 @@ function loadDetails()
 
 function AddNewFacility()
 {
+    //$("#myModal").modal();
     // console.log(propertyID);
     // console.log(unitID);
     var name = $("#name").val();
@@ -39,6 +40,9 @@ function AddNewFacility()
     uploadTask.on('state_changed',
     
     function(snapshot){
+        /*var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+        uploader.value= percentage;*/
 
     }, function(error) {
 
@@ -56,7 +60,7 @@ function AddNewFacility()
                     facility_title:name
             }).then(function() {
                 var ID = propertydocRef.id;  //when create a new document it will automatically generated new id and then apply the generate id into the facility_id
-                console.log(ID);
+                alert("Adding the new facility successfully!")
             })
     });
 });

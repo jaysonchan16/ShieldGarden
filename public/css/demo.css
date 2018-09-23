@@ -104,3 +104,12 @@
   color:blue;
   text-decoration: underline;
 }
+
+
+#uploader
+{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 50%;
+  margin-bottom: 10px;
+}
