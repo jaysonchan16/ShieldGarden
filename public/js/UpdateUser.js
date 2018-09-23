@@ -7,6 +7,10 @@ var propertydocRef;
 var name;
 var email;
 var contactNumber;
+var property;
+var unit;
+var currentproperty;
+var currentunit;
 
 $(document).ready(function(){
     loadDetails();
@@ -24,13 +28,18 @@ $(document).ready(function(){
     });
 
     $("#EditProperty").off('click').on('click', function(){
-        $("#assignedproperty").val("");
-        $("#assignedunit").val("");
+        // $("#assignedproperty").val("");
+        // $("#assignedunit").val("");
 
-        $("#assignedproperty").prop('disabled', false);
-        $("#assignedunit").prop('disabled', false);
+        // $("#assignedproperty").prop('disabled', false);
+        // $("#assignedunit").prop('disabled', false);
+
+        $("#assignedpropertydrop").html("<option>"+propertyName+"</option><option>No Property</option>");
+        $("#assignedunitdrop").html("<option>"+unitID+"</option><option>No Unit</option>");
         $("#SaveProperty").prop('disabled', false);
         $("#CancelProperty").prop('disabled', false);
+        $("#noedit").hide();
+        $("#edit").show();
     });
     
     $("#SaveUser").off('click').on('click', function(){
@@ -54,13 +63,16 @@ $(document).ready(function(){
     });
 
     $("#CancelProperty").off('click').on('click', function(){
-        $("#assignedproperty").val(propertyName);
-        $("#assignedunit").val(unitID);
+        $("#assignedproperty").val(currentproperty);
+        $("#assignedunit").val(currentunit);
         
-        $("#assignedproperty").prop('disabled', true);
-        $("#assignedunit").prop('disabled', true);
-        $("#SaveProperty").prop('disabled', true);
-        $("#CancelProperty").prop('disabled', true);
+        // $("#assignedproperty").prop('disabled', true);
+        // $("#assignedunit").prop('disabled', true);
+        // $("#SaveProperty").prop('disabled', true);
+        // $("#CancelProperty").prop('disabled', true);
+
+        $("#noedit").show();
+        $("#edit").hide();
     });
 });
 
@@ -80,8 +92,15 @@ function loadDetails()
                 email = doc.data().member_email;
                 contactNumber = doc.data().member_ContactNumber;
 
-                $("#assignedproperty").html("<option>"+propertyName+"</option><option>No Property</option>");
-                $("#assignedunit").html("<option>"+unitID+"</option><option>No Unit</option>");
+                currentproperty = doc.data().member_property;
+                currentunit = doc.data().member_unit;
+
+                // $("#assignedpropertydrop").html("<option>"+propertyName+"</option><option>No Property</option>");
+                // $("#assignedunitdrop").html("<option>"+unitID+"</option><option>No Unit</option>");
+                // $("#assignedpropertydrop").css("display","none");
+                // $("#assignedunitdrop").css("display","none");
+                $("#assignedproperty").val(doc.data().member_property);
+                $("#assignedunit").val(doc.data().member_unit);
                 $("#newusername").val(doc.data().member_name);
                 $("#newemail").val(doc.data().member_email);
                 $("#newcontact").val(doc.data().member_ContactNumber);
@@ -180,6 +199,19 @@ function UpdateUser()
             alert("The data has been saved successfully!");
         })
     }
+    else if(memberName !="" && memberEmail != "" && memberContactNumber != "")
+    {
+        propertydocRef.update({
+            member_name: memberName,
+            member_email: memberEmail,
+            member_ContactNumber:memberContactNumber,
+            member_property:propertyName,
+            member_unit:unitID
+        })
+        .then(function() {
+            alert("The data has been saved successfully!");
+        })
+    }
     else
     {
         alert("Please fill at least one of the field");
@@ -197,11 +229,11 @@ function UpdateUser()
             $("#newemail").val(doc.data().member_email);
             $("#newcontact").val(doc.data().member_ContactNumber);
 
-            $("#newusername").prop('disabled', false);
-            $("#newemail").prop('disabled', false);
-            $("#newcontact").prop('disabled', false);
-            $("#SaveUser").prop('disabled', false);
-            $("#CancelUser").prop('disabled', false);
+            $("#newusername").prop('disabled', true);
+            $("#newemail").prop('disabled', true);
+            $("#newcontact").prop('disabled', true);
+            $("#SaveUser").prop('disabled', true);
+            $("#CancelUser").prop('disabled', true);
         }
         else {
             // doc.data() will be undefined in this case
@@ -212,9 +244,76 @@ function UpdateUser()
 
 function UpdateProperty()
 {
+//     $("#assignedpropertydrop").css("display","block");
+//     $("#assignedunitdrop").css("display","block");
+//     $("#assignedproperty").css("display","none");
+//     $("#assignedunit").css("display","none");
+    var assignedproperty = $("#assignedpropertydrop option:selected").val();
+    var assignedunit = $("#assignedunitdrop option:selected").val();
+    console.log(assignedproperty);
+    if(assignedproperty == "")
+    {
+        propertydocRef.update({
+            member_name: name,
+            member_email: email,
+            member_ContactNumber:contactNumber,
+            member_property:propertyName,
+            member_unit:assignedunit
+        })
+        .then(function() {
+            alert("The data has been saved successfully!");
+        })
+    }
+    else if(assignedunit == "")
+    {
+        propertydocRef.update({
+            member_name: name,
+            member_email: email,
+            member_ContactNumber:contactNumber,
+            member_property:assignedproperty,
+            member_unit:unitID
+        })
+        .then(function() {
+            alert("The data has been saved successfully!");
+        })
+    }
+    else if(assignedproperty != "" && assignedunit != "")
+    {
+        propertydocRef.update({
+            member_name: name,
+            member_email: email,
+            member_ContactNumber:contactNumber,
+            member_property:assignedproperty,
+            member_unit:assignedunit
+        })
+        .then(function() {
+            alert("The data has been saved successfully!");
+        })
+    }
+    else
+    {
+        alert("Please fill at least one of the field");
+    }
 
-    $("#assignedproperty").prop('disabled', false);
-    $("#assignedunit").prop('disabled', false);
-    $("#SaveProperty").prop('disabled', false);
-    $("#CancelProperty").prop('disabled', false);
+    propertydocRef.get().then(function(doc) {
+        if (doc.exists) {
+            property = doc.data().member_property;
+            unit = doc.data().member_unit;
+
+            $("#assignedproperty").val(doc.data().member_property);
+            $("#assignedunit").val(doc.data().member_unit);
+            $("#newusername").val(name);
+            $("#newemail").val(email);
+            $("#newcontact").val(contactNumber);
+
+            $("#SaveProperty").prop('disabled', true);
+            $("#CancelProperty").prop('disabled', true);
+            $("#noedit").show();
+            $("#edit").hide();
+        }
+        else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    });
 }

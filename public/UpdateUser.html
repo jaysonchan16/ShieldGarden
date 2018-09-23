@@ -140,22 +140,33 @@
                         <div class="row" style="padding-left:20px;">
                         <form style="width: 73vw;">
                             <input class="NoBorderButton" style="float:right;" id="EditProperty" type="button" value="Edit">
-                        <div class="form-group">
+                        <div id="noedit" >
+                          <div class="form-group" >
                             <!-- <div class="col-md-12"> -->
                             <label for="pwd">Assigned Property:</label>
-                            <!-- <input type="text" class="form-control" id="assignedproperty" disabled> -->
-                            <select style="margin-top: 35px;" class="form-control" id="assignedproperty" disabled>
-                              </select>
-                            <!-- </div> -->
+                            <input type="text" class="form-control" id="assignedproperty" disabled>
                         </div>
-                        <div class="form-group" style="margin-top:50px;">
+                        <div class="form-group" style="margin-top:60px;">
+                            <label for="pwd" style="margin-top:-15px;">Assigned Unit:</label>
+                            <input type="text" class="form-control" id="assignedunit" disabled>
+                        </div>
+                      </div>
+                      <div id="edit" style="display:none;">
+                        <div class="form-group" >
                             <!-- <div class="col-md-12"> -->
-                            <label for="pwd">Assigned Unit:</label>
-                            <!-- <input type="text" class="form-control" id="assignedunit" disabled> -->
-                            <select class="form-control" style="margin-top: 35px;" id="assignedunit" disabled>
+                            <label for="pwd">Assigned Property:</label>
+                            <select style="margin-top: 35px;" class="form-control" id="assignedpropertydrop">
                               </select>
                             <!-- </div> -->
                         </div>
+                        <div class="form-group" style="margin-top:60px;">
+                            <!-- <div class="col-md-12"> -->
+                            <label for="pwd" style="margin-top:-15px;">Assigned Unit:</label>
+                            <select class="form-control" style="margin-top: 35px;" id="assignedunitdrop">
+                              </select>
+                            <!-- </div> -->
+                        </div>
+                      </div>
                     </form>
                     
                     </div>
