@@ -1,6 +1,7 @@
 var db = firebase.firestore();
 var propertyID = sessionStorage.getItem("propertyID");
 var selected_file;
+var storage = firebase.storage();
 
 $(document).ready(function(){
     loadDetails();
@@ -23,78 +24,39 @@ function loadDetails()
 
 function addnewnotice()
 {
-    // console.log(propertyID);
-    // console.log(unitID);
     var title = $("#title").val();
     var description = $("#description").val();
-    // var fileButton = $("#fileButton");
 
-    // var blob = new Blob([selected_file], { type: "image/jpeg" });
-    // var filename = selected_file.name;
-    // var storageRef = firebase.storage().ref(filename);
-    // var uploadTask = storageRef.put(blob);
-
-    // uploadTask.on('state_changed',
-    // function progress(snapshot){
-    //     var percentage = (snapshot.byteTransferred / snapshot.totalBytes) * 100;
-    //     uploader.value = percentage;
-    //     console.log(percentage)
-    // }, function error(error){
-
-    // }, function complete(){
-        
-    // });
-    // console.log(propertyID);
-    // console.log(selected_file);
-    // fileButton.addEventListener('change',function(e){
-    //     var file = e.target.files[0];
-
-    //     var storageRef = firebase.storage().ref(file.name);
-
-    //     var task = storageRef.put(file);
-
-    //     task.on('state_changed',
-
-    //         function progress(snapshot)
-    //         {
-
-    //         },
-    //         function error(err)
-    //         {
-
-    //         },
-    //         function complete()
-    //         {
-
-    //         }
-    //     )
-    // })
-    var blob = new Blob([selected_file], { type: "image/jpg" });
+    var propertydocRef = db.collection("properties").doc(propertyID).collection("notices");
     var filename = selected_file.name;
     var storageRef = firebase.storage().ref(filename);
-    var uploadTask = storageRef.put(blob);
+    var uploadTask = storageRef.put(selected_file);
 
-    uploadTask.on('state_changed',function(snapshot){
-
-    },function(error){
-
-    },function(){
-        var downloadURL = uploadTask.snapshot.downloadURL;
-
-        var propertydocRef = db.collection("properties").doc(propertyID).collection("notices");
-
-        propertydocRef.add({
-            notice_description: description,
-            notice_image_url: downloadURL,
-            notice_title:title
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-
-    })
-
+        //upload image step
+        uploadTask.on('state_changed',
     
+        function(snapshot){
+            /*var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    
+            uploader.value= percentage;*/
+    
+        }, function(error) {
+    
+        }, function() {
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                //get the image download url and then when open the website can automatically load the image from firestore
+                console.log('File available at', downloadURL);
+              
+                propertydocRef.add({
+                    notice_description: description,
+                    notice_image_url: downloadURL,
+                    notice_title:title
+                }).then(function() {
+                     alert("Adding the new notices successfully!")
+                })
+        });
+    });
+         
 }
 
 function readURL(input) {
@@ -102,12 +64,12 @@ function readURL(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            selected_file = e.target.result;
             $('#blah')
                 .attr('src', e.target.result)
                 .height(200);
         };
 
+        selected_file = input.files[0];
         reader.readAsDataURL(input.files[0]);
     }
 }
