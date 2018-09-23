@@ -6,8 +6,12 @@ var selected_file;
 $(document).ready(function(){
     loadDetails();
 
-    $("#Add").off('click').on('click', function(){
-        AddNewFacility();
+    $("#EditFacility").off('click').on('click', function(){
+        EditFacility();
+    });
+
+    $("#SaveDetails").off('click').on('click', function(){
+        SaveDetails();
     });
 });
 
@@ -23,6 +27,9 @@ function loadDetails()
         FacilityRef.get().then(function(doc) {
             if (doc.exists) {
                 $("#facilities_name").text(doc.data().facility_title);
+                $("#applyimg").html('<img width="500" height="242" src="'+doc.data().facility_image_url+'"></img>');
+                $("#namenoedit").val(doc.data().facility_title);
+                $("#descriptionnoedit").val(doc.data().facility_description);
             }
             else {
                 // doc.data() will be undefined in this case
@@ -32,83 +39,12 @@ function loadDetails()
     });
 }
 
-function AddNewFacility()
+function EditFacility()
 {
-    // console.log(propertyID);
-    // console.log(unitID);
-    var name = $("#name").val();
-    var description = $("#description").val();
-    // var fileButton = $("#fileButton");
-
-    // var blob = new Blob([selected_file], { type: "image/jpeg" });
-    // var filename = selected_file.name;
-    // var storageRef = firebase.storage().ref(filename);
-    // var uploadTask = storageRef.put(blob);
-
-    // uploadTask.on('state_changed',
-    // function progress(snapshot){
-    //     var percentage = (snapshot.byteTransferred / snapshot.totalBytes) * 100;
-    //     uploader.value = percentage;
-    //     console.log(percentage)
-    // }, function error(error){
-
-    // }, function complete(){
-        
-    // });
-    // console.log(propertyID);
-    // console.log(selected_file);
-    // fileButton.addEventListener('change',function(e){
-    //     var file = e.target.files[0];
-
-    //     var storageRef = firebase.storage().ref(file.name);
-
-    //     var task = storageRef.put(file);
-
-    //     task.on('state_changed',
-
-    //         function progress(snapshot)
-    //         {
-
-    //         },
-    //         function error(err)
-    //         {
-
-    //         },
-    //         function complete()
-    //         {
-
-    //         }
-    //     )
-    // })
-    var blob = new Blob([selected_file], { type: "image/jpg" });
-    var filename = selected_file.name;
-    var storageRef = firebase.storage().ref(filename);
-    var uploadTask = storageRef.put(blob);
-
-    uploadTask.on('state_changed',function(snapshot){
-
-    },function(error){
-
-    },function(){
-        var downloadURL = uploadTask.snapshot.downloadURL;
-
-        var propertydocRef = db.collection("properties").doc(propertyID).collection("facilities");
-
-        propertydocRef.add({
-            facility_booking_enabled : true,
-            facility_description: description,
-            facility_id:"",
-            facility_image_url: downloadURL,
-            facility_time_description:"",
-            facility_title:name
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-
-    })
-
-    
+    $("#SaveDetails").prop('disabled', false);
+    $("#DeleteDetails").prop('disabled', false);
+    $("#nonedit").hide();
+    $("#edit").show();
 }
 
 function readURL(input) {
@@ -124,4 +60,11 @@ function readURL(input) {
 
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+function SaveDetails()
+{
+    
+    $("#SaveDetails").prop('disabled', true);
+    $("#DeleteDetails").prop('disabled', true);
 }
