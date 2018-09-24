@@ -58,7 +58,8 @@ function AddNewFacility()
                     facility_id:propertydocRef.id,
                     facility_image_url: downloadURL,
                     facility_time_description:timedescription,
-                    facility_title:name
+                    facility_title:name,
+                    facility_jpg_name:uploadTask.snapshot.metadata.name
             }).then(function() {
                 var ID = propertydocRef.id;  //when create a new document it will automatically generated new id and then apply the generate id into the facility_id
                 alert("Adding the new facility successfully!")

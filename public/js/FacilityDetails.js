@@ -2,6 +2,8 @@ var db = firebase.firestore();
 var propertyID = sessionStorage.getItem("propertyID");
 var facilityID = sessionStorage.getItem("facilityID");
 var selected_file;
+var FacilityRef;
+var SlotFacilityRef;
 
 $(document).ready(function(){
     loadDetails();
@@ -22,7 +24,6 @@ function loadDetails()
         window.location = 'login.html';
         }
         $('#userprofile').html(user.email);
-        console.log(facilityID);
         FacilityRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID);
         FacilityRef.get().then(function(doc) {
             if (doc.exists) {
@@ -35,6 +36,14 @@ function loadDetails()
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
+        });
+
+        SlotFacilityRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots");
+        SlotFacilityRef.get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
+                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td></tr>");
+            });
         });
     });
 }
@@ -64,7 +73,7 @@ function readURL(input) {
 
 function SaveDetails()
 {
-    
+
     $("#SaveDetails").prop('disabled', true);
     $("#DeleteDetails").prop('disabled', true);
 }
