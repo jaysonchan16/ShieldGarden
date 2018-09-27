@@ -104,6 +104,7 @@ function loadDetails()
                 $("#newusername").val(doc.data().member_name);
                 $("#newemail").val(doc.data().member_email);
                 $("#newcontact").val(doc.data().member_ContactNumber);
+                $("#member_name").text(doc.data().member_name);
             }
             else {
                 // doc.data() will be undefined in this case
