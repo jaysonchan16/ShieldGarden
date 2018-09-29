@@ -15,6 +15,10 @@ $(document).ready(function(){
     $("#SaveDetails").off('click').on('click', function(){
         SaveDetails();
     });
+
+    $("#mainPage").off('click').on('click', function(){
+        window.location = 'Facilities.html';
+    }); 
 });
 
 function loadDetails()
