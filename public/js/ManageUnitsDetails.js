@@ -3,8 +3,13 @@ var propertyID = sessionStorage.getItem("propertyID");
 var unitID = sessionStorage.getItem("unitID");
 var propertyName = sessionStorage.getItem("propertyName");
 var memberName = [];
+
 $(document).ready(function(){
     loadDetails();
+
+    $("#mainPage").off('click').on('click', function(){
+        window.location = 'ManageUnits.html';
+    }); 
 });
 
 function loadDetails()

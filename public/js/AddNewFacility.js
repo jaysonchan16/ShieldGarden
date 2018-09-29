@@ -9,6 +9,10 @@ $(document).ready(function(){
     $("#Add").off('click').on('click', function(){
         AddNewFacility();
     });
+
+    $("#mainPage").off('click').on('click', function(){
+        window.location = 'Facilities.html';
+    }); 
 });
 
 function loadDetails()

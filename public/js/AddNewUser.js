@@ -12,6 +12,10 @@ $(document).ready(function(){
     $("#Add").off('click').on('click', function(){
         addnewuser();
     });
+
+    $("#mainPage").off('click').on('click', function(){
+        window.location = 'ManageUser.html';
+    }); 
 });
 
 function loadDetails()

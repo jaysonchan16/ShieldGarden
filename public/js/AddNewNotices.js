@@ -9,6 +9,10 @@ $(document).ready(function(){
     $("#Add").off('click').on('click', function(){
         addnewnotice();
     });
+
+    $("#mainPage").off('click').on('click', function(){
+        window.location = 'Notices.html';
+    }); 
 });
 
 function loadDetails()

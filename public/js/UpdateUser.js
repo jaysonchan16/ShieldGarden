@@ -15,6 +15,10 @@ var currentunit;
 $(document).ready(function(){
     loadDetails();
     
+    $("#mainPage").off('click').on('click', function(){
+        window.location = 'ManageUser.html';
+    }); 
+
     $("#EditUser").off('click').on('click', function(){
         $("#newusername").val("");
         $("#newemail").val("");
