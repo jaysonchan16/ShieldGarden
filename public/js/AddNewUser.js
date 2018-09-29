@@ -48,7 +48,7 @@ function addnewuser()
         var userdocRef = db.collection("users").doc(uid);
         
         userdocRef.set({
-            admin: null,
+            admin: false,
             app_platform: null,
             app_version: null,
             country_code: null,

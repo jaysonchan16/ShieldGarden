@@ -34,9 +34,29 @@ function login()
 
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          window.location = 'ManageUser.html';
-        }
-      })
+            var uid = user.uid;
+            var userdocRef = db.collection("users").doc(uid);
+
+            userdocRef.get().then(function(doc) {
+                if (doc.exists) {
+                    var admin = doc.data().admin;
+
+                    if(admin)
+                    {
+                        window.location = 'ManageUser.html';
+                    }
+                    else
+                    {
+                        alert("Web App only for admin");
+                    }
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+          
+        });
+    }
+ })
      /* alert(firebase.auth().currentUser);
       window.location = '../../examples/pages/user.html';*/
      /* firebase.auth().onAuthStateChanged(function(user) {
