@@ -14,6 +14,21 @@ var time_description;
 $(document).ready(function(){
     loadDetails();
 
+    $('.datetimepicker').datetimepicker({
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-chevron-up",
+            down: "fa fa-chevron-down",
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            today: 'fa fa-screenshot',
+            clear: 'fa fa-trash',
+            close: 'fa fa-remove'
+        }
+    });
+    
+
     $("#EditFacility").off('click').on('click', function(){
         EditFacility();
     });
@@ -25,6 +40,22 @@ $(document).ready(function(){
     $("#mainPage").off('click').on('click', function(){
         window.location = 'Facilities.html';
     }); 
+
+    // $('#addMore').on('click', function() {
+    //     var data = $("#slottable tr:eq(1)").clone(true).appendTo("#slottable");
+    //     data.find("input").val('');
+    // });
+
+    $(document).on('click', '.remove', function() {
+        var trIndex = $(this).closest("tr").index();
+           if(trIndex>1) {
+            $(this).closest("tr").remove();
+          } else {
+            alert("Sorry!! Can't remove first row!");
+          }
+     });
+
+
 });
 
 function loadDetails()
@@ -61,7 +92,7 @@ function loadDetails()
         SlotFacilityRef.get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
-                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td></tr>");
+                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td><a href='javascript:void(0);'  class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
             });
         });
     });
@@ -76,20 +107,24 @@ function EditFacility()
 }
 
 function readURL(input) {
-    if (input.files && input.files[0]) {
+    
+    if (input.files && input.files[0] !=null) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            selected_file = e.target.result;
+            
             $('#blah')
                 .attr('src', e.target.result)
                 .height(200);
         };
         
-        file_name = input.files[0].name;
+        
+        selected_file = input.files[0];
         reader.readAsDataURL(input.files[0]);
+        
         console.log(input.files[0]);
     }
+
 }
 
 function SaveDetails()
@@ -97,8 +132,8 @@ function SaveDetails()
     var titlenoedit = $("#name").val();
     var descriptionnoedit = $("#description").val();
     var timedescriptionnoedit = $("#timedescription").val();
-
-    if(file_name == photo_database)
+    
+    if(selected_file == null)
     {
         if(titlenoedit == "")
         {
@@ -205,6 +240,9 @@ function SaveDetails()
     }
     else
     {
+        var filename = selected_file.name;
+        var storageRef = firebase.storage().ref(filename);
+        var uploadTask = storageRef.put(selected_file);
          //upload image step
         uploadTask.on('state_changed',
     
