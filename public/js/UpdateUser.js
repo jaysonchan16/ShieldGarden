@@ -11,6 +11,8 @@ var property;
 var unit;
 var currentproperty;
 var currentunit;
+var password;
+var memberID;
 
 $(document).ready(function(){
     loadDetails();
@@ -98,7 +100,8 @@ function loadDetails()
 
                 currentproperty = doc.data().member_property;
                 currentunit = doc.data().member_unit;
-
+                password = doc.data().member_password;
+                memberID = doc.data().member_id;
                 // $("#assignedpropertydrop").html("<option>"+propertyName+"</option><option>No Property</option>");
                 // $("#assignedunitdrop").html("<option>"+unitID+"</option><option>No Unit</option>");
                 // $("#assignedpropertydrop").css("display","none");
@@ -130,10 +133,12 @@ function UpdateUser()
     {
         propertydocRef.update({
             member_name: name,
+            member_password:password,
             member_email: memberEmail,
             member_ContactNumber:memberContactNumber,
             member_property:propertyName,
-            member_unit:unitID
+            member_unit:unitID,
+            member_id:memberID
         })
         .then(function() {
             alert("The data has been saved successfully!");
@@ -143,10 +148,12 @@ function UpdateUser()
     {
         propertydocRef.update({
             member_name: memberName,
+            member_password:password,
             member_email: email,
             member_ContactNumber:memberContactNumber,
             member_property:propertyName,
-            member_unit:unitID
+            member_unit:unitID,
+            member_id:memberID
         })
         .then(function() {
             alert("The data has been saved successfully!");
@@ -156,10 +163,12 @@ function UpdateUser()
     {
         propertydocRef.update({
             member_name: memberName,
+            member_password:password,
             member_email: memberEmail,
             member_ContactNumber:contactNumber,
             member_property:propertyName,
-            member_unit:unitID
+            member_unit:unitID,
+            member_id:memberID
         })
         .then(function() {
             alert("The data has been saved successfully!");
@@ -169,10 +178,12 @@ function UpdateUser()
     {
         propertydocRef.update({
             member_name: name,
+            member_password:password,
             member_email: email,
             member_ContactNumber:memberContactNumber,
             member_property:propertyName,
-            member_unit:unitID
+            member_unit:unitID,
+            member_id:memberID
         })
         .then(function() {
             alert("The data has been saved successfully!");
@@ -182,10 +193,12 @@ function UpdateUser()
     {   
         propertydocRef.update({
             member_name: name,
+            member_password:password,
             member_email: memberEmail,
             member_ContactNumber:contactNumber,
             member_property:propertyName,
-            member_unit:unitID
+            member_unit:unitID,
+            member_id:memberID
         })
         .then(function() {
             alert("The data has been saved successfully!");
@@ -195,10 +208,12 @@ function UpdateUser()
     {
         propertydocRef.update({
             member_name: memberName,
+            member_password:password,
             member_email: email,
             member_ContactNumber:contactNumber,
             member_property:propertyName,
-            member_unit:unitID
+            member_unit:unitID,
+            member_id:memberID
         })
         .then(function() {
             alert("The data has been saved successfully!");
@@ -208,10 +223,12 @@ function UpdateUser()
     {
         propertydocRef.update({
             member_name: memberName,
+            member_password:password,
             member_email: memberEmail,
             member_ContactNumber:memberContactNumber,
             member_property:propertyName,
-            member_unit:unitID
+            member_unit:unitID,
+            member_id:memberID
         })
         .then(function() {
             alert("The data has been saved successfully!");
