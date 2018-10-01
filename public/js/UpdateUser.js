@@ -129,7 +129,7 @@ function UpdateUser()
     var memberEmail = $("#newemail").val();
     var memberContactNumber = '+6' + $("#newcontact").val();
 
-    if(memberName == "")
+    if(memberName == "" || memberName == null)
     {
         propertydocRef.update({
             member_name: name,
@@ -144,7 +144,7 @@ function UpdateUser()
             alert("The data has been saved successfully!");
         })
     }
-    else if(memberEmail == "")
+    else if(memberEmail == "" || memberEmail == null)
     {
         propertydocRef.update({
             member_name: memberName,
@@ -159,7 +159,7 @@ function UpdateUser()
             alert("The data has been saved successfully!");
         })
     }
-    else if(memberContactNumber == "")
+    else if(memberContactNumber == "+6")
     {
         propertydocRef.update({
             member_name: memberName,
@@ -189,7 +189,7 @@ function UpdateUser()
             alert("The data has been saved successfully!");
         })
     }
-    else if(memberName == "" && memberContactNumber == "")
+    else if(memberName == "" && memberContactNumber == "+6")
     {   
         propertydocRef.update({
             member_name: name,
@@ -204,7 +204,7 @@ function UpdateUser()
             alert("The data has been saved successfully!");
         })
     }
-    else if(memberEmail == "" && memberContactNumber == "")
+    else if(memberEmail == "" && memberContactNumber == "+6")
     {
         propertydocRef.update({
             member_name: memberName,
