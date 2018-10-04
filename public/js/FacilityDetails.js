@@ -10,6 +10,8 @@ var title;
 var description;
 var oldPhotoURL;
 var time_description;
+var SlotRef;
+var slotId= [];
 
 $(document).ready(function(){
     loadDetails();
@@ -46,16 +48,18 @@ $(document).ready(function(){
     //     data.find("input").val('');
     // });
 
-    $(document).on('click', '.remove', function() {
-        var trIndex = $(this).closest("tr").index();
-           if(trIndex>1) {
-            $(this).closest("tr").remove();
-          } else {
-            alert("Sorry!! Can't remove first row!");
-          }
+    // $(document).on('click', '.remove', function() {
+    //     var trIndex = $(this).closest("tr").index();
+    //        if(trIndex>1) {
+    //         $(this).closest("tr").remove();
+    //       } else {
+    //         alert("Sorry!! Can't remove first row!");
+    //       }
+    //  });
+
+     $("#addMore").off('click').on('click',function(){
+        add();
      });
-
-
 });
 
 function loadDetails()
@@ -66,35 +70,12 @@ function loadDetails()
         }
         $('#userprofile').html(user.email);
         FacilityRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID);
-        FacilityRef.get().then(function(doc) {
-            if (doc.exists) {
-                $("#facilities_name").text(doc.data().facility_title);
-                $("#applyimg").html('<img width="500" height="242" src="'+doc.data().facility_image_url+'"></img>');
-                $("#namenoedit").val(doc.data().facility_title);
-                $("#descriptionnoedit").val(doc.data().facility_description);
-                $("#timedescriptionnnoedit").val(doc.data().facility_time_description);
-                //photo_database = doc.data().facility_jpg_name;
-                var first = doc.data().facility_image_url.split("/");
-                var second = first[7].split("?");
-                photo_database = second[0];
-                title = doc.data().facility_title;
-                description = doc.data().facility_description;
-                oldPhotoURL =doc.data().facility_image_url;
-                time_description = doc.data().facility_time_description;
-            }
-            else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        });
+        
+        facilityData();
 
         SlotFacilityRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots");
-        SlotFacilityRef.get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-                $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
-                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td><a href='javascript:void(0);'  class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
-            });
-        });
+        
+        SlotData();
     });
 }
 
@@ -365,6 +346,17 @@ function SaveDetails()
         });
     }
 
+    facilityData();
+
+    $("#SaveDetails").prop('disabled', true);
+    $("#DeleteDetails").prop('disabled', true);
+    $("#timepicker").hide();
+    $("#nonedit").show();
+    $("#edit").hide();
+}
+
+function facilityData()
+{
     FacilityRef.get().then(function(doc) {
         if (doc.exists) {
             $("#facilities_name").text(doc.data().facility_title);
@@ -386,10 +378,59 @@ function SaveDetails()
             console.log("No such document!");
         }
     });
+}
 
-    $("#SaveDetails").prop('disabled', true);
-    $("#DeleteDetails").prop('disabled', true);
-    $("#timepicker").hide();
-    $("#nonedit").show();
-    $("#edit").hide();
+function add()
+{
+    var addOne = (slotId.length) + 1;
+    var start = $("#start").val();
+    var end = $("#end").val();
+    var slotDescription = $("#SlotDescription").val();
+    console.log(addOne);
+    console.log(propertyID);
+    console.log(facilityID);
+    console.log(start);
+    console.log(slotDescription);
+    var timeStart = new Date(start).getTime();
+    var timeEnd = new Date(end).getTime();
+    var diff =(timeEnd - timeStart) / 1000;
+    diff /= 60;
+    var minutes = Math.abs(Math.round(diff));
+    SlotRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots").doc(addOne);
+
+    SlotRef.set({
+        //slot_end_time: end,
+        //slot_id : addOne,
+        slot_interval : minutes,
+       // slot_start_time : start,
+        slot_title : slotDescription
+    })
+    .then(function()
+    {
+        alert("Slot has been saved successfully");
+    })
+
+    SlotData();
+
+}
+
+function removeSlot(id)
+{
+    db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots").doc(id).delete().then(function() {
+        alert("Slot successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+    SlotData();
+}
+
+function SlotData()
+{
+    SlotFacilityRef.get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            slotId.push(doc.id);
+            $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
+            "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
+        });
+    });
 }
