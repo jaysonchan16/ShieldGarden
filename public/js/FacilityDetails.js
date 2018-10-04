@@ -100,6 +100,7 @@ function loadDetails()
 
 function EditFacility()
 {
+    $("#timepicker").show();
     $("#SaveDetails").prop('disabled', false);
     $("#DeleteDetails").prop('disabled', false);
     $("#nonedit").hide();
@@ -132,6 +133,7 @@ function SaveDetails()
     var titlenoedit = $("#name").val();
     var descriptionnoedit = $("#description").val();
     var timedescriptionnoedit = $("#timedescription").val();
+    
     
     if(selected_file == null)
     {
@@ -362,6 +364,32 @@ function SaveDetails()
             });
         });
     }
+
+    FacilityRef.get().then(function(doc) {
+        if (doc.exists) {
+            $("#facilities_name").text(doc.data().facility_title);
+            $("#applyimg").html('<img width="500" height="242" src="'+doc.data().facility_image_url+'"></img>');
+            $("#namenoedit").val(doc.data().facility_title);
+            $("#descriptionnoedit").val(doc.data().facility_description);
+            $("#timedescriptionnnoedit").val(doc.data().facility_time_description);
+            //photo_database = doc.data().facility_jpg_name;
+            var first = doc.data().facility_image_url.split("/");
+            var second = first[7].split("?");
+            photo_database = second[0];
+            title = doc.data().facility_title;
+            description = doc.data().facility_description;
+            oldPhotoURL =doc.data().facility_image_url;
+            time_description = doc.data().facility_time_description;
+        }
+        else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    });
+
     $("#SaveDetails").prop('disabled', true);
     $("#DeleteDetails").prop('disabled', true);
+    $("#timepicker").hide();
+    $("#nonedit").show();
+    $("#edit").hide();
 }
