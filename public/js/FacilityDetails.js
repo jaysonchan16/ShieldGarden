@@ -81,6 +81,9 @@ function loadDetails()
 
 function EditFacility()
 {
+    $("#name").val("");
+    $("#description").val("");
+    $("#timedescription").val("");
     $("#timepicker").show();
     $("#SaveDetails").prop('disabled', false);
     $("#DeleteDetails").prop('disabled', false);
