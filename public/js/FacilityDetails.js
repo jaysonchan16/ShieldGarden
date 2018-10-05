@@ -75,7 +75,7 @@ function loadDetails()
 
         SlotFacilityRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots");
         
-        SlotData();
+        SlotData(1);
     });
 }
 
@@ -382,27 +382,28 @@ function facilityData()
 
 function add()
 {
-    var addOne = (slotId.length) + 1;
+    var addOne = (slotId.length) + 2;
+    var addOneString = addOne.toString();
     var start = $("#start").val();
     var end = $("#end").val();
     var slotDescription = $("#SlotDescription").val();
-    console.log(addOne);
-    console.log(propertyID);
-    console.log(facilityID);
-    console.log(start);
-    console.log(slotDescription);
+    // console.log(addOne);
+    // console.log(propertyID);
+    // console.log(facilityID);
+    // console.log(start);
+    // console.log(slotDescription);
     var timeStart = new Date(start).getTime();
     var timeEnd = new Date(end).getTime();
     var diff =(timeEnd - timeStart) / 1000;
     diff /= 60;
     var minutes = Math.abs(Math.round(diff));
-    SlotRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots").doc(addOne);
+    SlotRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots").doc(addOneString);
 
     SlotRef.set({
-        //slot_end_time: end,
-        //slot_id : addOne,
+        slot_end_time: end,
+        slot_id : addOneString,
         slot_interval : minutes,
-       // slot_start_time : start,
+        slot_start_time : start,
         slot_title : slotDescription
     })
     .then(function()
@@ -410,7 +411,7 @@ function add()
         alert("Slot has been saved successfully");
     })
 
-    SlotData();
+    SlotData(2);
 
 }
 
@@ -421,16 +422,33 @@ function removeSlot(id)
     }).catch(function(error) {
         console.error("Error removing document: ", error);
     });
-    SlotData();
+    SlotData(2);
 }
 
-function SlotData()
+function SlotData(num)
 {
-    SlotFacilityRef.get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            slotId.push(doc.id);
-            $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
-            "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
+    if(num == 1)
+    {
+        slotId=[];
+        SlotFacilityRef.get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                slotId.push(doc.id);
+                $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
+                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
+            });
         });
-    });
+    }
+    else
+    {
+        $("#slottable").html("");
+        slotId=[];
+        SlotFacilityRef.get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                slotId.push(doc.id);
+                console.log(doc.id);
+                $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
+                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
+            });
+        });
+    }
 }
