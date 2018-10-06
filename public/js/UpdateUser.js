@@ -129,111 +129,215 @@ function UpdateUser()
     var memberEmail = $("#newemail").val();
     var memberContactNumber = '+6' + $("#newcontact").val();
 
-    if(memberName == "" || memberName == null)
+
+    
+    if(memberName == "")
     {
-        propertydocRef.update({
-            member_name: name,
-            member_password:password,
-            member_email: memberEmail,
-            member_ContactNumber:memberContactNumber,
-            member_property:propertyName,
-            member_unit:unitID,
-            member_id:memberID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
+        if(memberName == "" && memberEmail == "")
+        {
+            propertydocRef.update({
+                member_name: name,
+                member_password:password,
+                member_email: email,
+                member_ContactNumber:memberContactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:memberID
+            })
+            .then(function() {
+                alert("The data has been saved successfully!");
+            })
+        }
+        else if(memberName == "" && memberContactNumber == "+6")
+        {   
+            propertydocRef.update({
+                member_name: name,
+                member_password:password,
+                member_email: memberEmail,
+                member_ContactNumber:contactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:memberID
+            })
+            .then(function() {
+                alert("The data has been saved successfully!");
+            })
+        }
+        else if(memberEmail == "" && memberContactNumber == "+6")
+        {
+            alert("Please fill in at least one field!");
+            // propertydocRef.update({
+            //     member_name: memberName,
+            //     member_password:password,
+            //     member_email: email,
+            //     member_ContactNumber:contactNumber,
+            //     member_property:propertyName,
+            //     member_unit:unitID,
+            //     member_id:memberID
+            // })
+            // .then(function() {
+            //     alert("The data has been saved successfully!");
+            // })
+        }
+        else
+        {
+            propertydocRef.update({
+                member_name: name,
+                member_password:password,
+                member_email: memberEmail,
+                member_ContactNumber:memberContactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:memberID
+            })
+            .then(function() {
+                alert("The data has been saved successfully!");
+            })
+        }
     }
-    else if(memberEmail == "" || memberEmail == null)
+    else if(memberEmail == "")
     {
-        propertydocRef.update({
-            member_name: memberName,
-            member_password:password,
-            member_email: email,
-            member_ContactNumber:memberContactNumber,
-            member_property:propertyName,
-            member_unit:unitID,
-            member_id:memberID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
+        if(memberName == "" && memberEmail == "")
+        {
+            propertydocRef.update({
+                member_name: name,
+                member_password:password,
+                member_email: email,
+                member_ContactNumber:memberContactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:memberID
+            })
+            .then(function() {
+                alert("The data has been saved successfully!");
+            })
+        }
+        else if(memberName == "" && memberContactNumber == "+6")
+        {   
+            alert("Please fill in at least one field!");
+            // propertydocRef.update({
+            //     member_name: name,
+            //     member_password:password,
+            //     member_email: memberEmail,
+            //     member_ContactNumber:contactNumber,
+            //     member_property:propertyName,
+            //     member_unit:unitID,
+            //     member_id:memberID
+            // })
+            // .then(function() {
+            //     alert("The data has been saved successfully!");
+            // })
+        }
+        else if(memberEmail == "" && memberContactNumber == "+6")
+        {
+            propertydocRef.update({
+                member_name: memberName,
+                member_password:password,
+                member_email: email,
+                member_ContactNumber:contactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:memberID
+            })
+            .then(function() {
+                alert("The data has been saved successfully!");
+            })
+        }
+        else
+        {
+            propertydocRef.update({
+                member_name: memberName,
+                member_password:password,
+                member_email: email,
+                member_ContactNumber:memberContactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:memberID
+            })
+            .then(function() {
+                alert("The data has been saved successfully!");
+            })
+        }
     }
     else if(memberContactNumber == "+6")
     {
-        propertydocRef.update({
-            member_name: memberName,
-            member_password:password,
-            member_email: memberEmail,
-            member_ContactNumber:contactNumber,
-            member_property:propertyName,
-            member_unit:unitID,
-            member_id:memberID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-    }
-    else if(memberName == "" && memberEmail == "")
-    {
-        propertydocRef.update({
-            member_name: name,
-            member_password:password,
-            member_email: email,
-            member_ContactNumber:memberContactNumber,
-            member_property:propertyName,
-            member_unit:unitID,
-            member_id:memberID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-    }
-    else if(memberName == "" && memberContactNumber == "+6")
-    {   
-        propertydocRef.update({
-            member_name: name,
-            member_password:password,
-            member_email: memberEmail,
-            member_ContactNumber:contactNumber,
-            member_property:propertyName,
-            member_unit:unitID,
-            member_id:memberID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-    }
-    else if(memberEmail == "" && memberContactNumber == "+6")
-    {
-        propertydocRef.update({
-            member_name: memberName,
-            member_password:password,
-            member_email: email,
-            member_ContactNumber:contactNumber,
-            member_property:propertyName,
-            member_unit:unitID,
-            member_id:memberID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
+        if(memberName == "" && memberEmail == "")
+        {
+            alert("Please fill in at least one field!");
+            // propertydocRef.update({
+            //     member_name: name,
+            //     member_password:password,
+            //     member_email: email,
+            //     member_ContactNumber:memberContactNumber,
+            //     member_property:propertyName,
+            //     member_unit:unitID,
+            //     member_id:memberID
+            // })
+            // .then(function() {
+            //     alert("The data has been saved successfully!");
+            // })
+        }
+        else if(memberName == "" && memberContactNumber == "+6")
+        {   
+            propertydocRef.update({
+                member_name: name,
+                member_password:password,
+                member_email: memberEmail,
+                member_ContactNumber:contactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:memberID
+            })
+            .then(function() {
+                alert("The data has been saved successfully!");
+            })
+        }
+        else if(memberEmail == "" && memberContactNumber == "+6")
+        {
+            propertydocRef.update({
+                member_name: memberName,
+                member_password:password,
+                member_email: email,
+                member_ContactNumber:contactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:memberID
+            })
+            .then(function() {
+                alert("The data has been saved successfully!");
+            })
+        }
+        else
+        {
+            propertydocRef.update({
+                member_name: memberName,
+                member_password:password,
+                member_email: memberEmail,
+                member_ContactNumber:contactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:memberID
+            })
+            .then(function() {
+                alert("The data has been saved successfully!");
+            })
+        }
     }
     else if(memberName !="" && memberEmail != "" && memberContactNumber != "")
-    {
-        propertydocRef.update({
-            member_name: memberName,
-            member_password:password,
-            member_email: memberEmail,
-            member_ContactNumber:memberContactNumber,
-            member_property:propertyName,
-            member_unit:unitID,
-            member_id:memberID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-    }
+        {
+            propertydocRef.update({
+                member_name: memberName,
+                member_password:password,
+                member_email: memberEmail,
+                member_ContactNumber:memberContactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:memberID
+            })
+            .then(function() {
+                alert("The data has been saved successfully!");
+            })
+        }
     else
     {
         alert("Please fill at least one of the field");
