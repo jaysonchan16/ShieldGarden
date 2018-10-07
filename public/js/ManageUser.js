@@ -85,6 +85,7 @@ function property(propertyID,unitID)
                                           "</td><td>"+doc.data().member_ContactNumber+"</td><td>"+doc.data().member_property+
                                           "</td><td>"+doc.data().member_unit+"</td></tr>");
         });
+        $("#AddNewUser").prop("disabled",false);
     });
 }
 

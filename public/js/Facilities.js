@@ -44,6 +44,7 @@ function property(propertyID)
             $(".table tbody").append("<tr><td><img width='242' height='242' src='"+doc.data().facility_image_url+"'></td>"+
                                     "<td class='findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().facility_title+"</td><td>"+doc.data().facility_description+"</td></tr>");
     });
+    $("#AddNewFacility").prop("disabled",false);
   });
 }
 

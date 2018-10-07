@@ -7,7 +7,7 @@ $(document).ready(function(){
     loadDetails();
     
     $("#assignedproperty").html("<option>"+propertyName+"</option><option>No Property</option>");
-    $("#assignedunit").html("<option>"+unitID+"</option><option>No Unit</option><option>A-00-00</option>");
+    $("#assignedunit").html("<option>"+unitID+"</option><option>No Unit</option><option>0</option>");
     
     $("#Add").off('click').on('click', function(){
         addnewuser();

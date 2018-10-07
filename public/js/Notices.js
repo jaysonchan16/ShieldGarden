@@ -45,5 +45,6 @@ function property(propertyID)
             $(".table tbody").append("<tr><td><img width='242' height='242' src='"+doc.data().notice_image_url+"'></td>"+
                                     "<td>"+doc.data().notice_title+"</td><td>"+doc.data().notice_description+"</td></tr>");
     });
+    $("#AddNewNotice").prop("disabled",false);
   });
 }
