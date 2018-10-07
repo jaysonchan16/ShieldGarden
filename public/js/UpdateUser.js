@@ -41,7 +41,7 @@ $(document).ready(function(){
         // $("#assignedunit").prop('disabled', false);
 
         $("#assignedpropertydrop").html("<option>"+propertyName+"</option><option>No Property</option>");
-        $("#assignedunitdrop").html("<option>"+unitID+"</option><option>No Unit</option>");
+        $("#assignedunitdrop").html("<option>"+unitID+"</option><option>No Unit</option><option>A-00-00</option>");
         $("#SaveProperty").prop('disabled', false);
         $("#CancelProperty").prop('disabled', false);
         $("#noedit").hide();
