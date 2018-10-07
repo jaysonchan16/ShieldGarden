@@ -39,6 +39,7 @@ function loadDetails()
         var fulladrress = unitID + ", " + propertyName;
         $("#unit").text(unitID);
         $("#address").text(fulladrress);
+        $("#UnitsText").text(unitID);
 
         propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
         facilitydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("facility_bookings");
