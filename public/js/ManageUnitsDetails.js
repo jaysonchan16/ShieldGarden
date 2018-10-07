@@ -22,6 +22,10 @@ $(document).ready(function(){
     $("#SearchEmail").off('click').on('click', function(){
         Search();
     });
+
+    $("#assignUnit").off('click').on('click', function(){
+        AssignUnit();
+    });
 });
 
 function loadDetails()
@@ -84,5 +88,10 @@ function loadDetails()
 
 function Search()
 {
-    
+
+}
+
+function AssignUnit()
+{
+
 }
