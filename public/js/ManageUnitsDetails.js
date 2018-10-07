@@ -3,6 +3,10 @@ var propertyID = sessionStorage.getItem("propertyID");
 var unitID = sessionStorage.getItem("unitID");
 var propertyName = sessionStorage.getItem("propertyName");
 var memberName = [];
+var propertydocRef;
+var facilitydocRef;
+var facilityBookingTitle = [];
+var facilityBookingDate = [];
 
 $(document).ready(function(){
     loadDetails();
@@ -10,6 +14,14 @@ $(document).ready(function(){
     $("#mainPage").off('click').on('click', function(){
         window.location = 'ManageUnits.html';
     }); 
+
+    $("#addMore").off('click').on('click', function(){
+        $("#searchModal").modal();
+    });
+
+    $("#SearchEmail").off('click').on('click', function(){
+        Search();
+    });
 });
 
 function loadDetails()
@@ -25,142 +37,52 @@ function loadDetails()
         $("#address").text(fulladrress);
 
         propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
-
+        facilitydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("facility_bookings");
+        
         propertydocRef.get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 memberName.push(doc.data().member_name);
                
                 for(var i =0; i<memberName.length; i++)
                 {
-                    $("#member").text(memberName);
+                    $("#member").val(memberName+",");
                 //  console.log(doc.id, " => ", doc.data());
                 }
             });
+            
+            var data = $("#member").val().split(",");
+            console.log(data);
+            for(var i=0; i<data.length;i++)
+            {
+                $("#showMember").append(data[i]+"<br>");
+            }
+            
+                facilitydocRef.get().then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        
+                        facilityBookingTitle.push(doc.data().booking_title);
+                        facilityBookingDate.push(doc.data().booking_date);
+
+                        for(var i =0; i<facilityBookingTitle.length; i++)
+                        {
+                            $("#bookingTitle").val(facilityBookingTitle + ",");
+                            $("#bookingDate").val(facilityBookingDate + ",");
+                        }
+                    });
+                var bookingTitle = $("#bookingTitle").val().split(",");
+                var bookingDate = $("#bookingDate").val().split(",");
+                
+                for(var j=0; j<bookingTitle.length;j++)
+                {
+                    $("#bookings").append(bookingTitle[j]+"<span id='space'>"+bookingDate[j]+"</span><br>");
+                }
+            });
+
         });
     });
 }
 
-function UpdateUser()
+function Search()
 {
-    // console.log(propertyID);
-    // console.log(unitID);
-    var memberName = $("#newusername").val();
-    var memberEmail = $("#newemail").val();
-    var memberContactNumber = '+6' + $("#newcontact").val();
-
-    if(memberName == "")
-    {
-        propertydocRef.update({
-            member_name: name,
-            member_email: memberEmail,
-            member_ContactNumber:memberContactNumber,
-            member_property:propertyName,
-            member_unit:unitID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-    }
-    else if(memberEmail == "")
-    {
-        propertydocRef.update({
-            member_name: memberName,
-            member_email: email,
-            member_ContactNumber:memberContactNumber,
-            member_property:propertyName,
-            member_unit:unitID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-    }
-    else if(memberContactNumber == "")
-    {
-        propertydocRef.update({
-            member_name: memberName,
-            member_email: memberEmail,
-            member_ContactNumber:contactNumber,
-            member_property:propertyName,
-            member_unit:unitID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-    }
-    else if(memberName == "" && memberEmail == "")
-    {
-        propertydocRef.update({
-            member_name: name,
-            member_email: email,
-            member_ContactNumber:memberContactNumber,
-            member_property:propertyName,
-            member_unit:unitID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-    }
-    else if(memberName == "" && memberContactNumber == "")
-    {   
-        propertydocRef.update({
-            member_name: name,
-            member_email: memberEmail,
-            member_ContactNumber:contactNumber,
-            member_property:propertyName,
-            member_unit:unitID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-    }
-    else if(memberEmail == "" && memberContactNumber == "")
-    {
-        propertydocRef.update({
-            member_name: memberName,
-            member_email: email,
-            member_ContactNumber:contactNumber,
-            member_property:propertyName,
-            member_unit:unitID
-        })
-        .then(function() {
-            alert("The data has been saved successfully!");
-        })
-    }
-    else
-    {
-        alert("Please fill at least one of the field");
-    }
-
-    propertydocRef.get().then(function(doc) {
-        if (doc.exists) {
-            name = doc.data().member_name;
-            email = doc.data().member_email;
-            contactNumber = doc.data().member_ContactNumber;
-
-            $("#assignedproperty").val(propertyName);
-            $("#assignedunit").val(unitID);
-            $("#newusername").val(doc.data().member_name);
-            $("#newemail").val(doc.data().member_email);
-            $("#newcontact").val(doc.data().member_ContactNumber);
-
-            $("#newusername").prop('disabled', false);
-            $("#newemail").prop('disabled', false);
-            $("#newcontact").prop('disabled', false);
-            $("#SaveUser").prop('disabled', false);
-            $("#CancelUser").prop('disabled', false);
-        }
-        else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    });
-}
-
-function UpdateProperty()
-{
-
-    $("#assignedproperty").prop('disabled', false);
-    $("#assignedunit").prop('disabled', false);
-    $("#SaveProperty").prop('disabled', false);
-    $("#CancelProperty").prop('disabled', false);
+    
 }
