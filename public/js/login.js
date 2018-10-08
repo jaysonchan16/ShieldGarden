@@ -47,7 +47,7 @@ function login()
                     }
                     else
                     {
-                        alert("Web App only for admin");
+                        alert("Sorry, you do not have access");
                     }
                 } else {
                     // doc.data() will be undefined in this case

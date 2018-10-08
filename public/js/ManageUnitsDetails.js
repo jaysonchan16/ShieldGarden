@@ -7,6 +7,7 @@ var propertydocRef;
 var facilitydocRef;
 var facilityBookingTitle = [];
 var facilityBookingDate = [];
+var memberdocRef;
 
 $(document).ready(function(){
     loadDetails();
@@ -42,7 +43,7 @@ function loadDetails()
         $("#UnitsText").text(unitID);
 
         propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
-        facilitydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("facility_bookings");
+        facilitydocRef = db.collection("properties").doc(propertyID).collection("property_members").doc(unitID).collection("facility_bookings");
         
         propertydocRef.get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
@@ -89,10 +90,29 @@ function loadDetails()
 
 function Search()
 {
+    var inputemail = $("#InputEmail").val();
 
+    memberdocRef = db.collection("properties").doc(propertyID).collection("property_members");
+
+    memberdocRef.get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+        });
+    });
 }
 
 function AssignUnit()
 {
 
+}
+
+function logout()
+{
+    firebase.auth().signOut()
+  .then(function() {
+    window.location = 'login.html';
+  })
+  .catch(function(error) {
+    // An error happened
+  });
 }

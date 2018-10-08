@@ -50,3 +50,14 @@ function add(ID)
 
     window.location = 'ManageUnitsDetails.html';
 }
+
+function logout()
+{
+    firebase.auth().signOut()
+  .then(function() {
+    window.location = 'login.html';
+  })
+  .catch(function(error) {
+    // An error happened
+  });
+}

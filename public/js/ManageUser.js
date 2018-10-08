@@ -97,3 +97,14 @@ function details(ID)
     sessionStorage.setItem("findID",ID);
     window.location = 'UpdateUser.html';
 }
+
+function logout()
+{
+    firebase.auth().signOut()
+  .then(function() {
+    window.location = 'login.html';
+  })
+  .catch(function(error) {
+    // An error happened
+  });
+}
