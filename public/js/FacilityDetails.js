@@ -367,6 +367,7 @@ function SaveDetails()
                             facility_title:title
                         })
                         .then(function() {
+                            facilityData();
                             alert("The data has been updated successfully!");
                         })
                     }
