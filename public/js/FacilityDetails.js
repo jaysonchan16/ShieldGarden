@@ -121,184 +121,7 @@ function SaveDetails()
     
     if(selected_file == null)
     {
-        if(titlenoedit == "")
-        {
-            if(titlenoedit == "" && descriptionnoedit == "")
-            {
-                FacilityRef.update({
-                    facility_booking_enabled : true,
-                    facility_description: description,
-                    facility_id:facilityID,
-                    facility_image_url: oldPhotoURL,
-                    facility_time_description:timedescriptionnoedit,
-                    facility_title:title
-                })
-                .then(function() {
-                    facilityData();
-                    alert("The data has been updated successfully!");
-                })
-            }
-            else if(titlenoedit == "" && timedescriptionnoedit == "")
-            {
-                FacilityRef.update({
-                    facility_booking_enabled : true,
-                    facility_description: descriptionnoedit,
-                    facility_id:facilityID,
-                    facility_image_url: oldPhotoURL,
-                    facility_time_description:time_description,
-                    facility_title:title
-                })
-                .then(function() {
-                    facilityData();
-                    alert("The data has been updated successfully!");
-                })
-            }
-            else if(descriptionnoedit == "" && timedescriptionnoedit == "")
-            {
-                facilityData();
-                alert("Please fill in at least one field!");
-            }
-            else
-            {
-                FacilityRef.update({
-                    facility_booking_enabled : true,
-                    facility_description: descriptionnoedit,
-                    facility_id:facilityID,
-                    facility_image_url: oldPhotoURL,
-                    facility_time_description:timedescriptionnoedit,
-                    facility_title:title
-                })
-                .then(function() {
-                    facilityData();
-                    alert("The data has been updated successfully!");
-                })
-            }
-        }
-        else if(descriptionnoedit == "")
-        {
-            if(titlenoedit == "" && descriptionnoedit == "")
-            {
-                FacilityRef.update({
-                    facility_booking_enabled : true,
-                    facility_description: description,
-                    facility_id:facilityID,
-                    facility_image_url: oldPhotoURL,
-                    facility_time_description:timedescriptionnoedit,
-                    facility_title:title
-                })
-                .then(function() {
-                    facilityData();
-                    alert("The data has been updated successfully!");
-                })
-            }
-            else if(titlenoedit == "" && timedescriptionnoedit == "")
-            {
-                facilityData();
-                alert("Please fill in at least one field!");
-            }
-            else if(descriptionnoedit == "" && timedescriptionnoedit == "")
-            {
-                FacilityRef.update({
-                    facility_booking_enabled : true,
-                    facility_description: description,
-                    facility_id:facilityID,
-                    facility_image_url: oldPhotoURL,
-                    facility_time_description:time_description,
-                    facility_title:titlenoedit
-                })
-                .then(function() {
-                    facilityData();
-                    alert("The data has been updated successfully!");
-                })
-            }
-            else
-            {
-                FacilityRef.update({
-                    facility_booking_enabled : true,
-                    facility_description: description,
-                    facility_id:facilityID,
-                    facility_image_url: oldPhotoURL,
-                    facility_time_description:timedescriptionnoedit,
-                    facility_title:titlenoedit
-                })
-                .then(function() {
-                    facilityData();
-                    alert("The data has been updated successfully!");
-                })
-            }
-        }
-        else if(timedescriptionnoedit == "")
-        {
-            if(titlenoedit == "" && descriptionnoedit == "")
-            {
-                alert("Please fill in at least one field!");
-            }
-            else if(titlenoedit == "" && timedescriptionnoedit == "")
-            {
-                FacilityRef.update({
-                    facility_booking_enabled : true,
-                    facility_description: descriptionnoedit,
-                    facility_id:facilityID,
-                    facility_image_url: oldPhotoURL,
-                    facility_time_description:time_description,
-                    facility_title:title
-                })
-                .then(function() {
-                    facilityData();
-                    alert("The data has been updated successfully!");
-                })
-            }
-            else if(descriptionnoedit == "" && timedescriptionnoedit == "")
-            {
-                FacilityRef.update({
-                    facility_booking_enabled : true,
-                    facility_description: description,
-                    facility_id:facilityID,
-                    facility_image_url: oldPhotoURL,
-                    facility_time_description:time_description,
-                    facility_title:titlenoedit
-                })
-                .then(function() {
-                    facilityData();
-                    alert("The data has been updated successfully!");
-                })
-            }
-            else
-            {
-                FacilityRef.update({
-                    facility_booking_enabled : true,
-                    facility_description: descriptionnoedit,
-                    facility_id:facilityID,
-                    facility_image_url: oldPhotoURL,
-                    facility_time_description:time_description,
-                    facility_title:titlenoedit
-                })
-                .then(function() {
-                    facilityData();
-                    alert("The data has been updated successfully!");
-                })
-            }
-        }
-        else if(titlenoedit != "" && descriptionnoedit != "" && timedescriptionnoedit != "")
-        {
-            FacilityRef.update({
-                facility_booking_enabled : true,
-                facility_description: descriptionnoedit,
-                facility_id:facilityID,
-                facility_image_url: oldPhotoURL,
-                facility_time_description:timedescriptionnoedit,
-                facility_title:titlenoedit
-            })
-            .then(function() {
-                facilityData();
-                alert("The data has been updated successfully!");
-            })
-        }
-        else
-        {
-            facilityData();
-            alert("Please fill at least one of the field");
-        }
+        update(titlenoedit,descriptionnoedit,timedescriptionnoedit,oldPhotoURL);
     }
     else
     {
@@ -319,184 +142,8 @@ function SaveDetails()
         uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
             //get the image download url and then when open the website can automatically load the image from firestore
                 console.log('File available at', downloadURL);
-                if(titlenoedit == "")
-                {
-                    if(titlenoedit == "" && descriptionnoedit == "")
-                    {
-                        FacilityRef.update({
-                            facility_booking_enabled : true,
-                            facility_description: description,
-                            facility_id:facilityID,
-                            facility_image_url: downloadURL,
-                            facility_time_description:timedescriptionnoedit,
-                            facility_title:title
-                        })
-                        .then(function() {
-                            facilityData();
-                            alert("The data has been updated successfully!");
-                        })
-                    }
-                    else if(titlenoedit == "" && timedescriptionnoedit == "")
-                    {
-                        FacilityRef.update({
-                            facility_booking_enabled : true,
-                            facility_description: descriptionnoedit,
-                            facility_id:facilityID,
-                            facility_image_url: downloadURL,
-                            facility_time_description:time_description,
-                            facility_title:title
-                        })
-                        .then(function() {
-                            facilityData();
-                            alert("The data has been updated successfully!");
-                        })
-                    }
-                    else if(descriptionnoedit == "" && timedescriptionnoedit == "")
-                    {
-                        facilityData();
-                        alert("Please fill in at least one field!");
-                    }
-                    else
-                    {
-                        FacilityRef.update({
-                            facility_booking_enabled : true,
-                            facility_description: descriptionnoedit,
-                            facility_id:facilityID,
-                            facility_image_url: downloadURL,
-                            facility_time_description:timedescriptionnoedit,
-                            facility_title:title
-                        })
-                        .then(function() {
-                            facilityData();
-                            alert("The data has been updated successfully!");
-                        })
-                    }
-                }
-                else if(descriptionnoedit == "")
-                {
-                    if(titlenoedit == "" && descriptionnoedit == "")
-                    {
-                        FacilityRef.update({
-                            facility_booking_enabled : true,
-                            facility_description: description,
-                            facility_id:facilityID,
-                            facility_image_url: downloadURL,
-                            facility_time_description:timedescriptionnoedit,
-                            facility_title:title
-                        })
-                        .then(function() {
-                            facilityData();
-                            alert("The data has been updated successfully!");
-                        })
-                    }
-                    else if(titlenoedit == "" && timedescriptionnoedit == "")
-                    {
-                        oldPhotoURL = downloadURL;
-                        alert("Please fill in at least one field!");
-                    }
-                    else if(descriptionnoedit == "" && timedescriptionnoedit == "")
-                    {
-                        FacilityRef.update({
-                            facility_booking_enabled : true,
-                            facility_description: description,
-                            facility_id:facilityID,
-                            facility_image_url: downloadURL,
-                            facility_time_description:time_description,
-                            facility_title:titlenoedit
-                        })
-                        .then(function() {
-                            facilityData();
-                            alert("The data has been updated successfully!");
-                        })
-                    }
-                    else
-                    {
-                        FacilityRef.update({
-                            facility_booking_enabled : true,
-                            facility_description: description,
-                            facility_id:facilityID,
-                            facility_image_url: downloadURL,
-                            facility_time_description:timedescriptionnoedit,
-                            facility_title:titlenoedit
-                        })
-                        .then(function() {
-                            facilityData();
-                            alert("The data has been updated successfully!");
-                        })
-                    }
-                }
-                else if(timedescriptionnoedit == "")
-                {
-                    if(titlenoedit == "" && descriptionnoedit == "")
-                    {
-                        alert("Please fill in at least one field!");
-                    }
-                    else if(titlenoedit == "" && timedescriptionnoedit == "")
-                    {
-                        FacilityRef.update({
-                            facility_booking_enabled : true,
-                            facility_description: descriptionnoedit,
-                            facility_id:facilityID,
-                            facility_image_url: downloadURL,
-                            facility_time_description:time_description,
-                            facility_title:title
-                        })
-                        .then(function() {
-                            facilityData();
-                            alert("The data has been updated successfully!");
-                        })
-                    }
-                    else if(descriptionnoedit == "" && timedescriptionnoedit == "")
-                    {
-                        FacilityRef.update({
-                            facility_booking_enabled : true,
-                            facility_description: description,
-                            facility_id:facilityID,
-                            facility_image_url: downloadURL,
-                            facility_time_description:time_description,
-                            facility_title:titlenoedit
-                        })
-                        .then(function() {
-                            facilityData();
-                            alert("The data has been updated successfully!");
-                        })
-                    }
-                    else
-                    {
-                        FacilityRef.update({
-                            facility_booking_enabled : true,
-                            facility_description: descriptionnoedit,
-                            facility_id:facilityID,
-                            facility_image_url: downloadURL,
-                            facility_time_description:time_description,
-                            facility_title:titlenoedit
-                        })
-                        .then(function() {
-                            facilityData();
-                            alert("The data has been updated successfully!");
-                        })
-                    }
-                }
-                else if(titlenoedit != "" && descriptionnoedit != "" && timedescriptionnoedit != "")
-                {
-                    FacilityRef.update({
-                        facility_booking_enabled : true,
-                        facility_description: descriptionnoedit,
-                        facility_id:facilityID,
-                        facility_image_url: downloadURL,
-                        facility_time_description:timedescriptionnoedit,
-                        facility_title:titlenoedit
-                    })
-                    .then(function() {
-                        facilityData();
-                        alert("The data has been updated successfully!");
-                    })
-                }
-                else
-                {
-                    facilityData();
-                    alert("Please fill at least one of the field");
-                }
+                update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL);
+                console.log("1");
             });
         });
     }
@@ -615,4 +262,186 @@ function logout()
   .catch(function(error) {
     // An error happened
   });
+}
+
+function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
+{
+    if(titlenoedit == "")
+        {
+            if(titlenoedit == "" && descriptionnoedit == "")
+            {
+                FacilityRef.update({
+                    facility_booking_enabled : true,
+                    facility_description: description,
+                    facility_id:facilityID,
+                    facility_image_url: downloadURL,
+                    facility_time_description:timedescriptionnoedit,
+                    facility_title:title
+                })
+                .then(function() {
+                    facilityData();
+                    alert("The data has been updated successfully!");
+                })
+            }
+            else if(titlenoedit == "" && timedescriptionnoedit == "")
+            {
+                FacilityRef.update({
+                    facility_booking_enabled : true,
+                    facility_description: descriptionnoedit,
+                    facility_id:facilityID,
+                    facility_image_url: downloadURL,
+                    facility_time_description:time_description,
+                    facility_title:title
+                })
+                .then(function() {
+                    facilityData();
+                    alert("The data has been updated successfully!");
+                })
+            }
+            else if(descriptionnoedit == "" && timedescriptionnoedit == "")
+            {
+                facilityData();
+                alert("Please fill in at least one field!");
+            }
+            else
+            {
+                FacilityRef.update({
+                    facility_booking_enabled : true,
+                    facility_description: descriptionnoedit,
+                    facility_id:facilityID,
+                    facility_image_url: downloadURL,
+                    facility_time_description:timedescriptionnoedit,
+                    facility_title:title
+                })
+                .then(function() {
+                    facilityData();
+                    alert("The data has been updated successfully!");
+                })
+            }
+        }
+        else if(descriptionnoedit == "")
+        {
+            if(titlenoedit == "" && descriptionnoedit == "")
+            {
+                FacilityRef.update({
+                    facility_booking_enabled : true,
+                    facility_description: description,
+                    facility_id:facilityID,
+                    facility_image_url: downloadURL,
+                    facility_time_description:timedescriptionnoedit,
+                    facility_title:title
+                })
+                .then(function() {
+                    facilityData();
+                    alert("The data has been updated successfully!");
+                })
+            }
+            else if(titlenoedit == "" && timedescriptionnoedit == "")
+            {
+                facilityData();
+                alert("Please fill in at least one field!");
+            }
+            else if(descriptionnoedit == "" && timedescriptionnoedit == "")
+            {
+                FacilityRef.update({
+                    facility_booking_enabled : true,
+                    facility_description: description,
+                    facility_id:facilityID,
+                    facility_image_url: downloadURL,
+                    facility_time_description:time_description,
+                    facility_title:titlenoedit
+                })
+                .then(function() {
+                    facilityData();
+                    alert("The data has been updated successfully!");
+                })
+            }
+            else
+            {
+                FacilityRef.update({
+                    facility_booking_enabled : true,
+                    facility_description: description,
+                    facility_id:facilityID,
+                    facility_image_url: downloadURL,
+                    facility_time_description:timedescriptionnoedit,
+                    facility_title:titlenoedit
+                })
+                .then(function() {
+                    facilityData();
+                    alert("The data has been updated successfully!");
+                })
+            }
+        }
+        else if(timedescriptionnoedit == "")
+        {
+            if(titlenoedit == "" && descriptionnoedit == "")
+            {
+                alert("Please fill in at least one field!");
+            }
+            else if(titlenoedit == "" && timedescriptionnoedit == "")
+            {
+                FacilityRef.update({
+                    facility_booking_enabled : true,
+                    facility_description: descriptionnoedit,
+                    facility_id:facilityID,
+                    facility_image_url: downloadURL,
+                    facility_time_description:time_description,
+                    facility_title:title
+                })
+                .then(function() {
+                    facilityData();
+                    alert("The data has been updated successfully!");
+                })
+            }
+            else if(descriptionnoedit == "" && timedescriptionnoedit == "")
+            {
+                FacilityRef.update({
+                    facility_booking_enabled : true,
+                    facility_description: description,
+                    facility_id:facilityID,
+                    facility_image_url: downloadURL,
+                    facility_time_description:time_description,
+                    facility_title:titlenoedit
+                })
+                .then(function() {
+                    facilityData();
+                    alert("The data has been updated successfully!");
+                })
+            }
+            else
+            {
+                FacilityRef.update({
+                    facility_booking_enabled : true,
+                    facility_description: descriptionnoedit,
+                    facility_id:facilityID,
+                    facility_image_url: downloadURL,
+                    facility_time_description:time_description,
+                    facility_title:titlenoedit
+                })
+                .then(function() {
+                    facilityData();
+                    alert("The data has been updated successfully!");
+                })
+            }
+        }
+        else if(titlenoedit != "" && descriptionnoedit != "" && timedescriptionnoedit != "")
+        {
+            FacilityRef.update({
+                facility_booking_enabled : true,
+                facility_description: descriptionnoedit,
+                facility_id:facilityID,
+                facility_image_url: downloadURL,
+                facility_time_description:timedescriptionnoedit,
+                facility_title:titlenoedit
+            })
+            .then(function() {
+                facilityData();
+                alert("The data has been updated successfully!");
+            })
+        }
+        else
+        {
+            facilityData();
+            alert("Please fill at least one of the field");
+        }
 }
