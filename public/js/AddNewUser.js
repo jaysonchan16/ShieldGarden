@@ -68,7 +68,7 @@ function addnewuser()
         {
             propertydocRef.add({
                 member_name: memberName,
-                member_password:memberPassword,
+                //member_password:memberPassword,
                 member_email: memberEmail,
                 member_ContactNumber:memberContactNumber,
                 member_property:property,
