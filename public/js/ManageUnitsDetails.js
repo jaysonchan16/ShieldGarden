@@ -102,12 +102,12 @@ function Search()
 
             if(inputemail == doc.data().p_member_email)
             {
-                member_id = doc.data().p_member_email;
-                member_email = doc.data().p_member_uid;
+                member_email = doc.data().p_member_email;
+                member_id = doc.data().p_member_uid;
                 member_name = doc.data().p_member_name;
                 $("#showblock").text(unitID);
                 $("#showemail").text(doc.data().p_member_email);
-                $("#assignUnit").prop("disabled","false");
+                $("#assignUnit").show();
             }
             else
             {
@@ -123,17 +123,16 @@ function AssignUnit()
     var propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(member_id);
 
     propertydocRef.set({
-        member_name: memberName,
-        member_password:memberPassword,
-        member_email: memberEmail,
-        member_ContactNumber:memberContactNumber,
-        member_property:property,
-        member_unit:unit,
-        member_id:uid
+        member_name: member_name,
+        member_email: member_email,
+        //member_ContactNumber:memberContactNumber,
+        member_property:propertyName,
+        member_unit:unitID,
+        member_id:member_id
     })
     .then(function() {
         alert("The data has been saved successfully!");
-        firebase.auth().signOut();
+        $("#searchModal").modal("toggle");
     })
     .catch(function(error) {
         var errorCode = error.code;
