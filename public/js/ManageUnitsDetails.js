@@ -33,7 +33,8 @@ $(document).ready(function(){
 });
 
 function loadDetails()
-{
+{    
+    $("#showMember").html("");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
@@ -131,8 +132,9 @@ function AssignUnit()
         member_id:member_id
     })
     .then(function() {
-        alert("The data has been saved successfully!");
         $("#searchModal").modal("toggle");
+        alert("The data has been saved successfully!");
+        loadDetails();
     })
     .catch(function(error) {
         var errorCode = error.code;
