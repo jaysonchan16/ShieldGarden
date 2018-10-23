@@ -84,6 +84,7 @@ $(document).ready(function(){
 
 function loadDetails()
 {
+    $("#wait").css("display", "block");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
@@ -112,6 +113,7 @@ function loadDetails()
                 $("#newemail").val(doc.data().member_email);
                 $("#newcontact").val(doc.data().member_ContactNumber);
                 $("#member_name").text(doc.data().member_name);
+                $("#wait").css("display", "none");
             }
             else {
                 // doc.data() will be undefined in this case
@@ -123,6 +125,7 @@ function loadDetails()
 
 function UpdateUser()
 {
+     $("#wait").css("display", "block");
     // console.log(propertyID);
     // console.log(unitID);
     var memberName = $("#newusername").val();
@@ -360,16 +363,19 @@ function UpdateUser()
             $("#newcontact").prop('disabled', true);
             $("#SaveUser").prop('disabled', true);
             $("#CancelUser").prop('disabled', true);
+            $("#wait").css("display", "none");
         }
         else {
             // doc.data() will be undefined in this case
-            console.log("No such document!");
+            Alert("No data!");
+            $("#wait").css("display", "none");
         }
     });
 }
 
 function UpdateProperty()
 {
+    $("#wait").css("display", "block");
 //     $("#assignedpropertydrop").css("display","block");
 //     $("#assignedunitdrop").css("display","block");
 //     $("#assignedproperty").css("display","none");
@@ -436,10 +442,12 @@ function UpdateProperty()
             $("#CancelProperty").prop('disabled', true);
             $("#noedit").show();
             $("#edit").hide();
+            $("#wait").css("display", "none");
         }
         else {
             // doc.data() will be undefined in this case
-            console.log("No such document!");
+            Alert("No data!");
+            $("#wait").css("display", "none");
         }
     });
 }

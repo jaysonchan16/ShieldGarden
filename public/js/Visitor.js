@@ -6,6 +6,7 @@ $(document).ready(function(){
 
 function loadDetails()
 {
+    $("#wait").css("display", "block");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
@@ -40,6 +41,7 @@ function property(propertyID)
             $(".table tbody").append("<tr><td><img width='242' height='242' src='"+doc.data().visitor_image_url+"'></td>"+
                                     "<td>"+doc.data().visitor_name+"</td><td>"+doc.data().visitor_purpose+"</td><td>"+doc.data().visitor_check_in+"</td><td>"+doc.data().visitor_check_out+"</td></tr>");
     });
+    $("#wait").css("display", "none");
   });
 }
 

@@ -11,6 +11,7 @@ $(document).ready(function(){
 
 function loadDetails()
 {
+    $("#wait").css("display", "block");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
@@ -45,6 +46,7 @@ function property(propertyID)
                                     "<td class='findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().facility_title+"</td><td>"+doc.data().facility_description+"</td></tr>");
     });
     $("#AddNewFacility").prop("disabled",false);
+    $("#wait").css("display", "none");
   });
 }
 

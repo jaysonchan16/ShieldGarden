@@ -17,17 +17,20 @@ $(document).ready(function(){
 
 function loadDetails()
 {
+    $("#wait").css("display", "block");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
         }
         $('#userprofile').html(user.email);
-
+        $("#wait").css("display", "none");
     });
 }
 
 function addnewnotice()
 {
+    $("#Add").prop("disabled",true);
+    $("#wait").css("display", "block");
     var title = $("#title").val();
     var description = $("#description").val();
 
@@ -56,7 +59,9 @@ function addnewnotice()
                     notice_image_url: downloadURL,
                     notice_title:title
                 }).then(function() {
-                     alert("Adding the new notices successfully!")
+                     alert("Adding the new notices successfully!");
+                     $("#Add").prop("disabled",false);
+                     $("#wait").css("display", "none");
                 })
         });
     });
@@ -64,6 +69,8 @@ function addnewnotice()
 }
 
 function readURL(input) {
+
+     $("#wait").css("display", "block");
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
@@ -71,6 +78,7 @@ function readURL(input) {
             $('#blah')
                 .attr('src', e.target.result)
                 .height(200);
+                $("#wait").css("display", "none");
         };
 
         selected_file = input.files[0];

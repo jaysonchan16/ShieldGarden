@@ -20,20 +20,21 @@ $(document).ready(function(){
 
 function loadDetails()
 {
+    $("#wait").css("display", "block");
      firebase.auth().onAuthStateChanged(function(user) {
     var user = firebase.auth().currentUser;
     if (!user) {
         window.location = 'login.html';
         }
         $('#userprofile').html(user.email);
-
+        $("#wait").css("display", "none");
      });
 }
 
 function addnewuser()
 {
-    // console.log(propertyID);
-    // console.log(unitID);
+    $("#Add").prop("disabled",true);
+    $("#wait").css("display", "block");
     var memberName = $("#newusername").val();
     var memberEmail = $("#newemail").val();
     var memberContactNumber = '+6' + $("#newcontact").val();
@@ -77,6 +78,8 @@ function addnewuser()
             })
             .then(function() {
                 alert("The data has been saved successfully!");
+                $("#Add").prop("disabled",false);
+                $("#wait").css("display", "none");
                 firebase.auth().signOut();
             })
             .catch(function(error) {

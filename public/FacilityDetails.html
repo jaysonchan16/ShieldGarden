@@ -17,7 +17,7 @@
   <link href="css/material-dashboard.css?v=2.0.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="css/demo.css" rel="stylesheet" />
-  <style>
+  <!-- <style>
     /* Center the loader */
     #loader {
       position: absolute;
@@ -68,13 +68,12 @@
     #myDiv {
       display: none;
     }
-    </style>
+    </style> -->
  
 </head>
  
-<body class="" onload="myFunction()" style="margin:0;">
-  <div id="loader"></div>
-  <div class="wrapper" style="display:none;" id="myDiv" class="animate-bottom">
+<body class="">
+  <div class="wrapper">
     <div class="sidebar" data-color="rose" >
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -269,6 +268,7 @@
                         </div>
                     </div>
                       </div>
+                      <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;"><img src='img/spinner.gif' width="64" height="64" /><br>Loading..</div>
                   </div>
                 </div>
               </div>
@@ -519,18 +519,18 @@
 
                 });
               </script>
-              <script>
+              <!-- <script>
                 var myVar;
                 
                 function myFunction() {
-                    myVar = setTimeout(showPage, 2000);
+                    myVar = setTimeout(showPage, 1500);
                 }
                 
                 function showPage() {
                   document.getElementById("loader").style.display = "none";
                   document.getElementById("myDiv").style.display = "block";
                 }
-                </script>
+                </script> -->
 </body>
 
 </html>

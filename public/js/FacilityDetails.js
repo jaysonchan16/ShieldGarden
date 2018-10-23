@@ -64,6 +64,7 @@ $(document).ready(function(){
 
 function loadDetails()
 {
+    $("#wait").css("display", "block");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
@@ -92,7 +93,7 @@ function EditFacility()
 }
 
 function readURL(input) {
-    
+    $("#wait").css("display", "block");
     if (input.files && input.files[0] !=null) {
         var reader = new FileReader();
 
@@ -101,19 +102,20 @@ function readURL(input) {
             $('#blah')
                 .attr('src', e.target.result)
                 .height(200);
+                $("#wait").css("display", "none");
         };
         
         
         selected_file = input.files[0];
         reader.readAsDataURL(input.files[0]);
         
-        console.log(input.files[0]);
     }
 
 }
 
 function SaveDetails()
 {
+    $("#wait").css("display", "block");
     var titlenoedit = $("#name").val();
     var descriptionnoedit = $("#description").val();
     var timedescriptionnoedit = $("#timedescription").val();
@@ -143,7 +145,7 @@ function SaveDetails()
             //get the image download url and then when open the website can automatically load the image from firestore
                 console.log('File available at', downloadURL);
                 update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL);
-                console.log("1");
+                 $("#wait").css("display", "none");
             });
         });
     }
@@ -157,6 +159,7 @@ function SaveDetails()
 
 function facilityData()
 {
+    $("#wait").css("display", "block");
     FacilityRef.get().then(function(doc) {
         if (doc.exists) {
             $("#facilities_name").text(doc.data().facility_title);
@@ -172,6 +175,7 @@ function facilityData()
             description = doc.data().facility_description;
             oldPhotoURL =doc.data().facility_image_url;
             time_description = doc.data().facility_time_description;
+            $("#wait").css("display", "none");
         }
         else {
             // doc.data() will be undefined in this case
@@ -182,6 +186,7 @@ function facilityData()
 
 function add()
 {
+    $("#wait").css("display", "block");
     var addOne = (slotId.length) + 2;
     var addOneString = addOne.toString();
     var start = $("#start").val();
@@ -217,6 +222,7 @@ function add()
 
 function removeSlot(id)
 {
+    $("#wait").css("display", "block");s
     db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots").doc(id).delete().then(function() {
         alert("Slot successfully deleted!");
     }).catch(function(error) {
@@ -236,6 +242,7 @@ function SlotData(num)
                 $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
                 "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
             });
+            $("#wait").css("display", "none");
         });
     }
     else
@@ -249,6 +256,7 @@ function SlotData(num)
                 $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
                 "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
             });
+            $("#wait").css("display", "none");
         });
     }
 }

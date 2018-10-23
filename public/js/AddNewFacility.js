@@ -17,17 +17,20 @@ $(document).ready(function(){
 
 function loadDetails()
 {
+    $("#wait").css("display", "block");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
         }
         $('#userprofile').html(user.email);
-
+        $("#wait").css("display", "none");
     });
 }
 
 function AddNewFacility()
 {
+    $("#Add").prop("disabled",true);
+    $("#wait").css("display", "block");
     //$("#myModal").modal();
     // console.log(propertyID);
     // console.log(unitID);
@@ -66,7 +69,9 @@ function AddNewFacility()
                     //facility_jpg_name:uploadTask.snapshot.metadata.name
             }).then(function() {
                 var ID = propertydocRef.id;  //when create a new document it will automatically generated new id and then apply the generate id into the facility_id
-                alert("Adding the new facility successfully!")
+                alert("Adding the new facility successfully!");
+                $("#Add").prop("disabled",false);
+                $("#wait").css("display", "none");
             })
     });
 });
@@ -75,6 +80,7 @@ function AddNewFacility()
 }
 
 function readURL(input) {
+    $("#wait").css("display", "block");
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
@@ -83,6 +89,7 @@ function readURL(input) {
             $('#blah')
                 .attr('src', e.target.result)
                 .height(200);
+                $("#wait").css("display", "none");
         };
         //get the base 64 image
         selected_file = input.files[0];

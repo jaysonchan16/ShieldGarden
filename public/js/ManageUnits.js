@@ -26,6 +26,7 @@ $(document).ready(function(){
 
 function loadDetails()
 {
+    $("#wait").css("display", "block");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
@@ -61,7 +62,8 @@ function property(propertyID,unitID)
            var address = unitID +", "+doc.data().property_name;
            sessionStorage.setItem("propertyName",doc.data().property_name);
           $(".table tbody").append("<tr><td class='name findButton' id='"+unitID+"' onclick='details(this.id)'>"+unitID+"</td><td>"+address+"</td></tr>");
-       
+            
+          $("#wait").css("display", "none");
         } else {
             console.log("No such document!");
         }

@@ -31,6 +31,7 @@ $(document).ready(function(){
 
 function loadDetails()
 {
+    $("#wait").css("display", "block");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
@@ -86,6 +87,7 @@ function property(propertyID,unitID)
                                           "</td><td>"+doc.data().member_unit+"</td></tr>");
         });
         $("#AddNewUser").prop("disabled",false);
+        $("#wait").css("display", "none");
     });
 }
 

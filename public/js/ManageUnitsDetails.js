@@ -34,6 +34,7 @@ $(document).ready(function(){
 
 function loadDetails()
 {    
+    $("#wait").css("display", "block");
     $("#showMember").html("");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
@@ -86,6 +87,7 @@ function loadDetails()
                 {
                     $("#bookings").append(bookingTitle[j]+"<span id='space'>"+bookingDate[j]+"</span><br>");
                 }
+                $("#wait").css("display", "none");
             });
 
         });
@@ -94,6 +96,7 @@ function loadDetails()
 
 function Search()
 {
+    $("#wait").css("display", "block");
     var inputemail = $("#InputEmail").val();
 
     memberdocRef = db.collection("properties").doc(propertyID).collection("property_members");
@@ -109,11 +112,13 @@ function Search()
                 $("#showblock").text(unitID);
                 $("#showemail").text(doc.data().p_member_email);
                 $("#assignUnit").show();
+                $("#wait").css("display", "none");
             }
             else
             {
                 $("#showblock").text("");
                 $("#showemail").text("");
+                $("#wait").css("display", "none");
             }
         });
     });
