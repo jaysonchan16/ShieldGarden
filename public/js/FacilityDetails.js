@@ -150,7 +150,7 @@ function SaveDetails()
             });
         });
     }
-
+    
     // $("#SaveDetails").prop('disabled', true);
     // $("#DeleteDetails").prop('disabled', true);
     $("#FacilityButton").hide();
