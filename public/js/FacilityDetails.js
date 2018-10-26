@@ -86,8 +86,9 @@ function EditFacility()
     $("#description").val("");
     $("#timedescription").val("");
     $("#timepicker").show();
-    $("#SaveDetails").prop('disabled', false);
-    $("#DeleteDetails").prop('disabled', false);
+    $("#FacilityButton").show();
+    // $("#SaveDetails").prop('disabled', false);
+    // $("#DeleteDetails").prop('disabled', false);
     $("#nonedit").hide();
     $("#edit").show();
 }
@@ -150,8 +151,9 @@ function SaveDetails()
         });
     }
 
-    $("#SaveDetails").prop('disabled', true);
-    $("#DeleteDetails").prop('disabled', true);
+    // $("#SaveDetails").prop('disabled', true);
+    // $("#DeleteDetails").prop('disabled', true);
+    $("#FacilityButton").hide();
     $("#timepicker").hide();
     $("#nonedit").show();
     $("#edit").hide();
@@ -268,7 +270,7 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    // An error happened
+    alert("cannot logout!");
   });
 }
 
