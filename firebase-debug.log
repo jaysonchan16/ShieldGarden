@@ -1,0 +1,27 @@
+[debug] [2018-10-26T17:21:24.275Z] ----------------------------------------------------------------------
+[debug] [2018-10-26T17:21:24.289Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Sheng\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2018-10-26T17:21:24.289Z] CLI Version:   6.0.0
+[debug] [2018-10-26T17:21:24.289Z] Platform:      win32
+[debug] [2018-10-26T17:21:24.289Z] Node Version:  v10.5.0
+[debug] [2018-10-26T17:21:24.661Z] Time:          Sat Oct 27 2018 01:21:24 GMT+0800 (Malaysia Time)
+[debug] [2018-10-26T17:21:24.661Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-26T17:21:25.051Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-26T17:21:25.059Z] > authorizing via signed-in user
+[debug] [2018-10-26T17:21:25.061Z] [iam] checking project shieldgarden2018 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2018-10-26T17:21:25.069Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/shieldgarden2018:testIamPermissions  
+
+[debug] [2018-10-26T17:21:26.751Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-26T17:21:26.763Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/shieldgarden2018  
+ 
+[debug] [2018-10-26T17:21:27.010Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'shieldgarden2018'...
+[info] 
+[info] i  deploying hosting
+[debug] [2018-10-26T17:21:27.071Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/shieldgarden2018/versions  
+
+[debug] [2018-10-26T17:21:27.830Z] <<< HTTP RESPONSE 200
+[info] i  hosting[shieldgarden2018]: beginning deploy...
+[info] i  hosting[shieldgarden2018]: found 635 files in public
+[debug] [2018-10-26T17:21:28.357Z] [hosting] hash cache [cHVibGlj] load error: lines is not defined
