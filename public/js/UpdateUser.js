@@ -120,7 +120,7 @@ function loadDetails()
             }
             else {
                 // doc.data() will be undefined in this case
-                console.log("No such document!");
+                alert("cannot find in database");
             }
         });
     });
@@ -464,6 +464,6 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    // An error happened
+    alert(error);
   });
 }
