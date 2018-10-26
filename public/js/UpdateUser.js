@@ -29,8 +29,9 @@ $(document).ready(function(){
         $("#newusername").prop('disabled', false);
         $("#newemail").prop('disabled', false);
         $("#newcontact").prop('disabled', false);
-        $("#SaveUser").prop('disabled', false);
-        $("#CancelUser").prop('disabled', false);
+        $("#userbutton").show();
+        // $("#SaveUser").prop('disabled', false);
+        // $("#CancelUser").prop('disabled', false);
     });
 
     $("#EditProperty").off('click').on('click', function(){
@@ -42,8 +43,9 @@ $(document).ready(function(){
 
         $("#assignedpropertydrop").html("<option>"+propertyName+"</option><option>No Property</option>");
         $("#assignedunitdrop").html("<option>"+unitID+"</option><option>No Unit</option><option>0</option>");
-        $("#SaveProperty").prop('disabled', false);
-        $("#CancelProperty").prop('disabled', false);
+        // $("#SaveProperty").prop('disabled', false);
+        // $("#CancelProperty").prop('disabled', false);
+        $("#buttonProperty").show();
         $("#noedit").hide();
         $("#edit").show();
     });
@@ -64,8 +66,9 @@ $(document).ready(function(){
         $("#newusername").prop('disabled', true);
         $("#newemail").prop('disabled', true);
         $("#newcontact").prop('disabled', true);
-        $("#SaveUser").prop('disabled', true);
-        $("#CancelUser").prop('disabled', true);
+        $("#userbutton").hide();
+        // $("#SaveUser").prop('disabled', true);
+        // $("#CancelUser").prop('disabled', true);
     });
 
     $("#CancelProperty").off('click').on('click', function(){
@@ -76,7 +79,7 @@ $(document).ready(function(){
         // $("#assignedunit").prop('disabled', true);
         // $("#SaveProperty").prop('disabled', true);
         // $("#CancelProperty").prop('disabled', true);
-
+        $("#buttonProperty").hide();
         $("#noedit").show();
         $("#edit").hide();
     });
@@ -361,8 +364,9 @@ function UpdateUser()
             $("#newusername").prop('disabled', true);
             $("#newemail").prop('disabled', true);
             $("#newcontact").prop('disabled', true);
-            $("#SaveUser").prop('disabled', true);
-            $("#CancelUser").prop('disabled', true);
+            // $("#SaveUser").prop('disabled', true);
+            // $("#CancelUser").prop('disabled', true);
+            $("#userbutton").hide();
             $("#wait").css("display", "none");
         }
         else {
@@ -438,8 +442,9 @@ function UpdateProperty()
             $("#newemail").val(email);
             $("#newcontact").val(contactNumber);
 
-            $("#SaveProperty").prop('disabled', true);
-            $("#CancelProperty").prop('disabled', true);
+            // $("#SaveProperty").prop('disabled', true);
+            // $("#CancelProperty").prop('disabled', true);
+            $("#buttonProperty").hide();
             $("#noedit").show();
             $("#edit").hide();
             $("#wait").css("display", "none");
