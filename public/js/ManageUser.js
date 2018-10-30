@@ -53,8 +53,9 @@ function loadDetails()
                property(propertyID,unitID);
             }
             else {
+                alert("Cannot find this user in database");
                 // doc.data() will be undefined in this case
-                console.log("No such document!");
+                //console.log("No such document!");
             }
         });
     });
@@ -73,7 +74,8 @@ function property(propertyID,unitID)
             console.log("No such document!");
         }
     }).catch(function(error) {
-        console.log("Error getting document:", error);
+        //console.log("Error getting document:", error);
+        alert(error);
     });
     
     var propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
@@ -83,7 +85,7 @@ function property(propertyID,unitID)
             //console.log(doc.data());
             console.log(doc.id)
             $(".table tbody").append("<tr><td class='name findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().member_name+"</td><td>"+doc.data().member_email+
-                                          "</td><td>"+doc.data().member_ContactNumber+"</td><td>"+doc.data().member_property+
+                                          "</td><td>"+doc.data().member_number+"</td><td>"+doc.data().member_property+
                                           "</td><td>"+doc.data().member_unit+"</td></tr>");
         });
         $("#AddNewUser").prop("disabled",false);
@@ -107,6 +109,6 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    // An error happened
+    alert(error);
   });
 }

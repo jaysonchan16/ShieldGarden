@@ -100,12 +100,12 @@ function loadDetails()
             if (doc.exists) {
                 name = doc.data().member_name;
                 email = doc.data().member_email;
-                contactNumber = doc.data().member_ContactNumber;
+                contactNumber = doc.data().member_number;
 
                 currentproperty = doc.data().member_property;
                 currentunit = doc.data().member_unit;
                 password = doc.data().member_password;
-                memberID = doc.data().member_id;
+                memberID = doc.data().member_uid;
                 // $("#assignedpropertydrop").html("<option>"+propertyName+"</option><option>No Property</option>");
                 // $("#assignedunitdrop").html("<option>"+unitID+"</option><option>No Unit</option>");
                 // $("#assignedpropertydrop").css("display","none");
@@ -114,7 +114,7 @@ function loadDetails()
                 $("#assignedunit").val(doc.data().member_unit);
                 $("#newusername").val(doc.data().member_name);
                 $("#newemail").val(doc.data().member_email);
-                $("#newcontact").val(doc.data().member_ContactNumber);
+                $("#newcontact").val(doc.data().member_number);
                 $("#member_name").text(doc.data().member_name);
                 $("#wait").css("display", "none");
             }
@@ -143,12 +143,12 @@ function UpdateUser()
         {
             propertydocRef.update({
                 member_name: name,
-                member_password:password,
+                ////member_password:password,
                 member_email: email,
-                member_ContactNumber:memberContactNumber,
+                member_number:memberContactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:memberID
+                member_uid:memberID
             })
             .then(function() {
                 alert("The data has been saved successfully!");
@@ -158,12 +158,12 @@ function UpdateUser()
         {   
             propertydocRef.update({
                 member_name: name,
-                member_password:password,
+                ////member_password:password,
                 member_email: memberEmail,
-                member_ContactNumber:contactNumber,
+                member_number:contactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:memberID
+                member_uid:memberID
             })
             .then(function() {
                 alert("The data has been saved successfully!");
@@ -174,12 +174,12 @@ function UpdateUser()
             alert("Please fill in at least one field!");
             // propertydocRef.update({
             //     member_name: memberName,
-            //     member_password:password,
+            //     //member_password:password,
             //     member_email: email,
-            //     member_ContactNumber:contactNumber,
+            //     member_number:contactNumber,
             //     member_property:propertyName,
             //     member_unit:unitID,
-            //     member_id:memberID
+            //     member_uid:memberID
             // })
             // .then(function() {
             //     alert("The data has been saved successfully!");
@@ -189,12 +189,12 @@ function UpdateUser()
         {
             propertydocRef.update({
                 member_name: name,
-                member_password:password,
+                ////member_password:password,
                 member_email: memberEmail,
-                member_ContactNumber:memberContactNumber,
+                member_number:memberContactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:memberID
+                member_uid:memberID
             })
             .then(function() {
                 alert("The data has been saved successfully!");
@@ -207,12 +207,12 @@ function UpdateUser()
         {
             propertydocRef.update({
                 member_name: name,
-                member_password:password,
+                ////member_password:password,
                 member_email: email,
-                member_ContactNumber:memberContactNumber,
+                member_number:memberContactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:memberID
+                member_uid:memberID
             })
             .then(function() {
                 alert("The data has been saved successfully!");
@@ -223,12 +223,12 @@ function UpdateUser()
             alert("Please fill in at least one field!");
             // propertydocRef.update({
             //     member_name: name,
-            //     member_password:password,
+            //     //member_password:password,
             //     member_email: memberEmail,
-            //     member_ContactNumber:contactNumber,
+            //     member_number:contactNumber,
             //     member_property:propertyName,
             //     member_unit:unitID,
-            //     member_id:memberID
+            //     member_uid:memberID
             // })
             // .then(function() {
             //     alert("The data has been saved successfully!");
@@ -238,12 +238,12 @@ function UpdateUser()
         {
             propertydocRef.update({
                 member_name: memberName,
-                member_password:password,
+                ////member_password:password,
                 member_email: email,
-                member_ContactNumber:contactNumber,
+                member_number:contactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:memberID
+                member_uid:memberID
             })
             .then(function() {
                 alert("The data has been saved successfully!");
@@ -253,12 +253,12 @@ function UpdateUser()
         {
             propertydocRef.update({
                 member_name: memberName,
-                member_password:password,
+                ////member_password:password,
                 member_email: email,
-                member_ContactNumber:memberContactNumber,
+                member_number:memberContactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:memberID
+                member_uid:memberID
             })
             .then(function() {
                 alert("The data has been saved successfully!");
@@ -272,12 +272,12 @@ function UpdateUser()
             alert("Please fill in at least one field!");
             // propertydocRef.update({
             //     member_name: name,
-            //     member_password:password,
+            //     //member_password:password,
             //     member_email: email,
-            //     member_ContactNumber:memberContactNumber,
+            //     member_number:memberContactNumber,
             //     member_property:propertyName,
             //     member_unit:unitID,
-            //     member_id:memberID
+            //     member_uid:memberID
             // })
             // .then(function() {
             //     alert("The data has been saved successfully!");
@@ -287,12 +287,12 @@ function UpdateUser()
         {   
             propertydocRef.update({
                 member_name: name,
-                member_password:password,
+                //member_password:password,
                 member_email: memberEmail,
-                member_ContactNumber:contactNumber,
+                member_number:contactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:memberID
+                member_uid:memberID
             })
             .then(function() {
                 alert("The data has been saved successfully!");
@@ -302,12 +302,12 @@ function UpdateUser()
         {
             propertydocRef.update({
                 member_name: memberName,
-                member_password:password,
+                //member_password:password,
                 member_email: email,
-                member_ContactNumber:contactNumber,
+                member_number:contactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:memberID
+                member_uid:memberID
             })
             .then(function() {
                 alert("The data has been saved successfully!");
@@ -317,12 +317,12 @@ function UpdateUser()
         {
             propertydocRef.update({
                 member_name: memberName,
-                member_password:password,
+                //member_password:password,
                 member_email: memberEmail,
-                member_ContactNumber:contactNumber,
+                member_number:contactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:memberID
+                member_uid:memberID
             })
             .then(function() {
                 alert("The data has been saved successfully!");
@@ -333,12 +333,12 @@ function UpdateUser()
         {
             propertydocRef.update({
                 member_name: memberName,
-                member_password:password,
+                //member_password:password,
                 member_email: memberEmail,
-                member_ContactNumber:memberContactNumber,
+                member_number:memberContactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:memberID
+                member_uid:memberID
             })
             .then(function() {
                 alert("The data has been saved successfully!");
@@ -353,13 +353,13 @@ function UpdateUser()
         if (doc.exists) {
             name = doc.data().member_name;
             email = doc.data().member_email;
-            contactNumber = doc.data().member_ContactNumber;
+            contactNumber = doc.data().member_number;
 
             $("#assignedproperty").val(propertyName);
             $("#assignedunit").val(unitID);
             $("#newusername").val(doc.data().member_name);
             $("#newemail").val(doc.data().member_email);
-            $("#newcontact").val(doc.data().member_ContactNumber);
+            $("#newcontact").val(doc.data().member_number);
 
             $("#newusername").prop('disabled', true);
             $("#newemail").prop('disabled', true);
@@ -392,7 +392,7 @@ function UpdateProperty()
         propertydocRef.update({
             member_name: name,
             member_email: email,
-            member_ContactNumber:contactNumber,
+            member_number:contactNumber,
             member_property:propertyName,
             member_unit:assignedunit
         })
@@ -405,7 +405,7 @@ function UpdateProperty()
         propertydocRef.update({
             member_name: name,
             member_email: email,
-            member_ContactNumber:contactNumber,
+            member_number:contactNumber,
             member_property:assignedproperty,
             member_unit:unitID
         })
@@ -418,7 +418,7 @@ function UpdateProperty()
         propertydocRef.update({
             member_name: name,
             member_email: email,
-            member_ContactNumber:contactNumber,
+            member_number:contactNumber,
             member_property:assignedproperty,
             member_unit:assignedunit
         })
