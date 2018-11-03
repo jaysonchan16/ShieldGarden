@@ -36,8 +36,10 @@ function addnewnotice()
 
     var propertydocRef = db.collection("properties").doc(propertyID).collection("notices");
     var filename = selected_file.name;
-    var storageRef = firebase.storage().ref(filename);
-    var uploadTask = storageRef.put(selected_file);
+    var storageRef = firebase.storage().ref();
+    //put inside the folder
+    var NoticesRef = storageRef.child('properties/'+propertyID+'/notices_media/'+filename)
+    var uploadTask = NoticesRef.put(selected_file);
 
         //upload image step
         uploadTask.on('state_changed',

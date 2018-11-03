@@ -129,8 +129,9 @@ function SaveDetails()
     else
     {
         var filename = selected_file.name;
-        var storageRef = firebase.storage().ref(filename);
-        var uploadTask = storageRef.put(selected_file);
+        var storageRef = firebase.storage().ref();
+        var FacilityRef = storageRef.child('properties/'+propertyID+'/facilities_media/'+filename);
+        var uploadTask = FacilityRef.put(selected_file);
          //upload image step
         uploadTask.on('state_changed',
     
@@ -425,7 +426,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     facility_description: descriptionnoedit,
                     facility_id:facilityID,
                     facility_image_url: downloadURL,
-                    facility_time_description:time_description,
+                    facility_time_description:timedescriptionnoedit,
                     facility_title:titlenoedit
                 })
                 .then(function() {

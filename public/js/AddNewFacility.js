@@ -41,8 +41,9 @@ function AddNewFacility()
     var propertydocRef = db.collection("properties").doc(propertyID).collection("facilities").doc();
 
     var filename = selected_file.name;
-    var storageRef = firebase.storage().ref(filename);
-    var uploadTask = storageRef.put(selected_file);
+    var storageRef = firebase.storage().ref();
+    var FacilityRef = storageRef.child('properties/'+propertyID+'/facilities_media/'+filename);
+    var uploadTask = FacilityRef.put(selected_file);
 
     //upload image step
     uploadTask.on('state_changed',
