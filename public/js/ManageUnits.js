@@ -53,23 +53,44 @@ function loadDetails()
 
 function property(propertyID,unitID)
 {
-    var propertyName = db.collection("properties").doc(propertyID);
-
-    // hardcode and pass the property name to the AddNewUser page and UpdateUser page
-    propertyName.get().then(function(doc){
+    var propertyName = db.collection("properties").doc(propertyID).collection("units");
+    var addressRef = db.collection("properties").doc(propertyID);
+    var address
+    addressRef.get().then(function(doc){
         if (doc.exists) {
-           // console.log("Document data:", doc.data());
-           var address = unitID +", "+doc.data().property_name;
-           sessionStorage.setItem("propertyName",doc.data().property_name);
-          $(".table tbody").append("<tr><td class='name findButton' id='"+unitID+"' onclick='details(this.id)'>"+unitID+"</td><td>"+address+"</td></tr>");
-            
-          $("#wait").css("display", "none");
-        } else {
-            console.log("No such document!");
+            address = doc.data().property_name;
+            propertyName.get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    $(".table tbody").append("<tr><td class='name findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.id+"</td><td>"+address+"</td></tr>");
+                    $("#wait").css("display", "none");
+                })
+            }).catch(function(error){
+                alert("Error getting data from firebase");
+            })
+        }   
+        else {
+           alert("No such document in database!");  
         }
-    }).catch(function(error) {
-        console.log("Error getting document:", error);
+    }).catch(function(error){
+        alert("Error getting document:", error);
     });
+    // hardcode and pass the property name to the AddNewUser page and UpdateUser page
+    
+
+    // propertyName.get().then(function(doc){
+    //     if (doc.exists) {
+    //        // console.log("Document data:", doc.data());
+    //        var address = unitID +", "+doc.data().property_name;
+    //        sessionStorage.setItem("propertyName",doc.data().property_name);
+    //       $(".table tbody").append("<tr><td class='name findButton' id='"+unitID+"' onclick='details(this.id)'>"+unitID+"</td><td>"+address+"</td></tr>");
+            
+    //       $("#wait").css("display", "none");
+    //     } else {
+    //         console.log("No such document!");
+    //     }
+    // }).catch(function(error) {
+    //     console.log("Error getting document:", error);
+    // });
 
    }
 
