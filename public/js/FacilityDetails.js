@@ -277,10 +277,13 @@ function logout()
 
 function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
 {
+    console.log("1");
     if(titlenoedit == "")
         {
+            console.log("2");
             if(titlenoedit == "" && descriptionnoedit == "")
             {
+                console.log("3");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: description,
@@ -296,6 +299,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             }
             else if(titlenoedit == "" && timedescriptionnoedit == "")
             {
+                console.log("4");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: descriptionnoedit,
@@ -311,11 +315,13 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             }
             else if(descriptionnoedit == "" && timedescriptionnoedit == "")
             {
+                console.log("5");
                 facilityData();
                 alert("Please fill in at least one field!");
             }
             else
             {
+                console.log("6");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: descriptionnoedit,
@@ -332,8 +338,10 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
         }
         else if(descriptionnoedit == "")
         {
+            console.log("7");
             if(titlenoedit == "" && descriptionnoedit == "")
             {
+                console.log("8");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: description,
@@ -349,11 +357,13 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             }
             else if(titlenoedit == "" && timedescriptionnoedit == "")
             {
+                console.log("9");
                 facilityData();
                 alert("Please fill in at least one field!");
             }
             else if(descriptionnoedit == "" && timedescriptionnoedit == "")
             {
+                console.log("10");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: description,
@@ -369,6 +379,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             }
             else
             {
+                console.log("11");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: description,
@@ -385,12 +396,15 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
         }
         else if(timedescriptionnoedit == "")
         {
+            console.log("12");
             if(titlenoedit == "" && descriptionnoedit == "")
             {
+                console.log("13");
                 alert("Please fill in at least one field!");
             }
             else if(titlenoedit == "" && timedescriptionnoedit == "")
             {
+                console.log("14");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: descriptionnoedit,
@@ -406,6 +420,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             }
             else if(descriptionnoedit == "" && timedescriptionnoedit == "")
             {
+                console.log("15");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: description,
@@ -421,6 +436,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             }
             else
             {
+                console.log("16");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: descriptionnoedit,
@@ -437,6 +453,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
         }
         else if(titlenoedit != "" && descriptionnoedit != "" && timedescriptionnoedit != "")
         {
+            console.log("17");
             FacilityRef.update({
                 facility_booking_enabled : true,
                 facility_description: descriptionnoedit,
@@ -452,6 +469,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
         }
         else
         {
+            console.log("19");
             facilityData();
             alert("Please fill at least one of the field");
         }

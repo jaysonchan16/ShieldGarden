@@ -37,9 +37,11 @@ function addnewuser()
     $("#wait").css("display", "block");
     var memberName = $("#newusername").val();
     var memberEmail = $("#newemail").val();
-    var memberContactNumber = '+6' + $("#newcontact").val();
+    var contactNum = '+6' + $("#newcontact").val();
     var memberPassword = $("#newpassword").val();
-
+    var contactSelect =$("#contactSelect option:selected").val();
+    var memberContactNumber = contactSelect + contactNum;
+    
     var propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
     var propertyMemberRef = db.collection("properties").doc(propertyID).collection("property_members");
 
@@ -71,7 +73,8 @@ function addnewuser()
             propertyMemberRef.add({
                     p_member_email:memberEmail,
                     p_member_name: memberName,
-                    p_member_uid: uid
+                    p_member_uid: uid,
+                    p_member_unit_id:unit
                 }).then(function(){
                     propertydocRef.add({
                         member_name: memberName,
