@@ -133,9 +133,9 @@ function UpdateUser()
     // console.log(unitID);
     var memberName = $("#newusername").val();
     var memberEmail = $("#newemail").val();
-    var memberContactNumber = '+6' + $("#newcontact").val();
-
-
+    var contactNum = $("#newcontact").val();
+    var selectcontact = $("#contactSelect option:selected").val();
+    var memberContactNumber = selectcontact + contactNum;
     
     if(memberName == "")
     {
@@ -154,7 +154,7 @@ function UpdateUser()
                 alert("The data has been saved successfully!");
             })
         }
-        else if(memberName == "" && memberContactNumber == "+6")
+        else if(memberName == "" && contactNum == "")
         {   
             propertydocRef.update({
                 member_name: name,
@@ -169,7 +169,7 @@ function UpdateUser()
                 alert("The data has been saved successfully!");
             })
         }
-        else if(memberEmail == "" && memberContactNumber == "+6")
+        else if(memberEmail == "" && contactNum == "")
         {
             alert("Please fill in at least one field!");
             // propertydocRef.update({
@@ -218,7 +218,7 @@ function UpdateUser()
                 alert("The data has been saved successfully!");
             })
         }
-        else if(memberName == "" && memberContactNumber == "+6")
+        else if(memberName == "" && contactNum == "")
         {   
             alert("Please fill in at least one field!");
             // propertydocRef.update({
@@ -234,7 +234,7 @@ function UpdateUser()
             //     alert("The data has been saved successfully!");
             // })
         }
-        else if(memberEmail == "" && memberContactNumber == "+6")
+        else if(memberEmail == "" && contactNum == "")
         {
             propertydocRef.update({
                 member_name: memberName,
@@ -265,7 +265,7 @@ function UpdateUser()
             })
         }
     }
-    else if(memberContactNumber == "+6")
+    else if(contactNum == "")
     {
         if(memberName == "" && memberEmail == "")
         {
@@ -283,7 +283,7 @@ function UpdateUser()
             //     alert("The data has been saved successfully!");
             // })
         }
-        else if(memberName == "" && memberContactNumber == "+6")
+        else if(memberName == "" && contactNum == "")
         {   
             propertydocRef.update({
                 member_name: name,
@@ -298,7 +298,7 @@ function UpdateUser()
                 alert("The data has been saved successfully!");
             })
         }
-        else if(memberEmail == "" && memberContactNumber == "+6")
+        else if(memberEmail == "" && contactNum == "")
         {
             propertydocRef.update({
                 member_name: memberName,
@@ -329,7 +329,7 @@ function UpdateUser()
             })
         }
     }
-    else if(memberName !="" && memberEmail != "" && memberContactNumber != "")
+    else if(memberName !="" && memberEmail != "" && contactNum != "")
         {
             propertydocRef.update({
                 member_name: memberName,
