@@ -36,6 +36,7 @@ function loadDetails()
 {    
     $("#wait").css("display", "block");
     $("#showMember").html("");
+    $("#bookings").html("");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
@@ -46,12 +47,13 @@ function loadDetails()
         $("#unit").text(unitID);
         $("#address").text(fulladrress);
         $("#UnitsText").text(unitID);
-
+        memberName = [];
         propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
         facilitydocRef = db.collection("properties").doc(propertyID).collection("property_members").doc(unitID).collection("facility_bookings");
         
         propertydocRef.get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
+                
                 memberName.push(doc.data().member_name);
                
                 for(var i =0; i<memberName.length; i++)
@@ -62,7 +64,6 @@ function loadDetails()
             });
             
             var data = $("#member").val().split(",");
-            console.log(data);
             for(var i=0; i<data.length;i++)
             {
                 $("#showMember").append(data[i]+"<br>");
@@ -98,28 +99,43 @@ function Search()
 {
     $("#wait").css("display", "block");
     var inputemail = $("#InputEmail").val();
-
-    memberdocRef = db.collection("properties").doc(propertyID).collection("property_members");
+    //memberdocRef = db.collection("properties").doc(propertyID).collection("property_members");
+    memberdocRef = db.collection("users");
 
     memberdocRef.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
 
-            if(inputemail == doc.data().p_member_email)
+            // if(inputemail == doc.data().p_member_email)
+            // {
+            //     member_email = doc.data().p_member_email;
+            //     member_id = doc.data().p_member_uid;
+            //     member_name = doc.data().p_member_name;
+            //     $("#showblock").text(unitID);
+            //     $("#showemail").text(doc.data().p_member_email);
+            //     $("#assignUnit").show();
+            //     $("#wait").css("display", "none");
+            // }
+            // else
+            // {
+            //     $("#showblock").text("");
+            //     $("#showemail").text("");
+            //     $("#wait").css("display", "none");
+            // }
+            if(inputemail == doc.data().email)
             {
-                member_email = doc.data().p_member_email;
-                member_id = doc.data().p_member_uid;
-                member_name = doc.data().p_member_name;
+                member_email = doc.data().email;
+                member_id = doc.data().user_id;
+                member_name = doc.data().name;
                 $("#showblock").text(unitID);
-                $("#showemail").text(doc.data().p_member_email);
+                $("#showemail").text(member_email);
                 $("#assignUnit").show();
-                $("#wait").css("display", "none");
             }
-            else
+           /* else
             {
                 $("#showblock").text("");
                 $("#showemail").text("");
-                $("#wait").css("display", "none");
-            }
+            }*/
+            $("#wait").css("display", "none");
         });
     });
 }
@@ -127,24 +143,38 @@ function Search()
 function AssignUnit()
 {
     var propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(member_id);
-
-    propertydocRef.set({
-        member_name: member_name,
-        member_email: member_email,
-        //member_ContactNumber:memberContactNumber,
-        member_property:propertyName,
-        member_unit:unitID,
-        member_id:member_id
+    var error = 0;
+    var checkProperty = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
+    checkProperty.get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            if(doc.id == member_id)
+            {
+                alert("Data has inserted previously");
+                error = 1;
+            }
+        })
+        if(error == 0)
+        {
+            propertydocRef.set({
+                member_name: member_name,
+                member_email: member_email,
+                //member_ContactNumber:memberContactNumber,
+                member_property:propertyName,
+                member_unit:unitID,
+                member_id:member_id
+            })
+            .then(function() {
+                $("#searchModal").modal("toggle");
+                alert("The data has been saved successfully!");
+                loadDetails();
+            })
+            .catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });   
+        }
     })
-    .then(function() {
-        $("#searchModal").modal("toggle");
-        alert("The data has been saved successfully!");
-        loadDetails();
-    })
-    .catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-    });   
+   
 }
 
 function logout()
