@@ -281,18 +281,36 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
     {
             if(titlenoedit == "" && descriptionnoedit == "")
             {
-                FacilityRef.update({
-                    facility_booking_enabled : true,
-                    facility_description: description,
-                    facility_id:facilityID,
-                    facility_image_url: downloadURL,
-                    facility_time_description:timedescriptionnoedit,
-                    facility_title:title
-                })
-                .then(function() {
-                    facilityData();
-                    alert("The data has been updated successfully!");
-                })
+                if(timedescriptionnoedit == "")
+                {
+                    FacilityRef.update({
+                        facility_booking_enabled : true,
+                        facility_description: description,
+                        facility_id:facilityID,
+                        facility_image_url: downloadURL,
+                        facility_time_description:time_description,
+                        facility_title:title
+                    })
+                    .then(function() {
+                        facilityData();
+                        alert("The data has been updated successfully!");
+                    })
+                }
+                else
+                {
+                    FacilityRef.update({
+                        facility_booking_enabled : true,
+                        facility_description: description,
+                        facility_id:facilityID,
+                        facility_image_url: downloadURL,
+                        facility_time_description:timedescriptionnoedit,
+                        facility_title:title
+                    })
+                    .then(function() {
+                        facilityData();
+                        alert("The data has been updated successfully!");
+                    })
+                }
             }
             else if(titlenoedit == "" && timedescriptionnoedit == "")
             {
