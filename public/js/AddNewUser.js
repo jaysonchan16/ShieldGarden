@@ -121,23 +121,27 @@ function addnewuser()
                                 var errorCode = error.code;
                                 var errorMessage = error.message;
                                 alert(errorMessage);
+                                $("#wait").css("display", "none");
                             });
                     }).catch(function(){
                         var errorCode = error.code;
                         var errorMessage = error.message;
                         alert(errorMessage);
+                        $("#wait").css("display", "none");
                     });             
                 })
                 .catch(function(error) {
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     alert(errorMessage);
+                    $("#wait").css("display", "none");
                 });
             })
             .catch(function(error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 alert(errorMessage);
+                $("#wait").css("display", "none");
             });
         }
         
