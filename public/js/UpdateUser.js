@@ -138,7 +138,7 @@ function UpdateUser()
     var contactNum = $("#newcontact").val();
     var selectcontact = $("#contactSelect option:selected").val();
     var memberContactNumber = selectcontact + contactNum;
-    console.log(memberID);
+
     if(memberName == "")
     {
         if(memberName == "" && memberEmail == "")
