@@ -116,7 +116,7 @@ function loadDetails()
                 $("#assignedunit").val(doc.data().member_unit);
                 $("#newusername").val(doc.data().member_name);
                 $("#newemail").val(doc.data().member_email);
-                $("#newcontact").val(doc.data().member_number);
+                $("#newcontactdiv").val(doc.data().member_number);
                 $("#member_name").text(doc.data().member_name);
                 $("#wait").css("display", "none");
             }
@@ -389,7 +389,7 @@ function UpdateProperty()
 //     $("#assignedunit").css("display","none");
     var assignedproperty = $("#assignedpropertydrop option:selected").val();
     var assignedunit = $("#assignedunitdrop option:selected").val();
-    console.log(assignedproperty);
+
     if(assignedproperty == "")
     {
         propertydocRef.update({
