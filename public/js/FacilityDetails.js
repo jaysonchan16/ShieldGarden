@@ -277,13 +277,10 @@ function logout()
 
 function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
 {
-    console.log("1");
     if(titlenoedit == "")
-        {
-            console.log("2");
+    {
             if(titlenoedit == "" && descriptionnoedit == "")
             {
-                console.log("3");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: description,
@@ -299,7 +296,6 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             }
             else if(titlenoedit == "" && timedescriptionnoedit == "")
             {
-                console.log("4");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: descriptionnoedit,

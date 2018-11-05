@@ -29,6 +29,7 @@ $(document).ready(function(){
         $("#newusername").prop('disabled', false);
         $("#newemail").prop('disabled', false);
         $("#newcontact").prop('disabled', false);
+        $("#contactSelect").prop('disabled', false);
         $("#userbutton").show();
         // $("#SaveUser").prop('disabled', false);
         // $("#CancelUser").prop('disabled', false);
@@ -66,6 +67,7 @@ $(document).ready(function(){
         $("#newusername").prop('disabled', true);
         $("#newemail").prop('disabled', true);
         $("#newcontact").prop('disabled', true);
+        $("#contactSelect").prop('disabled', true);
         $("#userbutton").hide();
         // $("#SaveUser").prop('disabled', true);
         // $("#CancelUser").prop('disabled', true);
@@ -136,7 +138,7 @@ function UpdateUser()
     var contactNum = $("#newcontact").val();
     var selectcontact = $("#contactSelect option:selected").val();
     var memberContactNumber = selectcontact + contactNum;
-    
+    console.log(memberID);
     if(memberName == "")
     {
         if(memberName == "" && memberEmail == "")
@@ -364,6 +366,7 @@ function UpdateUser()
             $("#newusername").prop('disabled', true);
             $("#newemail").prop('disabled', true);
             $("#newcontact").prop('disabled', true);
+            $("#contactSelect").prop('disabled', true);
             // $("#SaveUser").prop('disabled', true);
             // $("#CancelUser").prop('disabled', true);
             $("#userbutton").hide();

@@ -161,7 +161,7 @@ function AssignUnit()
                 //member_ContactNumber:memberContactNumber,
                 member_property:propertyName,
                 member_unit:unitID,
-                member_id:member_id
+                member_uid:member_id
             })
             .then(function() {
                 $("#searchModal").modal("toggle");
