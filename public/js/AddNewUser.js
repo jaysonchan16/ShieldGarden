@@ -77,27 +77,50 @@ function addnewuser()
     var userRef = db.collection("users");
     var error = 0;
 
-    userRef.get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            
-            if(memberName == doc.data().name)
-            {
-                alert("This name has been used!")
-                error = 1;
-                $("#wait").css("display", "none");
-                $("#Add").prop("disabled",false);
-            }
-            else if(memberEmail == doc.data().email)
-            {
-                error = 1;
-                $("#wait").css("display", "none");
-                $("#Add").prop("disabled",false);
-            }
-            else
-            {
-                error = 0;
-            }
-        });
+    if(memberName == "")
+    {
+        alert("The member name cannot be blank!");
+        error = 1;
+        $("#wait").css("display", "none");
+        $("#Add").prop("disabled",false);
+    }
+    else if(memberEmail == "")
+    {
+        alert("The member email cannot be blank!");
+        error = 1;
+        $("#wait").css("display", "none");
+        $("#Add").prop("disabled",false);
+    }
+    else if(contactNum == "")
+    {
+        alert("The member contact number cannot be blank!");
+        error = 1;
+        $("#wait").css("display", "none");
+        $("#Add").prop("disabled",false);
+    }
+    else
+    {
+        userRef.get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                
+                if(memberName == doc.data().name)
+                {
+                    alert("This name has been used!")
+                    error = 1;
+                    $("#wait").css("display", "none");
+                    $("#Add").prop("disabled",false);
+                }
+                else if(memberEmail == doc.data().email)
+                {
+                    error = 1;
+                    $("#wait").css("display", "none");
+                    $("#Add").prop("disabled",false);
+                }
+                else
+                {
+                    error = 0;
+                }
+            });
     
         if(error == 0)
         {    
@@ -181,7 +204,8 @@ function addnewuser()
             });
         }
         
-    });
+        });
+    }
 }
 
 function logout()

@@ -46,7 +46,7 @@ function loadDetails()
         
         sessionStorage.removeItem("propertyID");
         sessionStorage.removeItem("unitID");
-        sessionStorage.removeItem("findID");
+        sessionStorage.removeItem("findEmail");
 
         var userId = user.uid;
 

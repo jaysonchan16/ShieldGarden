@@ -147,7 +147,7 @@ function AssignUnit()
     var checkProperty = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
     var userRef = db.collection("users").doc(member_id);
     //update the property_members unit
-    console.log(updateuserID);
+   //console.log(updateuserID);
     var propertyMemberRef = db.collection("properties").doc(propertyID).collection("property_members").doc(updateuserID);
     var deleteID;
     var saveEmail;
