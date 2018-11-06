@@ -43,7 +43,7 @@ function property(propertyID)
     // hardcode and pass the property name to the AddNewUser page and UpdateUser page
     propertyName.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            $(".table tbody").append("<tr><td><img width='480' height='242' src='"+doc.data().notice_image_url+"'></td>"+
+            $(".table tbody").append("<tr><td><div class='thumbnail'><img class='portrait' src='"+doc.data().notice_image_url+"' alt='Image'/></div></td>"+
                                     "<td>"+doc.data().notice_title+"</td><td>"+doc.data().notice_description+"</td></tr>");
     });
     $("#AddNewNotice").prop("disabled",false);
