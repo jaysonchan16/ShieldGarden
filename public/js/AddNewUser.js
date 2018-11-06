@@ -131,7 +131,8 @@ function addnewuser()
                             p_member_name: memberName,
                             p_member_uid: uid,
                             p_member_unit_id:assignedUnit,
-                            p_member_number: memberContactNumber
+                            p_member_number: memberContactNumber,
+                            p_member_property:property
                         }).then(function(){
                             propertydocRef.add({
                                 member_name: memberName,
