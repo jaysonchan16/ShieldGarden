@@ -134,13 +134,22 @@
 
 #wait
 {
-  display:none;
-  width:69px;
-  height:89px;
-  position:absolute;
-  top:50%;
-  left:50%;
-  padding:2px;
+  /* display:none; */
+  /* width:69px;
+  height:89px; */
+  /* position:absolute; */
+  /* top:50%;
+  left:50%; */
+  /* padding:2px; */
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:999;
+  color:grey;
+  background: rgba(0,0,0,.5) url('img/spinner.gif');
+  width:100%;
+  height:100%;
+  background-position: center
 }
 
 .thumbnail {
@@ -162,4 +171,16 @@
 .thumbnail img.portrait {
   width: 100%;
   height: auto;
+}
+
+.moveposition
+{
+  margin-left: 50%;
+  margin-top: 20%;
+}
+
+#textColor
+{
+  color:white;
+  font-weight: bold;
 }
