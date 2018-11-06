@@ -108,7 +108,7 @@ function Search()
 //users collection
     memberdocRef.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-
+            console.log(doc.data());
             if(inputemail == doc.data().email)
             {
                 member_email = doc.data().email;
@@ -147,6 +147,7 @@ function AssignUnit()
     var checkProperty = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
     var userRef = db.collection("users").doc(member_id);
     //update the property_members unit
+    console.log(updateuserID);
     var propertyMemberRef = db.collection("properties").doc(propertyID).collection("property_members").doc(updateuserID);
     var deleteID;
     var saveEmail;
@@ -161,6 +162,7 @@ function AssignUnit()
             {
                 alert("Data has inserted previously");
                 error = 1;
+                $("#wait").css("display", "none");
             }
         })
         if(error == 0)
@@ -194,7 +196,9 @@ function AssignUnit()
                             }).then(function(){
                                 propertydocOldRef.doc(deleteID).delete().then(function() {
                                     alert("The member has changed the unit successfully");
+                                    $("#searchModal").modal("hide");
                                     $("#wait").css("display", "none");
+                                    loadDetails();
                                 }).catch(function(error) {
                                     alert("Cannot changed unit!");
                                     $("#wait").css("display", "none");
@@ -205,12 +209,14 @@ function AssignUnit()
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     alert("Cannot changed unit!");
+                    $("#searchModal").modal("hide");
                     $("#wait").css("display", "none");
                 });
             }).catch(function(error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 alert("Cannot changed unit!");
+                $("#searchModal").modal("hide");
                 $("#wait").css("display", "none");
             });
             // propertydocRef.set({

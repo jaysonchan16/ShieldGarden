@@ -184,3 +184,13 @@
   color:white;
   font-weight: bold;
 }
+
+#searchModal
+{
+  z-index: 888;
+}
+
+#deleteModal
+{
+  z-index: 888;
+}
