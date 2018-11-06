@@ -2,7 +2,7 @@ var db = firebase.firestore();
 var propertyID = sessionStorage.getItem("propertyID");
 var unitID = sessionStorage.getItem("unitID");
 var propertyName = sessionStorage.getItem("propertyName");
-var findID = sessionStorage.getItem("findID");
+var findEmail = sessionStorage.getItem("findEmail");
 var propertydocRef;
 var name;
 var email;
@@ -13,6 +13,7 @@ var currentproperty;
 var currentunit;
 var password;
 var memberID;
+var userEmail;
 
 $(document).ready(function(){
     loadDetails();
@@ -25,12 +26,17 @@ $(document).ready(function(){
         $("#newusername").val("");
         $("#newemail").val("");
         $("#newcontact").val("");
+        $("#newpassword").val("");
 
         $("#newusername").prop('disabled', false);
         $("#newemail").prop('disabled', false);
         $("#newcontact").prop('disabled', false);
         $("#contactSelect").prop('disabled', false);
+        $("#newpassword").prop('disabled',false);
         $("#userbutton").show();
+        $("#newcontactdiv").hide();
+        $("#displayPassword").show();
+        $("#countrySeparator").show();
         // $("#SaveUser").prop('disabled', false);
         // $("#CancelUser").prop('disabled', false);
     });
@@ -43,7 +49,6 @@ $(document).ready(function(){
         // $("#assignedunit").prop('disabled', false);
 
         $("#assignedpropertydrop").html("<option>"+propertyName+"</option><option>No Property</option>");
-        $("#assignedunitdrop").html("<option>"+unitID+"</option><option>No Unit</option><option>0</option>");
         // $("#SaveProperty").prop('disabled', false);
         // $("#CancelProperty").prop('disabled', false);
         $("#buttonProperty").show();
@@ -68,7 +73,11 @@ $(document).ready(function(){
         $("#newemail").prop('disabled', true);
         $("#newcontact").prop('disabled', true);
         $("#contactSelect").prop('disabled', true);
+        $("#newpassword").prop('disabled',true);
         $("#userbutton").hide();
+        $("#newcontactdiv").show();
+        $("#displayPassword").hide();
+        $("#countrySeparator").hide();
         // $("#SaveUser").prop('disabled', true);
         // $("#CancelUser").prop('disabled', true);
     });
@@ -95,37 +104,42 @@ function loadDetails()
         window.location = 'login.html';
         }
         $('#userprofile').html(user.email);
+        userEmail = user.email;
 
-        propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(findID);
+        var propertyName = db.collection("properties").doc(propertyID).collection("units");
 
-        propertydocRef.get().then(function(doc) {
-            if (doc.exists) {
-                name = doc.data().member_name;
-                email = doc.data().member_email;
-                contactNumber = doc.data().member_number;
+        propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
 
-                currentproperty = doc.data().member_property;
-                currentunit = doc.data().member_unit;
-                password = doc.data().member_password;
-                memberID = doc.data().member_uid;
-                // $("#assignedpropertydrop").html("<option>"+propertyName+"</option><option>No Property</option>");
-                // $("#assignedunitdrop").html("<option>"+unitID+"</option><option>No Unit</option>");
-                // $("#assignedpropertydrop").css("display","none");
-                // $("#assignedunitdrop").css("display","none");
-                $("#assignedproperty").val(doc.data().member_property);
-                $("#assignedunit").val(doc.data().member_unit);
-                $("#newusername").val(doc.data().member_name);
-                $("#newemail").val(doc.data().member_email);
-                $("#newcontactdiv").val(doc.data().member_number);
-                $("#member_name").text(doc.data().member_name);
-                $("#wait").css("display", "none");
-            }
-            else {
-                // doc.data() will be undefined in this case
-                alert("cannot find in database");
-            }
-        });
+        propertyName.get().then(function(querySnapshot){
+            querySnapshot.forEach(function(snap){
+                console.log(snap.id);
+                $("#assignedunitdrop").append("<option>"+snap.id+"</option>");
+            });
+
+            propertydocRef.get().then(function(querySnapshot){
+                querySnapshot.forEach(function(doc){
+                if(findEmail == doc.data().member_email)
+                {
+                    name = doc.data().member_name;
+                    email = doc.data().member_email;
+                    contactNumber = doc.data().member_number;
+
+                    currentproperty = doc.data().member_property;
+                    currentunit = doc.data().member_unit;
+                    password = doc.data().member_password;
+                    memberID = doc.data().member_uid;
+                    $("#assignedproperty").val(doc.data().member_property);
+                    $("#assignedunit").val(doc.data().member_unit);
+                    $("#newusername").val(doc.data().member_name);
+                    $("#newemail").val(doc.data().member_email);
+                    $("#newcontactdiv").val(doc.data().member_number);
+                    $("#member_name").text(doc.data().member_name);
+                }
+                    $("#wait").css("display", "none");
+            });
+       });
     });
+});
 }
 
 function UpdateUser()
@@ -138,246 +152,306 @@ function UpdateUser()
     var contactNum = $("#newcontact").val();
     var selectcontact = $("#contactSelect option:selected").val();
     var memberContactNumber = selectcontact + contactNum;
+    var memberPassword = $("#newpassword").val();
 
-    if(memberName == "")
-    {
-        if(memberName == "" && memberEmail == "")
-        {
-            propertydocRef.update({
-                member_name: name,
-                ////member_password:password,
-                member_email: email,
-                member_number:memberContactNumber,
-                member_property:propertyName,
-                member_unit:unitID,
-                member_uid:memberID
-            })
-            .then(function() {
-                alert("The data has been saved successfully!");
-            })
-        }
-        else if(memberName == "" && contactNum == "")
-        {   
-            propertydocRef.update({
-                member_name: name,
-                ////member_password:password,
-                member_email: memberEmail,
-                member_number:contactNumber,
-                member_property:propertyName,
-                member_unit:unitID,
-                member_uid:memberID
-            })
-            .then(function() {
-                alert("The data has been saved successfully!");
-            })
-        }
-        else if(memberEmail == "" && contactNum == "")
-        {
-            alert("Please fill in at least one field!");
-            // propertydocRef.update({
-            //     member_name: memberName,
-            //     //member_password:password,
-            //     member_email: email,
-            //     member_number:contactNumber,
-            //     member_property:propertyName,
-            //     member_unit:unitID,
-            //     member_uid:memberID
-            // })
-            // .then(function() {
-            //     alert("The data has been saved successfully!");
-            // })
-        }
-        else
-        {
-            propertydocRef.update({
-                member_name: name,
-                ////member_password:password,
-                member_email: memberEmail,
-                member_number:memberContactNumber,
-                member_property:propertyName,
-                member_unit:unitID,
-                member_uid:memberID
-            })
-            .then(function() {
-                alert("The data has been saved successfully!");
-            })
-        }
-    }
-    else if(memberEmail == "")
-    {
-        if(memberName == "" && memberEmail == "")
-        {
-            propertydocRef.update({
-                member_name: name,
-                ////member_password:password,
-                member_email: email,
-                member_number:memberContactNumber,
-                member_property:propertyName,
-                member_unit:unitID,
-                member_uid:memberID
-            })
-            .then(function() {
-                alert("The data has been saved successfully!");
-            })
-        }
-        else if(memberName == "" && contactNum == "")
-        {   
-            alert("Please fill in at least one field!");
-            // propertydocRef.update({
-            //     member_name: name,
-            //     //member_password:password,
-            //     member_email: memberEmail,
-            //     member_number:contactNumber,
-            //     member_property:propertyName,
-            //     member_unit:unitID,
-            //     member_uid:memberID
-            // })
-            // .then(function() {
-            //     alert("The data has been saved successfully!");
-            // })
-        }
-        else if(memberEmail == "" && contactNum == "")
-        {
-            propertydocRef.update({
-                member_name: memberName,
-                ////member_password:password,
-                member_email: email,
-                member_number:contactNumber,
-                member_property:propertyName,
-                member_unit:unitID,
-                member_uid:memberID
-            })
-            .then(function() {
-                alert("The data has been saved successfully!");
-            })
-        }
-        else
-        {
-            propertydocRef.update({
-                member_name: memberName,
-                ////member_password:password,
-                member_email: email,
-                member_number:memberContactNumber,
-                member_property:propertyName,
-                member_unit:unitID,
-                member_uid:memberID
-            })
-            .then(function() {
-                alert("The data has been saved successfully!");
-            })
-        }
-    }
-    else if(contactNum == "")
-    {
-        if(memberName == "" && memberEmail == "")
-        {
-            alert("Please fill in at least one field!");
-            // propertydocRef.update({
-            //     member_name: name,
-            //     //member_password:password,
-            //     member_email: email,
-            //     member_number:memberContactNumber,
-            //     member_property:propertyName,
-            //     member_unit:unitID,
-            //     member_uid:memberID
-            // })
-            // .then(function() {
-            //     alert("The data has been saved successfully!");
-            // })
-        }
-        else if(memberName == "" && contactNum == "")
-        {   
-            propertydocRef.update({
-                member_name: name,
-                //member_password:password,
-                member_email: memberEmail,
-                member_number:contactNumber,
-                member_property:propertyName,
-                member_unit:unitID,
-                member_uid:memberID
-            })
-            .then(function() {
-                alert("The data has been saved successfully!");
-            })
-        }
-        else if(memberEmail == "" && contactNum == "")
-        {
-            propertydocRef.update({
-                member_name: memberName,
-                //member_password:password,
-                member_email: email,
-                member_number:contactNumber,
-                member_property:propertyName,
-                member_unit:unitID,
-                member_uid:memberID
-            })
-            .then(function() {
-                alert("The data has been saved successfully!");
-            })
-        }
-        else
-        {
-            propertydocRef.update({
-                member_name: memberName,
-                //member_password:password,
-                member_email: memberEmail,
-                member_number:contactNumber,
-                member_property:propertyName,
-                member_unit:unitID,
-                member_uid:memberID
-            })
-            .then(function() {
-                alert("The data has been saved successfully!");
-            })
-        }
-    }
-    else if(memberName !="" && memberEmail != "" && contactNum != "")
-        {
-            propertydocRef.update({
-                member_name: memberName,
-                //member_password:password,
-                member_email: memberEmail,
-                member_number:memberContactNumber,
-                member_property:propertyName,
-                member_unit:unitID,
-                member_uid:memberID
-            })
-            .then(function() {
-                alert("The data has been saved successfully!");
-            })
-        }
-    else
-    {
-        alert("Please fill at least one of the field");
-    }
+    var checked = memberEmail.includes("@");
+    var userRef = db.collection("users");
+    var error = 0;
 
-    propertydocRef.get().then(function(doc) {
-        if (doc.exists) {
-            name = doc.data().member_name;
-            email = doc.data().member_email;
-            contactNumber = doc.data().member_number;
+    userRef.get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            
+            if(memberName == doc.data().name)
+            {
+                alert("This name has been used!")
+                error = 1;
+                $("#wait").css("display", "none");
+            }
+            else if(memberEmail == doc.data().email)
+            {
+                error = 1;
+                $("#wait").css("display", "none");
+            }
+            else if(!checked)
+            {
+                alert("Invalid Email!")
+                error = 1;
+                $("#wait").css("display", "none");
+            }
+            else
+            {
+                error = 0;
+            }
+        });
 
-            $("#assignedproperty").val(propertyName);
-            $("#assignedunit").val(unitID);
-            $("#newusername").val(doc.data().member_name);
-            $("#newemail").val(doc.data().member_email);
-            $("#newcontact").val(doc.data().member_number);
+    if(error == 0)
+    {    
+            if(memberName == "")
+            {
+                if(memberName == "" && memberEmail == "")
+                {
+                    if(contactNum == "")
+                    {
+                        alert("Please change at least one field!");
+                    }
+                    else
+                    {
+                        propertydocRef.update({
+                            member_name: name,
+                            ////member_password:password,
+                            member_email: email,
+                            member_number:memberContactNumber,
+                            member_property:propertyName,
+                            member_unit:unitID,
+                            member_uid:memberID
+                        })
+                        .then(function() {
+                            alert("The data has been saved successfully!");
+                            $("#wait").css("display", "none");
+                        })
+                    }
+                }
+                else if(memberName == "" && contactNum == "")
+                {   
+                    propertydocRef.update({
+                        member_name: name,
+                        ////member_password:password,
+                        member_email: memberEmail,
+                        member_number:contactNumber,
+                        member_property:propertyName,
+                        member_unit:unitID,
+                        member_uid:memberID
+                    })
+                    .then(function() {
+                        firebase.auth()
+                        .signInWithEmailAndPassword(userEmail, memberPassword)
+                        .then(function(user) {
+                            user.updateEmail(memberEmail)
+                            alert("The data has been saved successfully!");
+                            $("#wait").css("display", "none");
+                        })
+                    })
+                }
+                else if(memberEmail == "" && contactNum == "")
+                {
+                    alert("Please fill in at least one field!");
+                    $("#wait").css("display", "none");
+                    // propertydocRef.update({
+                    //     member_name: memberName,
+                    //     //member_password:password,
+                    //     member_email: email,
+                    //     member_number:contactNumber,
+                    //     member_property:propertyName,
+                    //     member_unit:unitID,
+                    //     member_uid:memberID
+                    // })
+                    // .then(function() {
+                    //     alert("The data has been saved successfully!");
+                    // })
+                }
+                else
+                {
+                    propertydocRef.update({
+                        member_name: name,
+                        ////member_password:password,
+                        member_email: memberEmail,
+                        member_number:memberContactNumber,
+                        member_property:propertyName,
+                        member_unit:unitID,
+                        member_uid:memberID
+                    })
+                    .then(function() {
+                        alert("The data has been saved successfully!");
+                        $("#wait").css("display", "none");
+                    })
+                }
+            }
+            else if(memberEmail == "")
+            {
+                if(memberName == "" && memberEmail == "")
+                {
+                    propertydocRef.update({
+                        member_name: name,
+                        ////member_password:password,
+                        member_email: email,
+                        member_number:memberContactNumber,
+                        member_property:propertyName,
+                        member_unit:unitID,
+                        member_uid:memberID
+                    })
+                    .then(function() {
+                        alert("The data has been saved successfully!");
+                        $("#wait").css("display", "none");
+                    })
+                }
+                else if(memberName == "" && contactNum == "")
+                {   
+                    alert("Please fill in at least one field!");
+                    $("#wait").css("display", "none");
+                    // propertydocRef.update({
+                    //     member_name: name,
+                    //     //member_password:password,
+                    //     member_email: memberEmail,
+                    //     member_number:contactNumber,
+                    //     member_property:propertyName,
+                    //     member_unit:unitID,
+                    //     member_uid:memberID
+                    // })
+                    // .then(function() {
+                    //     alert("The data has been saved successfully!");
+                    // })
+                }
+                else if(memberEmail == "" && contactNum == "")
+                {
+                    propertydocRef.update({
+                        member_name: memberName,
+                        ////member_password:password,
+                        member_email: email,
+                        member_number:contactNumber,
+                        member_property:propertyName,
+                        member_unit:unitID,
+                        member_uid:memberID
+                    })
+                    .then(function() {
+                        alert("The data has been saved successfully!");
+                        $("#wait").css("display", "none");
+                    })
+                }
+                else
+                {
+                    propertydocRef.update({
+                        member_name: memberName,
+                        ////member_password:password,
+                        member_email: email,
+                        member_number:memberContactNumber,
+                        member_property:propertyName,
+                        member_unit:unitID,
+                        member_uid:memberID
+                    })
+                    .then(function() {
+                        alert("The data has been saved successfully!");
+                        $("#wait").css("display", "none");
+                    })
+                }
+            }
+            else if(contactNum == "")
+            {
+                if(memberName == "" && memberEmail == "")
+                {
+                    alert("Please fill in at least one field!");
+                    $("#wait").css("display", "none");
+                    // propertydocRef.update({
+                    //     member_name: name,
+                    //     //member_password:password,
+                    //     member_email: email,
+                    //     member_number:memberContactNumber,
+                    //     member_property:propertyName,
+                    //     member_unit:unitID,
+                    //     member_uid:memberID
+                    // })
+                    // .then(function() {
+                    //     alert("The data has been saved successfully!");
+                    // })
+                }
+                else if(memberName == "" && contactNum == "")
+                {   
+                    propertydocRef.update({
+                        member_name: name,
+                        //member_password:password,
+                        member_email: memberEmail,
+                        member_number:contactNumber,
+                        member_property:propertyName,
+                        member_unit:unitID,
+                        member_uid:memberID
+                    })
+                    .then(function() {
+                        alert("The data has been saved successfully!");
+                        $("#wait").css("display", "none");
+                    })
+                }
+                else if(memberEmail == "" && contactNum == "")
+                {
+                    propertydocRef.update({
+                        member_name: memberName,
+                        //member_password:password,
+                        member_email: email,
+                        member_number:contactNumber,
+                        member_property:propertyName,
+                        member_unit:unitID,
+                        member_uid:memberID
+                    })
+                    .then(function() {
+                        alert("The data has been saved successfully!");
+                        $("#wait").css("display", "none");
+                    })
+                }
+                else
+                {
+                    propertydocRef.update({
+                        member_name: memberName,
+                        //member_password:password,
+                        member_email: memberEmail,
+                        member_number:contactNumber,
+                        member_property:propertyName,
+                        member_unit:unitID,
+                        member_uid:memberID
+                    })
+                    .then(function() {
+                        alert("The data has been saved successfully!");
+                        $("#wait").css("display", "none");
+                    })
+                }
+            }
+            else if(memberName !="" && memberEmail != "" && contactNum != "")
+                {
+                    propertydocRef.update({
+                        member_name: memberName,
+                        //member_password:password,
+                        member_email: memberEmail,
+                        member_number:memberContactNumber,
+                        member_property:propertyName,
+                        member_unit:unitID,
+                        member_uid:memberID
+                    })
+                    .then(function() {
+                        alert("The data has been saved successfully!");
+                        $("#wait").css("display", "none");
+                    })
+                }
+            else
+            {
+                alert("Please fill at least one of the field");
+            }
 
-            $("#newusername").prop('disabled', true);
-            $("#newemail").prop('disabled', true);
-            $("#newcontact").prop('disabled', true);
-            $("#contactSelect").prop('disabled', true);
-            // $("#SaveUser").prop('disabled', true);
-            // $("#CancelUser").prop('disabled', true);
-            $("#userbutton").hide();
-            $("#wait").css("display", "none");
-        }
-        else {
-            // doc.data() will be undefined in this case
-            Alert("No data!");
-            $("#wait").css("display", "none");
-        }
-    });
+            propertydocRef.get().then(function(doc) {
+                if (doc.exists) {
+                    name = doc.data().member_name;
+                    email = doc.data().member_email;
+                    contactNumber = doc.data().member_number;
+
+                    $("#assignedproperty").val(propertyName);
+                    $("#assignedunit").val(unitID);
+                    $("#newusername").val(doc.data().member_name);
+                    $("#newemail").val(doc.data().member_email);
+                    $("#newcontact").val(doc.data().member_number);
+
+                    $("#newusername").prop('disabled', true);
+                    $("#newemail").prop('disabled', true);
+                    $("#newcontact").prop('disabled', true);
+                    $("#contactSelect").prop('disabled', true);
+                    // $("#SaveUser").prop('disabled', true);
+                    // $("#CancelUser").prop('disabled', true);
+                    $("#userbutton").hide();
+                    $("#wait").css("display", "none");
+                }
+                else {
+                    // doc.data() will be undefined in this case
+                    Alert("No data!");
+                    $("#wait").css("display", "none");
+                }
+            });
+    }
+});
 }
 
 function UpdateProperty()

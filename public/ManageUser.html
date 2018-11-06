@@ -133,6 +133,7 @@
                               <th>Contact-Number</th>
                               <th>Property</th>
                               <th>Unit</th>
+                              <th>Delete Users</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -148,6 +149,26 @@
                   <div id="wait"><img src='img/spinner.gif' width="64" height="64" /><br>Loading..</div>
                 </div>
               </div>
+
+              <div id="deleteModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Delete User</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-md-12">
+                          Are you sure want to delete this user?
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="DeleteUser" style="margin-right: 160px;">Delete</button>
+                      </div>
+                    </div>
+                
+                  </div>
+                </div>
             </div>
           </div>
         </div>

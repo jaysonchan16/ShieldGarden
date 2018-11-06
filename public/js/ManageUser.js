@@ -2,10 +2,16 @@ var db = firebase.firestore();
 var propertyID;
 var unitID;
 var findID;
+var deleteID;
+var deleteName;
+var deleteEmail;
 
 $(document).ready(function(){
     loadDetails();
 
+    $("#DeleteUser").off('click').on('click', function(){
+        deleteUser();
+    });
     /*$("#Search").off('click').on('click', function(){
         var value = $("#SearchText").val();
         console.log(value);
@@ -63,6 +69,7 @@ function loadDetails()
 
 function property(propertyID,unitID)
 {
+    $(".table tbody").html("");
     var propertyName = db.collection("properties").doc(propertyID);
 
     // hardcode and pass the property name to the AddNewUser page and UpdateUser page
@@ -77,29 +84,71 @@ function property(propertyID,unitID)
         //console.log("Error getting document:", error);
         alert(error);
     });
-    
-    var propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
-
-    propertydocRef.get().then(function(querySnapshot){
+    var membersRef = db.collection("properties").doc(propertyID).collection("property_members");
+    membersRef.get().then(function(querySnapshot){
         querySnapshot.forEach(function(doc){
-            //console.log(doc.data());
-            console.log(doc.id)
-            $(".table tbody").append("<tr><td class='name findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().member_name+"</td><td>"+doc.data().member_email+
-                                          "</td><td>"+doc.data().member_number+"</td><td>"+doc.data().member_property+
-                                          "</td><td>"+doc.data().member_unit+"</td></tr>");
-        });
-        $("#AddNewUser").prop("disabled",false);
-        $("#wait").css("display", "none");
-    });
+            $(".table tbody").append("<tr><td class='name findButton' id='"+doc.data().p_member_email+"' onclick='details(this.id)'>"+doc.data().p_member_name+"</td><td>"+doc.data().p_member_email+
+                        "</td><td>"+doc.data().p_member_number+"</td><td>"+doc.data().p_member_property+
+                        "</td><td>"+doc.data().p_member_unit_id+"</td><td class='name findButton' id='"+doc.id+","+doc.data().member_name+","+
+                        doc.data().member_email+"' onclick='deletes(this.id)'>Delete</td></tr>");
+                });
+                $("#AddNewUser").prop("disabled",false);
+                $("#wait").css("display", "none");
+            });
 }
 
-function details(ID)
+function details(email)
 {
     //console.log(ID);
     sessionStorage.setItem("propertyID",propertyID);
     sessionStorage.setItem("unitID",unitID);
-    sessionStorage.setItem("findID",ID);
+    sessionStorage.setItem("findEmail",email);
     window.location = 'UpdateUser.html';
+}
+
+function deletes(ID)
+{
+    deleteID = ID.split(",")[0];
+    deleteName = ID.split(",")[1];
+    deleteEmail = ID.split(",")[2];
+    $("#deleteModal").modal();
+}
+
+function deleteUser()
+{
+    $("#wait").css("display", "block");
+    var propertyRef = db.collection("properties").doc(propertyID).collection("property_members");
+    var propertyDeleteID;
+    var memberDeleteID;
+
+    propertyRef.get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc){
+            if(deleteEmail == doc.data().p_member_email)
+            {
+                memberDeleteID = doc.data().p_member_uid;
+                propertyDeleteID = doc.id;
+            }
+        })
+
+        db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(deleteID).delete().then(function(){
+            db.collection("properties").doc(propertyID).collection("property_members").doc(propertyDeleteID).delete().then(function(){
+                db.collection("users").doc(memberDeleteID).delete().then(function(){
+                    alert("Delete Successfully");
+                    $("#deleteModal").modal("toggle");
+                    loadDetails();
+                }).catch(function(error) {
+                    alert("Error for removing!");
+                    $("#wait").css("display", "none");
+                });
+            }).catch(function(error) {
+                alert("Error for removing!");
+                $("#wait").css("display", "none");
+            });
+        }).catch(function(error) {
+            alert("Error for removing!");
+            $("#wait").css("display", "none");
+    });
+});    
 }
 
 function logout()

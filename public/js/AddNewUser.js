@@ -7,7 +7,7 @@ $(document).ready(function(){
     loadDetails();
     
     $("#assignedproperty").html("<option>"+propertyName+"</option><option>No Property</option>");
-    $("#assignedunit").html("<option>"+unitID+"</option><option>No Unit</option><option>0</option>");
+    // $("#assignedunit").html("<option>"+unitID+"</option><option>No Unit</option><option>0</option>");
     
     $("#Add").off('click').on('click', function(){
         addnewuser();
@@ -27,8 +27,37 @@ function loadDetails()
         window.location = 'login.html';
         }
         $('#userprofile').html(user.email);
-        $("#wait").css("display", "none");
+        var userId = user.uid;
+
+        var userdocRef = db.collection("users").doc(userId);
+
+        userdocRef.get().then(function(doc) {
+            if (doc.exists) {
+                propertyID = doc.data().property_id;
+                loadUnits(propertyID);
+            }
+            else {
+                alert("Cannot find this user in database");
+                // doc.data() will be undefined in this case
+                //console.log("No such document!");
+            }
+            
+        });
      });
+
+}
+
+function loadUnits(propertyID)
+{
+    var propertyName = db.collection("properties").doc(propertyID).collection("units");
+
+    propertyName.get().then(function(querySnapshot){
+        querySnapshot.forEach(function(doc){
+            $("#assignedunit").append("<option>"+doc.id+"</option>");
+        });
+        $("#wait").css("display", "none");
+    });
+  
 }
 
 function addnewuser()
@@ -37,12 +66,13 @@ function addnewuser()
     $("#wait").css("display", "block");
     var memberName = $("#newusername").val();
     var memberEmail = $("#newemail").val();
-    var contactNum = '+6' + $("#newcontact").val();
+    var contactNum =  $("#newcontact").val();
     var memberPassword = $("#newpassword").val();
     var contactSelect =$("#contactSelect option:selected").val();
+    var assignedUnit = $("#assignedunit option:selected").val();
     var memberContactNumber = contactSelect + contactNum;
 
-    var propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
+    var propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(assignedUnit).collection("unit_members");
     var propertyMemberRef = db.collection("properties").doc(propertyID).collection("property_members");
     var userRef = db.collection("users");
     var error = 0;
@@ -92,7 +122,7 @@ function addnewuser()
                     phone_model:null,
                     phone_number:memberContactNumber,
                     property_id:propertyID,
-                    unit_id:unitID,
+                    unit_id:assignedUnit,
                     user_id:uid
                 }).then(function()
                 {
@@ -100,7 +130,8 @@ function addnewuser()
                             p_member_email:memberEmail,
                             p_member_name: memberName,
                             p_member_uid: uid,
-                            p_member_unit_id:unit
+                            p_member_unit_id:assignedUnit,
+                            p_member_number: memberContactNumber
                         }).then(function(){
                             propertydocRef.add({
                                 member_name: memberName,
@@ -108,7 +139,7 @@ function addnewuser()
                                 member_email: memberEmail,
                                 member_number:memberContactNumber,
                                 member_property:property,
-                                member_unit:unit,
+                                member_unit:assignedUnit,
                                 member_uid:uid
                             })
                             .then(function() {
@@ -121,12 +152,14 @@ function addnewuser()
                                 var errorCode = error.code;
                                 var errorMessage = error.message;
                                 alert(errorMessage);
+                                $("#Add").prop("disabled",false);
                                 $("#wait").css("display", "none");
                             });
                     }).catch(function(){
                         var errorCode = error.code;
                         var errorMessage = error.message;
                         alert(errorMessage);
+                        $("#Add").prop("disabled",false);
                         $("#wait").css("display", "none");
                     });             
                 })
@@ -134,6 +167,7 @@ function addnewuser()
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     alert(errorMessage);
+                    $("#Add").prop("disabled",false);
                     $("#wait").css("display", "none");
                 });
             })
@@ -141,6 +175,7 @@ function addnewuser()
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 alert(errorMessage);
+                $("#Add").prop("disabled",false);
                 $("#wait").css("display", "none");
             });
         }
