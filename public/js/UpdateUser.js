@@ -274,15 +274,15 @@ function UpdateUser()
                                 "phone_number":contactNumber,
                                 "unit_id":unitID
                             }).then(function() {
-                                firebase.auth()
-                                .signInWithEmailAndPassword(findEmail, memberPassword)
-                                .then(function(user) {
-                                    user.updateEmail(memberEmail)
+                                // firebase.auth()
+                                // .signInWithEmailAndPassword(findEmail, memberPassword)
+                                // .then(function(user) {
+                                //     user.updateEmail(memberEmail)
                                     alert("The data has been saved successfully!");
                                     $("#wait").css("display", "none");
-                                }).catch(function(error) {
-                                    alert("Cannot update!");
-                                    $("#wait").css("display", "none");
+                                // }).catch(function(error) {
+                                //     alert("Cannot update!");
+                                //     $("#wait").css("display", "none");
                             }).catch(function(error) {
                                 alert("Cannot update!");
                                 $("#wait").css("display", "none");
@@ -295,7 +295,7 @@ function UpdateUser()
                         alert("Cannot update!");
                         $("#wait").css("display", "none");
                     });
-                    })
+                    // });
                 }
                 else if(memberEmail == "" && contactNum == "")
                 {
@@ -327,15 +327,15 @@ function UpdateUser()
                                     "phone_number":memberContactNumber,
                                     "unit_id":unitID
                                 }).then(function() {
-                                    firebase.auth()
-                                    .signInWithEmailAndPassword(findEmail, memberPassword)
-                                    .then(function(user) {
-                                        user.updateEmail(memberEmail)
+                                    // firebase.auth()
+                                    // .signInWithEmailAndPassword(findEmail, memberPassword)
+                                    // .then(function(user) {
+                                    //     user.updateEmail(memberEmail)
                                         alert("The data has been saved successfully!");
                                         $("#wait").css("display", "none");
-                                    }).catch(function(error) {
-                                        alert("Cannot update!");
-                                        $("#wait").css("display", "none");
+                                    // }).catch(function(error) {
+                                    //     alert("Cannot update!");
+                                    //     $("#wait").css("display", "none");
                                 }).catch(function(error) {
                                     alert("Cannot update!");
                                     $("#wait").css("display", "none");
@@ -347,7 +347,7 @@ function UpdateUser()
                         }).catch(function(error) {
                             alert("Cannot update!");
                             $("#wait").css("display", "none");
-                    });
+                    // });
                 });
                 }
             }
@@ -511,15 +511,15 @@ function UpdateUser()
                                 "phone_number":memberContactNumber,
                                 "unit_id":unitID
                             }).then(function() {
-                                firebase.auth()
-                                .signInWithEmailAndPassword(findEmail, memberPassword)
-                                .then(function(user) {
-                                    user.updateEmail(memberEmail)
+                                // firebase.auth()
+                                // .signInWithEmailAndPassword(findEmail, memberPassword)
+                                // .then(function(user) {
+                                //     user.updateEmail(memberEmail)
                                     alert("The data has been saved successfully!");
                                     $("#wait").css("display", "none");
-                                }).catch(function(error) {
-                                    alert("Cannot update!");
-                                    $("#wait").css("display", "none");
+                                // }).catch(function(error) {
+                                //     alert("Cannot update!");
+                                //     $("#wait").css("display", "none");
                             }).catch(function(error) {
                                 alert("Cannot update!");
                                 $("#wait").css("display", "none");
@@ -531,7 +531,7 @@ function UpdateUser()
                     }).catch(function(error) {
                         alert("Cannot update!");
                         $("#wait").css("display", "none");
-                });
+                // });
             });
         }
         else if(memberEmail == "" && contactNum == "")
@@ -599,15 +599,15 @@ function UpdateUser()
                         "phone_number":contactNumber,
                         "unit_id":unitID
                     }).then(function() {
-                        firebase.auth()
-                        .signInWithEmailAndPassword(findEmail, memberPassword)
-                        .then(function(user) {
-                            user.updateEmail(memberEmail)
+                        // firebase.auth()
+                        // .signInWithEmailAndPassword(findEmail, memberPassword)
+                        // .then(function(user) {
+                        //     user.updateEmail(memberEmail)
                             alert("The data has been saved successfully!");
                             $("#wait").css("display", "none");
-                        }).catch(function(error) {
-                            alert("Cannot update!");
-                            $("#wait").css("display", "none");
+                        // }).catch(function(error) {
+                        //     alert("Cannot update!");
+                        //     $("#wait").css("display", "none");
                     }).catch(function(error) {
                         alert("Cannot update!");
                         $("#wait").css("display", "none");
@@ -620,7 +620,7 @@ function UpdateUser()
                 alert("Cannot update!");
                 $("#wait").css("display", "none");
                 });
-            });
+            // });
         }
     }
     else if(memberName !="" && memberEmail != "" && contactNum != "")
@@ -648,15 +648,15 @@ function UpdateUser()
                         "phone_number":memberContactNumber,
                         "unit_id":unitID
                     }).then(function() {
-                        firebase.auth()
-                        .signInWithEmailAndPassword(findEmail, memberPassword)
-                        .then(function(user) {
-                            user.updateEmail(memberEmail)
+                        // firebase.auth()
+                        // .signInWithEmailAndPassword(findEmail, memberPassword)
+                        // .then(function(user) {
+                        //     user.updateEmail(memberEmail)
                             alert("The data has been saved successfully!");
                             $("#wait").css("display", "none");
-                        }).catch(function(error) {
-                            alert("Cannot update!");
-                            $("#wait").css("display", "none");
+                        // }).catch(function(error) {
+                        //     alert("Cannot update!");
+                        //     $("#wait").css("display", "none");
                     }).catch(function(error) {
                         alert("Cannot update!");
                         $("#wait").css("display", "none");
@@ -669,7 +669,7 @@ function UpdateUser()
                 alert("Cannot update!");
                 $("#wait").css("display", "none");
                 });
-            });
+            // });? 
         }
         else
         {
