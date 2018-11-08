@@ -39,43 +39,79 @@ function AddNewFacility()
     var timedescription = $("#timedescription").val();
 
     var propertydocRef = db.collection("properties").doc(propertyID).collection("facilities").doc();
-
-    var filename = selected_file.name;
-    var storageRef = firebase.storage().ref();
-    var FacilityRef = storageRef.child('properties/'+propertyID+'/facilities_media/'+filename);
-    var uploadTask = FacilityRef.put(selected_file);
-
-    //upload image step
-    uploadTask.on('state_changed',
+    var error = 0;
     
-    function(snapshot){
-        /*var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    if(name == "")
+    {
+        error = 1;
+        alert("Please fill up the name field!");
+        $("#wait").css("display", "none");
+        $("#Add").prop("disabled",false);
+    }
+    else if(description == "")
+    {
+        error = 1;
+        alert("Please fill up the description field!");
+        $("#wait").css("display", "none");
+        $("#Add").prop("disabled",false);
+    }
+    else if(timedescription == "")
+    {
+        error = 1;
+        alert("Please fill up the time description field!");
+        $("#wait").css("display", "none");
+        $("#Add").prop("disabled",false);
+    }
+    else if(selected_file == undefined)
+    {
+        error = 1;
+        alert("Please upload the picture!");
+        $("#wait").css("display", "none");
+        $("#Add").prop("disabled",false);
+    }
+    else
+    {
+        error = 0;
+    }
 
-        uploader.value= percentage;*/
+    if(error == 0)
+    {
+        var filename = selected_file.name;
+        var storageRef = firebase.storage().ref();
+        var FacilityRef = storageRef.child('properties/'+propertyID+'/facilities_media/'+filename);
+        var uploadTask = FacilityRef.put(selected_file);
+            //upload image step
+            uploadTask.on('state_changed',
+            
+            function(snapshot){
+                /*var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-    }, function(error) {
+                uploader.value= percentage;*/
 
-    }, function() {
-        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            //get the image download url and then when open the website can automatically load the image from firestore
-            console.log('File available at', downloadURL);
-          
-            propertydocRef.set({
-                    facility_booking_enabled : true,
-                    facility_description: description,
-                    facility_id:propertydocRef.id,
-                    facility_image_url: downloadURL,
-                    facility_time_description:timedescription,
-                    facility_title:name
-                    //facility_jpg_name:uploadTask.snapshot.metadata.name
-            }).then(function() {
-                var ID = propertydocRef.id;  //when create a new document it will automatically generated new id and then apply the generate id into the facility_id
-                alert("Adding the new facility successfully!");
-                $("#Add").prop("disabled",false);
-                $("#wait").css("display", "none");
-            })
-    });
-});
+            }, function(error) {
+
+            }, function() {
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    //get the image download url and then when open the website can automatically load the image from firestore
+                    console.log('File available at', downloadURL);
+                
+                    propertydocRef.set({
+                            facility_booking_enabled : true,
+                            facility_description: description,
+                            facility_id:propertydocRef.id,
+                            facility_image_url: downloadURL,
+                            facility_time_description:timedescription,
+                            facility_title:name
+                            //facility_jpg_name:uploadTask.snapshot.metadata.name
+                    }).then(function() {
+                        var ID = propertydocRef.id;  //when create a new document it will automatically generated new id and then apply the generate id into the facility_id
+                        alert("Adding the new facility successfully!");
+                        $("#Add").prop("disabled",false);
+                        $("#wait").css("display", "none");
+                    })
+            });
+        });
+    }
      
     
 }

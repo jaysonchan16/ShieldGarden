@@ -35,39 +35,72 @@ function addnewnotice()
     var description = $("#description").val();
 
     var propertydocRef = db.collection("properties").doc(propertyID).collection("notices");
-    var filename = selected_file.name;
-    var storageRef = firebase.storage().ref();
-    //put inside the folder
-    var NoticesRef = storageRef.child('properties/'+propertyID+'/notices_media/'+filename)
-    var uploadTask = NoticesRef.put(selected_file);
+   
+    var error = 0;
 
-        //upload image step
-        uploadTask.on('state_changed',
-    
-        function(snapshot){
-            /*var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    
-            uploader.value= percentage;*/
-    
-        }, function(error) {
-    
-        }, function() {
-            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                //get the image download url and then when open the website can automatically load the image from firestore
-                console.log('File available at', downloadURL);
-              
-                propertydocRef.add({
-                    notice_description: description,
-                    notice_image_url: downloadURL,
-                    notice_title:title
-                }).then(function() {
-                     alert("Adding the new notices successfully!");
-                     $("#Add").prop("disabled",false);
-                     $("#wait").css("display", "none");
-                })
+    if(title == "")
+    {   
+        error = 1;
+        alert("Please fill up the title field!");
+        $("#wait").css("display", "none");
+        $("#Add").prop("disabled",false);
+    }
+    else if(description == "")
+    {
+        error = 1;
+        alert("Please fill up the description field!");
+        $("#wait").css("display", "none");
+        $("#Add").prop("disabled",false);
+    }
+    else if(selected_file == undefined)
+    {
+        error = 1;
+        alert("Please upload the picture!");
+        $("#wait").css("display", "none");
+        $("#Add").prop("disabled",false);
+    }
+    else
+    {
+        error = 0;
+    }
+
+    if(error == 0)
+    {
+            var filename = selected_file.name;
+            var storageRef = firebase.storage().ref();
+            //put inside the folder
+            var NoticesRef = storageRef.child('properties/'+propertyID+'/notices_media/'+filename)
+            var uploadTask = NoticesRef.put(selected_file);
+            //upload image step
+            uploadTask.on('state_changed',
+        
+            function(snapshot){
+                /*var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        
+                uploader.value= percentage;*/
+        
+            }, function(error) {
+        
+            }, function() {
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    //get the image download url and then when open the website can automatically load the image from firestore
+                    console.log('File available at', downloadURL);
+                
+                    propertydocRef.add({
+                        notice_description: description,
+                        notice_image_url: downloadURL,
+                        notice_title:title
+                    }).then(function() {
+                        alert("Adding the new notices successfully!");
+                        $("#wait").css("display", "none");
+                        window.location = 'Notices.html';
+                        // $("#Add").prop("disabled",false);
+                        // $("#wait").css("display", "none");
+                    })
+            });
         });
-    });
-         
+    }
+    
 }
 
 function readURL(input) {
