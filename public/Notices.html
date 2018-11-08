@@ -122,6 +122,8 @@
                               <th>Image</th>
                               <th>Title</th>
                               <th>Description</th>
+                              <th>Date Posted</th>
+                              <th>Delete Notices</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -134,6 +136,44 @@
                             </div>
                       </div>
                   </div>
+                </div>
+              </div>
+              <div id="deleteModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Delete Notice</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="col-md-12">
+                        Are you sure want to delete this notice?
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-success" id="DeleteNotice" style="margin-right: 160px;">Delete</button>
+                    </div>
+                  </div>
+              
+                </div>
+              </div>
+
+              <div id="messageModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" id="close">&times;</button>
+                      <h4 class="modal-title">Manage Notice</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="col-md-12">
+                        <span id="message"></span>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                  </div>
+              
                 </div>
               </div>
               <div id="wait"><img class="moveposition" src='img/spinner.gif' width="64" height="64" /><br><span class="moveposition" id="textColor">Loading..</span></div>

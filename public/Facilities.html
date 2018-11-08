@@ -175,6 +175,7 @@
                               <th>Image</th>
                               <th>Name</th>
                               <th>Description</th>
+                              <th>Delete Facilities</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -188,6 +189,25 @@
                       </div>
                   </div>
                   <div id="wait"><img class="moveposition" src='img/spinner.gif' width="64" height="64" /><br><span class="moveposition" id="textColor">Loading..</span></div>
+                </div>
+              </div>
+              <div id="deleteModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Delete Facility</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="col-md-12">
+                        Are you sure want to delete this facility?
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-success" id="DeleteFacility" style="margin-right: 160px;">Delete</button>
+                    </div>
+                  </div>
+              
                 </div>
               </div>
             </div>

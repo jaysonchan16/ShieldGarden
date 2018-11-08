@@ -13,6 +13,10 @@ $(document).ready(function(){
     $("#mainPage").off('click').on('click', function(){
         window.location = 'Notices.html';
     }); 
+
+    $("#closeModal").off('click').on('click', function(){
+        window.location = 'Notices.html';
+    }); 
 });
 
 function loadDetails()
@@ -33,7 +37,7 @@ function addnewnotice()
     $("#wait").css("display", "block");
     var title = $("#title").val();
     var description = $("#description").val();
-
+    var today = new Date();
     var propertydocRef = db.collection("properties").doc(propertyID).collection("notices");
    
     var error = 0;
@@ -41,21 +45,22 @@ function addnewnotice()
     if(title == "")
     {   
         error = 1;
-        alert("Please fill up the title field!");
+        $("#message").text("Please fill up the title field");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
+        $("#messageModal").modal();
     }
     else if(description == "")
     {
         error = 1;
-        alert("Please fill up the description field!");
+        $("#message").text("Please fill up the description field");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
     }
     else if(selected_file == undefined)
     {
         error = 1;
-        alert("Please upload the picture!");
+        $("#message").text("Please upload the picture!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
     }
@@ -89,11 +94,12 @@ function addnewnotice()
                     propertydocRef.add({
                         notice_description: description,
                         notice_image_url: downloadURL,
-                        notice_title:title
+                        notice_title:title,
+                        notice_date_posted:today
                     }).then(function() {
-                        alert("Adding the new notices successfully!");
+                        $("#message").text("Successfully added notice.");
+                        $("#messageModal").modal();
                         $("#wait").css("display", "none");
-                        window.location = 'Notices.html';
                         // $("#Add").prop("disabled",false);
                         // $("#wait").css("display", "none");
                     })
