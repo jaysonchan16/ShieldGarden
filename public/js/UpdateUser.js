@@ -17,7 +17,6 @@ var userEmail;
 var memberRef;
 var propertyMemberID;
 var propertydocRefID;
-var authentication;
 
 $(document).ready(function(){
     loadDetails();
@@ -28,12 +27,13 @@ $(document).ready(function(){
 
     $("#EditUser").off('click').on('click', function(){
         $("#newusername").val("");
-        $("#newemail").val("");
+        $("#emaildiv").css("display","none");
+       // $("#newemail").val("");
         $("#newcontact").val("");
         $("#newpassword").val("");
 
         $("#newusername").prop('disabled', false);
-        $("#newemail").prop('disabled', false);
+       // $("#newemail").prop('disabled', false);
         $("#newcontact").prop('disabled', false);
         $("#contactSelect").prop('disabled', false);
         $("#newpassword").prop('disabled',false);
@@ -109,7 +109,6 @@ function loadDetails()
         }
         $('#userprofile').html(user.email);
         userEmail = user.email;
-        authentication = user;
         var propertyName = db.collection("properties").doc(propertyID).collection("units");
 
         propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
@@ -120,7 +119,6 @@ function loadDetails()
             querySnapshot.forEach(function(query){
                 propertyMemberID = query.id;
             });
-           console.log(propertyMemberID);
                 propertyName.get().then(function(querySnapshot){
                     querySnapshot.forEach(function(snap){
                         $("#assignedunitdrop").append("<option>"+snap.id+"</option>");
@@ -128,6 +126,7 @@ function loadDetails()
 
                     propertydocRef.get().then(function(querySnapshot){
                         querySnapshot.forEach(function(doc){
+
                         if(findEmail == doc.data().member_email)
                         {
                             propertydocRefID = doc.id;
@@ -234,17 +233,49 @@ function UpdateUser()
                                     "unit_id":unitID
                                 }).then(function() {
                                     alert("The data has been saved successfully!");
+                                    $("#emaildiv").css("display","block");
+                                    $("#newusername").prop('disabled', true);
+                                    $("#emaildiv").css("display","block");
+                                    $("#newcontactdiv").prop('disabled', true);
+                                    $("#contactSelect").prop('disabled', true);
+                                    $("#userbutton").hide();
+                                    $("#newcontactdiv").show();
+                                    $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
                                 }).catch(function(error) {
                                     alert("Cannot update!");
+                                    $("#emaildiv").css("display","block");
+                                    $("#newusername").prop('disabled', true);
+                                    $("#emaildiv").css("display","block");
+                                    $("#newcontactdiv").prop('disabled', true);
+                                    $("#contactSelect").prop('disabled', true);
+                                    $("#userbutton").hide();
+                                    $("#newcontactdiv").show();
+                                    $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
                                 });
                             }).catch(function(error) {
                                 alert("Cannot update!");
+                                $("#emaildiv").css("display","block");
+                                $("#newusername").prop('disabled', true);
+                                $("#emaildiv").css("display","block");
+                                $("#newcontactdiv").prop('disabled', true);
+                                $("#contactSelect").prop('disabled', true);
+                                $("#userbutton").hide();
+                                $("#newcontactdiv").show();
+                                $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                             });
                         }).catch(function(error) {
                             alert("Cannot update!");
+                            $("#emaildiv").css("display","block");
+                            $("#newusername").prop('disabled', true);
+                            $("#emaildiv").css("display","block");
+                            $("#newcontactdiv").prop('disabled', true);
+                            $("#contactSelect").prop('disabled', true);
+                            $("#userbutton").hide();
+                            $("#newcontactdiv").show();
+                            $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
                         });
                     }
@@ -279,20 +310,52 @@ function UpdateUser()
                                 // .then(function(user) {
                                 //     user.updateEmail(memberEmail)
                                     alert("The data has been saved successfully!");
+                                    $("#emaildiv").css("display","block");
+                                    $("#newusername").prop('disabled', true);
+                                    $("#emaildiv").css("display","block");
+                                    $("#newcontactdiv").prop('disabled', true);
+                                    $("#contactSelect").prop('disabled', true);
+                                    $("#userbutton").hide();
+                                    $("#newcontactdiv").show();
+                                    $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
                                 // }).catch(function(error) {
                                 //     alert("Cannot update!");
                                 //     $("#wait").css("display", "none");
                             }).catch(function(error) {
                                 alert("Cannot update!");
+                                $("#emaildiv").css("display","block");
+                                $("#newusername").prop('disabled', true);
+                                $("#emaildiv").css("display","block");
+                                $("#newcontactdiv").prop('disabled', true);
+                                $("#contactSelect").prop('disabled', true);
+                                $("#userbutton").hide();
+                                $("#newcontactdiv").show();
+                                $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                             });
                         }).catch(function(error) {
                             alert("Cannot update!");
+                            $("#emaildiv").css("display","block");
+                            $("#newusername").prop('disabled', true);
+                            $("#emaildiv").css("display","block");
+                            $("#newcontactdiv").prop('disabled', true);
+                            $("#contactSelect").prop('disabled', true);
+                            $("#userbutton").hide();
+                            $("#newcontactdiv").show();
+                            $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
                         });
                     }).catch(function(error) {
                         alert("Cannot update!");
+                        $("#emaildiv").css("display","block");
+                        $("#newusername").prop('disabled', true);
+                        $("#emaildiv").css("display","block");
+                        $("#newcontactdiv").prop('disabled', true);
+                        $("#contactSelect").prop('disabled', true);
+                        $("#userbutton").hide();
+                        $("#newcontactdiv").show();
+                        $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                     });
                     // });
@@ -300,6 +363,14 @@ function UpdateUser()
                 else if(memberEmail == "" && contactNum == "")
                 {
                     alert("Please fill in at least one field!");
+                    $("#emaildiv").css("display","block");
+                    $("#newusername").prop('disabled', true);
+                    $("#emaildiv").css("display","block");
+                    $("#newcontactdiv").prop('disabled', true);
+                    $("#contactSelect").prop('disabled', true);
+                    $("#userbutton").hide();
+                    $("#newcontactdiv").show();
+                    $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
                 }
                 else
@@ -332,20 +403,52 @@ function UpdateUser()
                                     // .then(function(user) {
                                     //     user.updateEmail(memberEmail)
                                         alert("The data has been saved successfully!");
+                                        $("#emaildiv").css("display","block");
+                                        $("#newusername").prop('disabled', true);
+                                        $("#emaildiv").css("display","block");
+                                        $("#newcontactdiv").prop('disabled', true);
+                                        $("#contactSelect").prop('disabled', true);
+                                        $("#userbutton").hide();
+                                        $("#newcontactdiv").show();
+                                        $("#countrySeparator").hide();
                                         $("#wait").css("display", "none");
                                     // }).catch(function(error) {
                                     //     alert("Cannot update!");
                                     //     $("#wait").css("display", "none");
                                 }).catch(function(error) {
                                     alert("Cannot update!");
+                                    $("#emaildiv").css("display","block");
+                                    $("#newusername").prop('disabled', true);
+                                    $("#emaildiv").css("display","block");
+                                    $("#newcontactdiv").prop('disabled', true);
+                                    $("#contactSelect").prop('disabled', true);
+                                    $("#userbutton").hide();
+                                    $("#newcontactdiv").show();
+                                    $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
                                 });
                             }).catch(function(error) {
                                 alert("Cannot update!");
+                                $("#emaildiv").css("display","block");
+                                $("#newusername").prop('disabled', true);
+                                $("#emaildiv").css("display","block");
+                                $("#newcontactdiv").prop('disabled', true);
+                                $("#contactSelect").prop('disabled', true);
+                                $("#userbutton").hide();
+                                $("#newcontactdiv").show();
+                                $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                             });
                         }).catch(function(error) {
                             alert("Cannot update!");
+                            $("#emaildiv").css("display","block");
+                            $("#newusername").prop('disabled', true);
+                            $("#emaildiv").css("display","block");
+                            $("#newcontactdiv").prop('disabled', true);
+                            $("#contactSelect").prop('disabled', true);
+                            $("#userbutton").hide();
+                            $("#newcontactdiv").show();
+                            $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
                     // });
                 });
@@ -379,23 +482,63 @@ function UpdateUser()
                                 "unit_id":unitID
                             }).then(function() {
                                 alert("The data has been saved successfully!");
+                                $("#emaildiv").css("display","block");
+                                $("#newusername").prop('disabled', true);
+                                $("#emaildiv").css("display","block");
+                                $("#newcontactdiv").prop('disabled', true);
+                                $("#contactSelect").prop('disabled', true);
+                                $("#userbutton").hide();
+                                $("#newcontactdiv").show();
+                                $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                             }).catch(function(error) {
                                 alert("Cannot update!");
+                                $("#emaildiv").css("display","block");
+                                $("#newusername").prop('disabled', true);
+                                $("#emaildiv").css("display","block");
+                                $("#newcontactdiv").prop('disabled', true);
+                                $("#contactSelect").prop('disabled', true);
+                                $("#userbutton").hide();
+                                $("#newcontactdiv").show();
+                                $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                             });
                         }).catch(function(error) {
                             alert("Cannot update!");
+                            $("#emaildiv").css("display","block");
+                            $("#newusername").prop('disabled', true);
+                            $("#emaildiv").css("display","block");
+                            $("#newcontactdiv").prop('disabled', true);
+                            $("#contactSelect").prop('disabled', true);
+                            $("#userbutton").hide();
+                            $("#newcontactdiv").show();
+                            $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
                         });
                     }).catch(function(error) {
                         alert("Cannot update!");
+                        $("#emaildiv").css("display","block");
+                        $("#newusername").prop('disabled', true);
+                        $("#emaildiv").css("display","block");
+                        $("#newcontactdiv").prop('disabled', true);
+                        $("#contactSelect").prop('disabled', true);
+                        $("#userbutton").hide();
+                        $("#newcontactdiv").show();
+                        $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                     });
                 }
                 else if(memberName == "" && contactNum == "")
                 {   
                     alert("Please fill in at least one field!");
+                    $("#emaildiv").css("display","block");
+                    $("#newusername").prop('disabled', true);
+                    $("#emaildiv").css("display","block");
+                    $("#newcontactdiv").prop('disabled', true);
+                    $("#contactSelect").prop('disabled', true);
+                    $("#userbutton").hide();
+                    $("#newcontactdiv").show();
+                    $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
                 }
                 else if(memberEmail == "" && contactNum == "")
@@ -424,17 +567,49 @@ function UpdateUser()
                                 "unit_id":unitID
                             }).then(function() {
                                 alert("The data has been saved successfully!");
+                                $("#emaildiv").css("display","block");
+                                $("#newusername").prop('disabled', true);
+                                $("#emaildiv").css("display","block");
+                                $("#newcontactdiv").prop('disabled', true);
+                                $("#contactSelect").prop('disabled', true);
+                                $("#userbutton").hide();
+                                $("#newcontactdiv").show();
+                                $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                             }).catch(function(error) {
                                 alert("Cannot update!");
+                                $("#emaildiv").css("display","block");
+                                $("#newusername").prop('disabled', true);
+                                $("#emaildiv").css("display","block");
+                                $("#newcontactdiv").prop('disabled', true);
+                                $("#contactSelect").prop('disabled', true);
+                                $("#userbutton").hide();
+                                $("#newcontactdiv").show();
+                                $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                             });
                         }).catch(function(error) {
                             alert("Cannot update!");
+                            $("#emaildiv").css("display","block");
+                            $("#newusername").prop('disabled', true);
+                            $("#emaildiv").css("display","block");
+                            $("#newcontactdiv").prop('disabled', true);
+                            $("#contactSelect").prop('disabled', true);
+                            $("#userbutton").hide();
+                            $("#newcontactdiv").show();
+                            $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
                         });
                     }).catch(function(error) {
                         alert("Cannot update!");
+                        $("#emaildiv").css("display","block");
+                        $("#newusername").prop('disabled', true);
+                        $("#emaildiv").css("display","block");
+                        $("#newcontactdiv").prop('disabled', true);
+                        $("#contactSelect").prop('disabled', true);
+                        $("#userbutton").hide();
+                        $("#newcontactdiv").show();
+                        $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                     });
                 }
@@ -464,17 +639,49 @@ function UpdateUser()
                                 "unit_id":unitID
                             }).then(function() {
                                 alert("The data has been saved successfully!");
+                                $("#emaildiv").css("display","block");
+                                $("#newusername").prop('disabled', true);
+                                $("#emaildiv").css("display","block");
+                                $("#newcontactdiv").prop('disabled', true);
+                                $("#contactSelect").prop('disabled', true);
+                                $("#userbutton").hide();
+                                $("#newcontactdiv").show();
+                                $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                             }).catch(function(error) {
                                 alert("Cannot update!");
+                                $("#emaildiv").css("display","block");
+                                $("#newusername").prop('disabled', true);
+                                $("#emaildiv").css("display","block");
+                                $("#newcontactdiv").prop('disabled', true);
+                                $("#contactSelect").prop('disabled', true);
+                                $("#userbutton").hide();
+                                $("#newcontactdiv").show();
+                                $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                             });
                         }).catch(function(error) {
                             alert("Cannot update!");
+                            $("#emaildiv").css("display","block");
+                            $("#newusername").prop('disabled', true);
+                            $("#emaildiv").css("display","block");
+                            $("#newcontactdiv").prop('disabled', true);
+                            $("#contactSelect").prop('disabled', true);
+                            $("#userbutton").hide();
+                            $("#newcontactdiv").show();
+                            $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
                         });
                     }).catch(function(error) {
                         alert("Cannot update!");
+                        $("#emaildiv").css("display","block");
+                        $("#newusername").prop('disabled', true);
+                        $("#emaildiv").css("display","block");
+                        $("#newcontactdiv").prop('disabled', true);
+                        $("#contactSelect").prop('disabled', true);
+                        $("#userbutton").hide();
+                        $("#newcontactdiv").show();
+                        $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                     });
                 }
@@ -484,6 +691,7 @@ function UpdateUser()
                 if(memberName == "" && memberEmail == "")
                 {
                     alert("Please fill in at least one field!");
+                    $("#emaildiv").css("display","block");
                     $("#wait").css("display", "none");
                 }
                 else if(memberName == "" && contactNum == "")
@@ -516,20 +724,52 @@ function UpdateUser()
                                 // .then(function(user) {
                                 //     user.updateEmail(memberEmail)
                                     alert("The data has been saved successfully!");
+                                    $("#emaildiv").css("display","block");
+                                    $("#newusername").prop('disabled', true);
+                                    $("#emaildiv").css("display","block");
+                                    $("#newcontactdiv").prop('disabled', true);
+                                    $("#contactSelect").prop('disabled', true);
+                                    $("#userbutton").hide();
+                                    $("#newcontactdiv").show();
+                                    $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
                                 // }).catch(function(error) {
                                 //     alert("Cannot update!");
                                 //     $("#wait").css("display", "none");
                             }).catch(function(error) {
                                 alert("Cannot update!");
+                                $("#emaildiv").css("display","block");
+                                $("#newusername").prop('disabled', true);
+                                $("#emaildiv").css("display","block");
+                                $("#newcontactdiv").prop('disabled', true);
+                                $("#contactSelect").prop('disabled', true);
+                                $("#userbutton").hide();
+                                $("#newcontactdiv").show();
+                                $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                             });
                         }).catch(function(error) {
                             alert("Cannot update!");
+                            $("#emaildiv").css("display","block");
+                            $("#newusername").prop('disabled', true);
+                            $("#emaildiv").css("display","block");
+                            $("#newcontactdiv").prop('disabled', true);
+                            $("#contactSelect").prop('disabled', true);
+                            $("#userbutton").hide();
+                            $("#newcontactdiv").show();
+                            $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
                         });
                     }).catch(function(error) {
                         alert("Cannot update!");
+                        $("#emaildiv").css("display","block");
+                        $("#newusername").prop('disabled', true);
+                        $("#emaildiv").css("display","block");
+                        $("#newcontactdiv").prop('disabled', true);
+                        $("#contactSelect").prop('disabled', true);
+                        $("#userbutton").hide();
+                        $("#newcontactdiv").show();
+                        $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                 // });
             });
@@ -560,17 +800,47 @@ function UpdateUser()
                         "unit_id":unitID
                     }).then(function() {
                         alert("The data has been saved successfully!");
+                        $("#emaildiv").css("display","block");
+                        $("#newusername").prop('disabled', true);
+                        $("#emaildiv").css("display","block");
+                        $("#newcontactdiv").prop('disabled', true);
+                        $("#contactSelect").prop('disabled', true);
+                        $("#userbutton").hide();
+                        $("#newcontactdiv").show();
+                        $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                     }).catch(function(error) {
                         alert("Cannot update!");
+                        $("#emaildiv").css("display","block");
+                        $("#newusername").prop('disabled', true);
+                        $("#emaildiv").css("display","block");
+                        $("#newcontactdiv").prop('disabled', true);
+                        $("#contactSelect").prop('disabled', true);
+                        $("#userbutton").hide();
+                        $("#newcontactdiv").show();
+                        $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                     });
                 }).catch(function(error) {
                     alert("Cannot update!");
+                    $("#newusername").prop('disabled', true);
+                    $("#emaildiv").css("display","block");
+                    $("#newcontactdiv").prop('disabled', true);
+                    $("#contactSelect").prop('disabled', true);
+                    $("#userbutton").hide();
+                    $("#newcontactdiv").show();
+                    $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
                 });
             }).catch(function(error) {
                 alert("Cannot update!");
+                $("#newusername").prop('disabled', true);
+                $("#emaildiv").css("display","block");
+                $("#newcontactdiv").prop('disabled', true);
+                $("#contactSelect").prop('disabled', true);
+                $("#userbutton").hide();
+                $("#newcontactdiv").show();
+                $("#countrySeparator").hide();
                 $("#wait").css("display", "none");
             });
         }
@@ -604,20 +874,52 @@ function UpdateUser()
                         // .then(function(user) {
                         //     user.updateEmail(memberEmail)
                             alert("The data has been saved successfully!");
+                            $("#emaildiv").css("display","block");
+                            $("#newusername").prop('disabled', true);
+                            $("#emaildiv").css("display","block");
+                            $("#newcontactdiv").prop('disabled', true);
+                            $("#contactSelect").prop('disabled', true);
+                            $("#userbutton").hide();
+                            $("#newcontactdiv").show();
+                            $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
                         // }).catch(function(error) {
                         //     alert("Cannot update!");
                         //     $("#wait").css("display", "none");
                     }).catch(function(error) {
                         alert("Cannot update!");
+                        $("#emaildiv").css("display","block");
+                        $("#newusername").prop('disabled', true);
+                        $("#emaildiv").css("display","block");
+                        $("#newcontactdiv").prop('disabled', true);
+                        $("#contactSelect").prop('disabled', true);
+                        $("#userbutton").hide();
+                        $("#newcontactdiv").show();
+                        $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                     });
                 }).catch(function(error) {
                     alert("Cannot update!");
+                    $("#emaildiv").css("display","block");
+                    $("#newusername").prop('disabled', true);
+                    $("#emaildiv").css("display","block");
+                    $("#newcontactdiv").prop('disabled', true);
+                    $("#contactSelect").prop('disabled', true);
+                    $("#userbutton").hide();
+                    $("#newcontactdiv").show();
+                    $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
                 });
             }).catch(function(error) {
                 alert("Cannot update!");
+                $("#emaildiv").css("display","block");
+                $("#newusername").prop('disabled', true);
+                $("#emaildiv").css("display","block");
+                $("#newcontactdiv").prop('disabled', true);
+                $("#contactSelect").prop('disabled', true);
+                $("#userbutton").hide();
+                $("#newcontactdiv").show();
+                $("#countrySeparator").hide();
                 $("#wait").css("display", "none");
                 });
             // });
@@ -653,27 +955,67 @@ function UpdateUser()
                         // .then(function(user) {
                         //     user.updateEmail(memberEmail)
                             alert("The data has been saved successfully!");
+                            $("#emaildiv").css("display","block");
+                            $("#newusername").prop('disabled', true);
+                            $("#emaildiv").css("display","block");
+                            $("#newcontactdiv").prop('disabled', true);
+                            $("#contactSelect").prop('disabled', true);
+                            $("#userbutton").hide();
+                            $("#newcontactdiv").show();
+                            $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
                         // }).catch(function(error) {
                         //     alert("Cannot update!");
                         //     $("#wait").css("display", "none");
                     }).catch(function(error) {
                         alert("Cannot update!");
+                        $("#emaildiv").css("display","block");
+                        $("#newusername").prop('disabled', true);
+                        $("#emaildiv").css("display","block");
+                        $("#newcontactdiv").prop('disabled', true);
+                        $("#contactSelect").prop('disabled', true);
+                        $("#userbutton").hide();
+                        $("#newcontactdiv").show();
+                        $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                     });
                 }).catch(function(error) {
                     alert("Cannot update!");
+                    $("#emaildiv").css("display","block");
+                    $("#newusername").prop('disabled', true);
+                    $("#emaildiv").css("display","block");
+                    $("#newcontactdiv").prop('disabled', true);
+                    $("#contactSelect").prop('disabled', true);
+                    $("#userbutton").hide();
+                    $("#newcontactdiv").show();
+                    $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
                 });
             }).catch(function(error) {
                 alert("Cannot update!");
+                $("#emaildiv").css("display","block");
+                $("#newusername").prop('disabled', true);
+                $("#emaildiv").css("display","block");
+                $("#newcontactdiv").prop('disabled', true);
+                $("#contactSelect").prop('disabled', true);
+                $("#userbutton").hide();
+                $("#newcontactdiv").show();
+                $("#countrySeparator").hide();
                 $("#wait").css("display", "none");
                 });
-            // });? 
         }
         else
         {
+            $("#emaildiv").css("display","block");
+            $("#newusername").prop('disabled', true);
+            $("#emaildiv").css("display","block");
+            $("#newcontact").prop('disabled', true);
+            $("#contactSelect").prop('disabled', true);
+            $("#userbutton").hide();
+            $("#newcontactdiv").show();
+            $("#countrySeparator").hide();
             alert("Please fill at least one of the field");
+            $("#wait").css("display", "none");
         }
 
         propertyMemberIDRef.get().then(function(doc) {
@@ -686,15 +1028,18 @@ function UpdateUser()
                     $("#assignedunit").val(unitID);
                     $("#newusername").val(doc.data().member_name);
                     $("#newemail").val(doc.data().member_email);
-                    $("#newcontact").val(doc.data().member_number);
+                    $("#newcontactdiv").val(doc.data().member_number);
 
                     $("#newusername").prop('disabled', true);
-                    $("#newemail").prop('disabled', true);
-                    $("#newcontact").prop('disabled', true);
+                    $("#emaildiv").css("display","block");
+                    //$("#newemail").prop('disabled', true);
+                    $("#newcontactdiv").prop('disabled', true);
                     $("#contactSelect").prop('disabled', true);
                     // $("#SaveUser").prop('disabled', true);
                     // $("#CancelUser").prop('disabled', true);
                     $("#userbutton").hide();
+                    $("#newcontactdiv").show();
+                    $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
                 }
                 else {

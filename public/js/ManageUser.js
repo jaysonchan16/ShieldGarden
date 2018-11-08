@@ -87,7 +87,7 @@ function property(propertyID,unitID)
     var membersRef = db.collection("properties").doc(propertyID).collection("property_members");
     membersRef.get().then(function(querySnapshot){
         querySnapshot.forEach(function(doc){
-            $(".table tbody").append("<tr><td class='name findButton' id='"+doc.data().p_member_email+"' onclick='details(this.id)'>"+doc.data().p_member_name+"</td><td>"+doc.data().p_member_email+
+            $(".table tbody").append("<tr><td class='name findButton' id='"+doc.data().p_member_email+","+doc.data().p_member_unit_id+"' onclick='details(this.id)'>"+doc.data().p_member_name+"</td><td>"+doc.data().p_member_email+
                         "</td><td>"+doc.data().p_member_number+"</td><td>"+doc.data().p_member_property+
                         "</td><td>"+doc.data().p_member_unit_id+"</td><td class='name findButton' id='"+doc.id+","+doc.data().member_name+","+
                         doc.data().member_email+"' onclick='deletes(this.id)'>Delete</td></tr>");
@@ -97,9 +97,10 @@ function property(propertyID,unitID)
             });
 }
 
-function details(email)
+function details(details)
 {
-    //console.log(ID);
+    var email = details.split(",")[0];
+    var unitID = details.split(",")[1];
     sessionStorage.setItem("propertyID",propertyID);
     sessionStorage.setItem("unitID",unitID);
     sessionStorage.setItem("findEmail",email);
