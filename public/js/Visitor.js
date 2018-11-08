@@ -38,8 +38,63 @@ function property(propertyID)
     // hardcode and pass the property name to the AddNewUser page and UpdateUser page
     propertyName.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
+        
+        var checkin = doc.data().visitor_check_in;
+        var dCheckIn;
+        var nCheckIn;
+        var monthCheckIn;
+        var dayCheckIn;
+        var timeCheckIn;
+        var dCheckInTime;
+        var dateCheckIn;
+        var yearCheckIn;
+        var checkout = doc.data().visitor_check_out;
+        var dCheckOut;
+        var nCheckOut;
+        var monthCheckOut;
+        var dayCheckOut;
+        var timeCheckOut;
+        var dCheckOutTime;
+        var dateCheckOut;
+        var yearCheckOut;
+
+        if(doc.data().visitor_check_in == null || doc.data().visitor_check_in == "") 
+        {   
+            checkin = "-";
+        }
+        else
+        {
+            dCheckIn = new Date(doc.data().visitor_check_in);
+            nCheckIn = dCheckIn.toDateString();
+            monthCheckIn = nCheckIn.substring(4,7);
+            dayCheckIn = nCheckIn.substring(8,10);
+            yearCheckIn = nCheckIn.substring(11,15);
+            dateCheckIn = dayCheckIn+' '+monthCheckIn+' '+yearCheckIn;
+            dCheckInTime = dCheckIn.toTimeString();
+            timeCheckIn = dCheckInTime.split(' ')[0];
+            
+            checkin = timeCheckIn +', '+ dateCheckIn;
+        }
+           
+        if(doc.data().visitor_check_out == null || doc.data().visitor_check_out == "") 
+        {   
+            checkout = "-";
+        }
+        else
+        {
+            dCheckOut = new Date(doc.data().visitor_check_out);
+            nCheckOut = dCheckOut.toDateString();
+            monthCheckOut = nCheckOut.substring(4,7);
+            dayCheckOut = nCheckOut.substring(8,10);
+            yearCheckOut = nCheckOut.substring(11,15);
+            dateCheckOut = dayCheckOut+' '+monthCheckOut+' '+yearCheckOut;
+            dCheckOutTime = dCheckOut.toTimeString();
+            timeCheckOut = dCheckOutTime.split(' ')[0];
+            
+            checkout = timeCheckOut +', '+ dateCheckOut;
+        }
             $(".table tbody").append("<tr><td><div class='thumbnail'><img class='portrait' src='"+doc.data().visitor_image_url+"' alt='Image'/></div></td>"+
-                                    "<td>"+doc.data().visitor_name+"</td><td>"+doc.data().visitor_purpose+"</td><td>"+doc.data().visitor_check_in+"</td><td>"+doc.data().visitor_check_out+"</td></tr>");
+                                    "<td>"+doc.data().visitor_name+"</td><td>"+doc.data().visitor_purpose+"</td><td>"+checkin+"</td><td>"+checkout+"</td></tr>");
     });
     $("#wait").css("display", "none");
   });
