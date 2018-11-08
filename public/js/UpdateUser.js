@@ -172,34 +172,34 @@ function UpdateUser()
     var userUpdateRef = db.collection("users").doc(memberID);
     var propertyMemberIDRef =  propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(propertydocRefID);
 
-    userRef.get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
+    // userRef.get().then(function(querySnapshot) {
+    //     querySnapshot.forEach(function(doc) {
             //console.log(doc.data())
-            if(memberName == doc.data().name)
-            {
-                alert("This name has been used!")
-                error = 1;
-                $("#wait").css("display", "none");
-            }
-            else if(memberEmail == doc.data().email)
-            {
-                error = 1;
-                $("#wait").css("display", "none");
-            }
-            else if(!checked)
-            {
-                alert("Invalid Email!")
-                error = 1;
-                $("#wait").css("display", "none");
-            }
-            else
-            {
-                error = 0;
-            }
-        });
+    //         if(memberName == doc.data().name)
+    //         {
+    //             alert("This name has been used!")
+    //             error = 1;
+    //             $("#wait").css("display", "none");
+    //         }
+    //         else if(memberEmail == doc.data().email)
+    //         {
+    //             error = 1;
+    //             $("#wait").css("display", "none");
+    //         }
+    //         else if(!checked)
+    //         {
+    //             alert("Invalid Email!")
+    //             error = 1;
+    //             $("#wait").css("display", "none");
+    //         }
+    //         else
+    //         {
+    //             error = 0;
+    //         }
+    //     });
 
-    if(error == 0)
-    {    
+    // if(error == 0)
+    // {    
             if(memberName == "")
             {
                 if(memberName == "" && memberEmail == "")
@@ -703,8 +703,8 @@ function UpdateUser()
                     $("#wait").css("display", "none");
                 }
             });
-    }
-});
+    // });
+// });
 }
 
 function UpdateProperty()
@@ -727,7 +727,7 @@ function UpdateProperty()
                 p_member_email: email,
                 p_member_number:contactNumber,
                 p_member_property:assignedproperty,
-                p_member_unit:assignedunit,
+                p_member_unit_id:assignedunit,
                 p_member_uid:memberID
         }).then(function(){
             newpropertyMemberIDRef.add({
