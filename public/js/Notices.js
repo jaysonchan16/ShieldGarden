@@ -40,8 +40,9 @@ function loadDetails()
                property(propertyID);
             }
             else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
+                $("#message").text("Cannot get in database");
+                $("#wait").css("display", "none");
+                $("#messageModal").modal();
             }
         });
     });

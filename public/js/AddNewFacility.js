@@ -13,6 +13,10 @@ $(document).ready(function(){
     $("#mainPage").off('click').on('click', function(){
         window.location = 'Facilities.html';
     }); 
+
+    $("#close").off('click').on('click', function(){
+        window.location = 'Facilities.html';
+    }); 
 });
 
 function loadDetails()
@@ -44,30 +48,34 @@ function AddNewFacility()
     if(name == "")
     {
         error = 1;
-        alert("Please fill up the name field!");
+        $("#message").text("Please fill up the name field!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
+        $("#addMessageModal").modal();
     }
     else if(description == "")
     {
         error = 1;
-        alert("Please fill up the description field!");
+        $("#message").text("Please fill up the description field!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
+        $("#addMessageModal").modal();
     }
     else if(timedescription == "")
     {
         error = 1;
-        alert("Please fill up the time description field!");
+        $("#message").text("Please fill up the time description field!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
+        $("#addMessageModal").modal();
     }
     else if(selected_file == undefined)
     {
         error = 1;
-        alert("Please upload the picture!");
+        $("#message").text("Please upload the picture!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
+        $("#addMessageModal").modal();
     }
     else
     {
@@ -105,9 +113,10 @@ function AddNewFacility()
                             //facility_jpg_name:uploadTask.snapshot.metadata.name
                     }).then(function() {
                         var ID = propertydocRef.id;  //when create a new document it will automatically generated new id and then apply the generate id into the facility_id
-                        alert("Adding the new facility successfully!");
+                        $("#message").text("Successfully added facility.");
                         $("#Add").prop("disabled",false);
                         $("#wait").css("display", "none");
+                        $("#addMessageModal").modal();
                     })
             });
         });
