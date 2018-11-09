@@ -17,6 +17,7 @@ $(document).ready(function(){
     loadDetails();
 
     $('.datetimepicker').datetimepicker({
+        format: 'LT',
         icons: {
             time: "fa fa-clock-o",
             date: "fa fa-calendar",
