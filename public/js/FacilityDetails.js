@@ -44,6 +44,9 @@ $(document).ready(function(){
         window.location = 'Facilities.html';
     }); 
 
+    $("#CancelDetails").off('click').on('click', function(){
+
+    });
     // $('#addMore').on('click', function() {
     //     var data = $("#slottable tr:eq(1)").clone(true).appendTo("#slottable");
     //     data.find("input").val('');
@@ -66,6 +69,7 @@ $(document).ready(function(){
 function loadDetails()
 {
     $("#wait").css("display", "block");
+    $(".delete").hide();
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
@@ -191,21 +195,48 @@ function facilityData()
 function add()
 {
     $("#wait").css("display", "block");
-    var addOne = (slotId.length) + 2;
+    var addOne;
+    if(slotId.length == 0)
+    {
+        addOne = 1;
+    }
+   else
+   {
+        addOne = (slotId.length) + 1;
+   }
     var addOneString = addOne.toString();
     var start = $("#start").val();
     var end = $("#end").val();
     var slotDescription = $("#SlotDescription").val();
-    // console.log(addOne);
-    // console.log(propertyID);
-    // console.log(facilityID);
-    // console.log(start);
-    // console.log(slotDescription);
-    var timeStart = new Date(start).getTime();
-    var timeEnd = new Date(end).getTime();
-    var diff =(timeEnd - timeStart) / 1000;
+   
+    // var hourStart = new Date("01/01/2007 " + start).getHours();
+    // var hourEnd = new Date("01/01/2007 " + end).getHours();
+
+    // var minuteStart = new Date("01/01/2007 " + start).getMinutes();
+    // var minuteEnd = new Date("01/01/2007 " + end).getMinutes();
+
+    var timeStart = new Date("01/01/2007 " + start);
+    var timeEnd = new Date("01/01/2007 " + end);
+
+    // var hourDiff = hourEnd - hourStart;
+    // var minuteDiff = minuteEnd - minuteStart;
+    // if (minuteDiff < 0) {
+    //     hourDiff = hourDiff - 1;
+    // }
+    var diff =(timeEnd.getTime() - timeStart.getTime()) / 1000;
     diff /= 60;
     var minutes = Math.abs(Math.round(diff));
+
+    // var time =(Date.parse('January 1, 1971'+end) - Date.parse('January 1, 1971'+start)) / 60000
+    // console.log(time);
+    //var time = (hourDiff * 60) + minuteDiff;
+   // var day = '1/1/1970 ', // 1st January 1970
+    // var difference_ms = end - start;
+    // var timeStart = new Date(start).getTime();
+    // var timeEnd = new Date(end).getTime();
+    // var diff =(timeEnd - timeStart) / 1000;
+    // diff /= 60;
+    // var minutes = Math.abs(Math.round(diff));
     SlotRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots").doc(addOneString);
 
     SlotRef.set({
@@ -226,7 +257,7 @@ function add()
 
 function removeSlot(id)
 {
-    $("#wait").css("display", "block");s
+    $("#wait").css("display", "block");
     db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots").doc(id).delete().then(function() {
         alert("Slot successfully deleted!");
     }).catch(function(error) {
@@ -244,7 +275,7 @@ function SlotData(num)
             querySnapshot.forEach(function(doc) {
                 slotId.push(doc.id);
                 $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
-                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
+                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td class='delete'><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove delete'><i class='material-icons delete'>remove_circle_outline</i></a></td></tr>");
             });
             $("#wait").css("display", "none");
         });
@@ -258,7 +289,7 @@ function SlotData(num)
                 slotId.push(doc.id);
                 console.log(doc.id);
                 $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
-                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
+                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td class='delete'><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove delete'><i class='material-icons delete'>remove_circle_outline</i></a></td></tr>");
             });
             $("#wait").css("display", "none");
         });
