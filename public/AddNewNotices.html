@@ -175,7 +175,8 @@
                             <label for="usr">Image:</label>
                                 <div class="row">
                                     <div class="col-md-12">
-                                            <img id="blah" src="#" alt="your image" />
+                                            <i class="material-icons" id="photo">photo</i>
+                                            <img id="blah" src="#" alt="your image" style="display:none;"/>
                                             <input type='file' id="fileButton" onchange="readURL(this);" />
                                     </div>
                                 </div>
@@ -217,6 +218,22 @@
                       
                         </div>
                       </div>
+                      <div id="errorModal" class="modal fade" role="dialog">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" id="closeModal">&times;</button>
+                                <h4 class="modal-title" id="errorTitle">Error Message</h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="col-md-12">
+                                  <span id="errorMessage"></span>
+                                </div>
+                              </div>
+                            </div>
+                        
+                          </div>
+                        </div>
                   </div>
                   <div id="wait"><img class="moveposition" src='img/spinner.gif' width="64" height="64" /><br><span class="moveposition" id="textColor">Loading..</span></div>
                 </div>

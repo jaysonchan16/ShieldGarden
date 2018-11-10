@@ -54,10 +54,40 @@ function property(propertyID)
     // hardcode and pass the property name to the AddNewUser page and UpdateUser page
     propertyName.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            $(".table tbody").append("<tr><td><div class='thumbnail'><img class='portrait' src='"+doc.data().facility_image_url+"' alt='Image'/></div></td>"+
+            
+            if(doc.data().facility_image_url == "" || doc.data().facility_image_url == null)
+            {
+                $(".table tbody").append("<tr><td><i class ='material-icons'>photo</i></td>"+
                                     "<td class='findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().facility_title+"</td><td>"+doc.data().facility_description+"</td>"+
                                     "<td class='name findButton' id='"+doc.id+","+doc.data().facility_image_url+","+
-                                    doc.data().facility_title+"' onclick='deletes(this.id)'>Delete</td></tr>+</tr>");
+                                    doc.data().facility_title+"' onclick='deletes(this.id)'>Delete</td></tr>");
+            }
+            else if(doc.data().facility_image_url != "" || doc.data().facility_image_url != null)
+            {
+                if(doc.data().facility_image_url.includes("https://"))
+                {
+                    $(".table tbody").append("<tr><td><div class='thumbnail'><img class='portrait' src='"+doc.data().facility_image_url+"' alt='Image'/></div></td>"+
+                                    "<td class='findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().facility_title+"</td><td>"+doc.data().facility_description+"</td>"+
+                                    "<td class='name findButton' id='"+doc.id+","+doc.data().facility_image_url+","+
+                                    doc.data().facility_title+"' onclick='deletes(this.id)'>Delete</td></tr>");
+                }
+                else
+                {
+                    $(".table tbody").append("<tr><td><i class ='material-icons'>photo</i></td>"+
+                    "<td class='findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().facility_title+"</td><td>"+doc.data().facility_description+"</td>"+
+                    "<td class='name findButton' id='"+doc.id+","+doc.data().facility_image_url+","+
+                    doc.data().facility_title+"' onclick='deletes(this.id)'>Delete</td></tr>");
+                }
+            }
+            else
+            {
+                $(".table tbody").append("<tr><td><i class ='material-icons'>photo</i></td>"+
+                "<td class='findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().facility_title+"</td><td>"+doc.data().facility_description+"</td>"+
+                "<td class='name findButton' id='"+doc.id+","+doc.data().facility_image_url+","+
+                doc.data().facility_title+"' onclick='deletes(this.id)'>Delete</td></tr>");
+            }
+
+
     });
     $("#AddNewFacility").prop("disabled",false);
     $("#wait").css("display", "none");

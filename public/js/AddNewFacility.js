@@ -48,38 +48,34 @@ function AddNewFacility()
     if(name == "")
     {
         error = 1;
-        $("#modalTitle").html("Manage Facility");
-        $("#message").html("Please fill up the name field!");
+        $("#errorMessage").html("Please fill up the name field!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
-        $("#addMessageModal").modal();
+        $("#errorModal").modal();
     }
     else if(description == "")
     {
         error = 1;
-        $("#modalTitle").html("Manage Facility");
-        $("#message").html("Please fill up the description field!");
+        $("#errorMessage").html("Please fill up the description field!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
-        $("#addMessageModal").modal();
+        $("#errorModal").modal();
     }
     else if(timedescription == "")
     {
         error = 1;
-        $("#modalTitle").html("Manage Facility");
-        $("#message").html("Please fill up the time description field!");
+        $("#errorMessage").html("Please fill up the time description field!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
-        $("#addMessageModal").modal();
+        $("#errorModal").modal();
     }
     else if(selected_file == undefined)
     {
         error = 1;
-        $("#modalTitle").html("Manage Facility");
-        $("#message").html("Please upload the picture!");
+        $("#errorMessage").html("Please upload the picture!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
-        $("#addMessageModal").modal();
+        $("#errorModal").modal();
     }
     else
     {
@@ -140,6 +136,11 @@ function readURL(input) {
             $('#blah')
                 .attr('src', e.target.result)
                 .height(200);
+                if($('#blah').attr('src') != "#")
+                {
+                    $("#blah").show();
+                    $("#photo").hide();
+                }
                 $("#wait").css("display", "none");
         };
         //get the base 64 image
@@ -156,8 +157,7 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    $("#modalTitle").html("Error Message");
-    $("#message").html("Cannot logout");
-    $("#addMessageModal").modal();
+    $("#errorMessage").html("Cannot logout");
+    $("#errorModal").modal();
   });
 }

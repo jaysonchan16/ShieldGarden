@@ -38,7 +38,7 @@ function loadDetails()
 {    
     $("#wait").css("display", "block");
     $("#showMember").html("");
-    $("#bookings").html("");
+    //$("#bookings").html("");
     firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
         window.location = 'login.html';
@@ -83,13 +83,13 @@ function loadDetails()
                             $("#bookingDate").val(facilityBookingDate + ",");
                         }
                     });
-                var bookingTitle = $("#bookingTitle").val().split(",");
-                var bookingDate = $("#bookingDate").val().split(",");
+                // var bookingTitle = $("#bookingTitle").val().split(",");
+                // var bookingDate = $("#bookingDate").val().split(",");
                 
-                for(var j=0; j<bookingTitle.length;j++)
-                {
-                    $("#bookings").append(bookingTitle[j]+"<span id='space'>"+bookingDate[j]+"</span><br>");
-                }
+                // for(var j=0; j<bookingTitle.length;j++)
+                // {
+                //     $("#bookings").append(bookingTitle[j]+"<span id='space'>"+bookingDate[j]+"</span><br>");
+                // }
                 $("#wait").css("display", "none");
             });
 

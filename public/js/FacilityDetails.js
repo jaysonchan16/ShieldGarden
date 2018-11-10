@@ -45,8 +45,11 @@ $(document).ready(function(){
     }); 
 
     $("#CancelDetails").off('click').on('click', function(){
-        $("#SaveDetails").hide();
-        $("#CancelDetails").hide();
+        loadDetails();
+        $("#nonedit").show();
+        $("#edit").hide();
+        $("#FacilityButton").hide();
+        $("#timepicker").hide();
     });
     // $('#addMore').on('click', function() {
     //     var data = $("#slottable tr:eq(1)").clone(true).appendTo("#slottable");
@@ -76,6 +79,7 @@ function loadDetails()
         window.location = 'login.html';
         }
         $('#userprofile').html(user.email);
+
         FacilityRef = db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID);
         
         facilityData();
@@ -97,6 +101,7 @@ function EditFacility()
     // $("#DeleteDetails").prop('disabled', false);
     $("#nonedit").hide();
     $("#edit").show();
+    SlotData(2);
 }
 
 function readURL(input) {
@@ -109,6 +114,11 @@ function readURL(input) {
             $('#blah')
                 .attr('src', e.target.result)
                 .height(200);
+                if($('#blah').attr('src') != "#")
+                {
+                    $("#blah").show();
+                    $("#photo").hide();
+                }
                 $("#wait").css("display", "none");
         };
         
@@ -151,7 +161,7 @@ function SaveDetails()
         }, function() {
         uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
             //get the image download url and then when open the website can automatically load the image from firestore
-                console.log('File available at', downloadURL);
+                //console.log('File available at', downloadURL);
                 update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL);
                  $("#wait").css("display", "none");
             });
@@ -171,6 +181,7 @@ function facilityData()
     $("#wait").css("display", "block");
     FacilityRef.get().then(function(doc) {
         if (doc.exists) {
+            console.log("1");
             $("#facilities_name").text(doc.data().facility_title);
             $("#applyimg").html('<img width="500" height="242" src="'+doc.data().facility_image_url+'"></img>');
             $("#namenoedit").val(doc.data().facility_title);
@@ -187,14 +198,16 @@ function facilityData()
             $("#wait").css("display", "none");
         }
         else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
+            $("#modalTitle").html("Error Message");
+            $("#message").html("Cannot find the data in the database");
+            $("#messageModal").modal();
         }
     });
 }
 
 function add()
 {
+    console.log("1")
     $("#wait").css("display", "block");
     var addOne;
     if(slotId.length == 0)
@@ -208,8 +221,8 @@ function add()
     var addOneString = addOne.toString();
     var start = $("#start").val();
     var end = $("#end").val();
-    var slotDescription = $("#SlotDescription").val();
-   
+    var slotDescription = start +'-'+end;
+    console.log(slotDescription);
     // var hourStart = new Date("01/01/2007 " + start).getHours();
     // var hourEnd = new Date("01/01/2007 " + end).getHours();
 
@@ -249,7 +262,9 @@ function add()
     })
     .then(function()
     {
-        alert("Slot has been saved successfully");
+        $("#modalTitle").html("Manage Facility");
+        $("#message").html("Slot has been saved successfully");
+        $("#messageModal").modal();
     })
 
     SlotData(2);
@@ -260,9 +275,13 @@ function removeSlot(id)
 {
     $("#wait").css("display", "block");
     db.collection("properties").doc(propertyID).collection("facilities").doc(facilityID).collection("facility_slots").doc(id).delete().then(function() {
-        alert("Slot successfully deleted!");
+        $("#modalTitle").html("Manage Facility");
+        $("#message").html("Slot successfully deleted!");
+        $("#messageModal").modal();
     }).catch(function(error) {
-        console.error("Error removing document: ", error);
+        $("#modalTitle").html("Error Message");
+        $("#message").html("Error deleting the message");
+        $("#messageModal").modal();
     });
     SlotData(2);
 }
@@ -271,26 +290,28 @@ function SlotData(num)
 {
     if(num == 1)
     {
+        $("#slottable tbody").html("");
         slotId=[];
         SlotFacilityRef.get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 slotId.push(doc.id);
                 $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
-                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td class='delete'><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove delete'><i class='material-icons delete'>remove_circle_outline</i></a></td></tr>");
+                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</tr>");
             });
             $("#wait").css("display", "none");
         });
     }
     else
     {
-        $("#slottable").html("");
+        console.log("2")
+        $("#slottable tbody").html("");
         slotId=[];
         SlotFacilityRef.get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 slotId.push(doc.id);
                 console.log(doc.id);
                 $("#slottable").append("<tr><td>"+doc.data().slot_id+"</td><td>"+doc.data().slot_title+"</td><td>"+doc.data().slot_start_time+
-                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td class='delete'><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove delete'><i class='material-icons delete'>remove_circle_outline</i></a></td></tr>");
+                "</td><td>"+doc.data().slot_end_time+"</td><td>"+doc.data().slot_interval+"</td><td class='delete'><a href='javascript:void(0);' onclick='removeSlot(this.id);' id='"+doc.data().slot_id+"' class='remove'><i class='material-icons'>remove_circle_outline</i></a></td></tr>");
             });
             $("#wait").css("display", "none");
         });
@@ -304,7 +325,9 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    alert("cannot logout!");
+        $("#modalTitle").html("Error Message");
+        $("#message").html("Cannot logout");
+        $("#messageModal").modal();
   });
 }
 
@@ -326,7 +349,9 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     })
                     .then(function() {
                         facilityData();
-                        alert("The data has been updated successfully!");
+                        $("#modalTitle").html("Manage Facility");
+                        $("#message").html("The data has been updated successfully!");
+                        $("#messageModal").modal();
                     })
                 }
                 else
@@ -341,7 +366,9 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     })
                     .then(function() {
                         facilityData();
-                        alert("The data has been updated successfully!");
+                        $("#modalTitle").html("Manage Facility");
+                        $("#message").html("The data has been updated successfully!");
+                        $("#messageModal").modal();
                     })
                 }
             }
@@ -357,18 +384,18 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                 })
                 .then(function() {
                     facilityData();
-                    alert("The data has been updated successfully!");
+                    $("#modalTitle").html("Manage Facility");
+                    $("#message").html("The data has been updated successfully!");
+                    $("#messageModal").modal();
                 })
             }
             else if(descriptionnoedit == "" && timedescriptionnoedit == "")
             {
-                console.log("5");
                 facilityData();
                 alert("Please fill in at least one field!");
             }
             else
             {
-                console.log("6");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: descriptionnoedit,
@@ -379,7 +406,9 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                 })
                 .then(function() {
                     facilityData();
-                    alert("The data has been updated successfully!");
+                    $("#modalTitle").html("Manage Facility");
+                    $("#message").html("The data has been updated successfully!");
+                    $("#messageModal").modal();
                 })
             }
         }
@@ -399,7 +428,9 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                 })
                 .then(function() {
                     facilityData();
-                    alert("The data has been updated successfully!");
+                    $("#modalTitle").html("Manage Facility");
+                    $("#message").html("The data has been updated successfully!");
+                    $("#messageModal").modal();
                 })
             }
             else if(titlenoedit == "" && timedescriptionnoedit == "")
@@ -421,7 +452,9 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                 })
                 .then(function() {
                     facilityData();
-                    alert("The data has been updated successfully!");
+                    $("#modalTitle").html("Manage Facility");
+                    $("#message").html("The data has been updated successfully!");
+                    $("#messageModal").modal();
                 })
             }
             else
@@ -437,16 +470,16 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                 })
                 .then(function() {
                     facilityData();
-                    alert("The data has been updated successfully!");
+                    $("#modalTitle").html("Manage Facility");
+                    $("#message").html("The data has been updated successfully!");
+                    $("#messageModal").modal();
                 })
             }
         }
         else if(timedescriptionnoedit == "")
         {
-            console.log("12");
             if(titlenoedit == "" && descriptionnoedit == "")
             {
-                console.log("13");
                 alert("Please fill in at least one field!");
             }
             else if(titlenoedit == "" && timedescriptionnoedit == "")
@@ -462,12 +495,13 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                 })
                 .then(function() {
                     facilityData();
-                    alert("The data has been updated successfully!");
+                    $("#modalTitle").html("Manage Facility");
+                    $("#message").html("The data has been updated successfully!");
+                    $("#messageModal").modal();
                 })
             }
             else if(descriptionnoedit == "" && timedescriptionnoedit == "")
             {
-                console.log("15");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: description,
@@ -478,12 +512,13 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                 })
                 .then(function() {
                     facilityData();
-                    alert("The data has been updated successfully!");
+                    $("#modalTitle").html("Manage Facility");
+                    $("#message").html("The data has been updated successfully!");
+                    $("#messageModal").modal();
                 })
             }
             else
             {
-                console.log("16");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: descriptionnoedit,
@@ -494,13 +529,14 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                 })
                 .then(function() {
                     facilityData();
-                    alert("The data has been updated successfully!");
+                    $("#modalTitle").html("Manage Facility");
+                    $("#message").html("The data has been updated successfully!");
+                    $("#messageModal").modal();
                 })
             }
         }
         else if(titlenoedit != "" && descriptionnoedit != "" && timedescriptionnoedit != "")
         {
-            console.log("17");
             FacilityRef.update({
                 facility_booking_enabled : true,
                 facility_description: descriptionnoedit,
@@ -511,13 +547,16 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             })
             .then(function() {
                 facilityData();
-                alert("The data has been updated successfully!");
+                $("#modalTitle").html("Manage Facility");
+                $("#message").html("The data has been updated successfully!");
+                $("#messageModal").modal();
             })
         }
         else
         {
-            console.log("19");
             facilityData();
-            alert("Please fill at least one of the field");
+            $("#modalTitle").html("Manage Facility");
+            $("#message").html("Please fill up at least one field!");
+            $("#messageModal").modal();
         }
 }

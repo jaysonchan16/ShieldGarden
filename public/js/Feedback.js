@@ -40,8 +40,30 @@ function property(propertyID)
     // hardcode and pass the property name to the AddNewUser page and UpdateUser page
     propertyName.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            $(".table tbody").append("<tr><td><div class='thumbnail'><img class='portrait' src='"+doc.data().feedback_image_url+"' alt='Image'/></div></td>"+
+            
+            if(doc.data().feedback_image_url == "" || doc.data().feedback_image_url == null)
+            {
+                $(".table tbody").append('<tr><td><i class ="material-icons">photo</i></td>'+
+                    '<td>'+doc.data().feedback_title+'</td><td>'+doc.data().feedback_description+'</td><td>'+doc.data().feedback_from+'</td></tr>');
+            }
+            else if(doc.data().feedback_image_url != "" || doc.data().feedback_image_url != null)
+            {
+                if(doc.data().feedback_image_url.includes("https://"))
+                {
+                    $(".table tbody").append("<tr><td><div class='thumbnail'><img class='portrait' src='"+doc.data().feedback_image_url+"' alt='Image'/></div></td>"+
                                     "<td>"+doc.data().feedback_title+"</td><td>"+doc.data().feedback_description+"</td><td>"+doc.data().feedback_from+"</td></tr>");
+                }
+                else
+                {
+                    $(".table tbody").append('<tr><td><i class ="material-icons">photo</i></td>'+
+                    '<td>'+doc.data().feedback_title+'</td><td>'+doc.data().feedback_description+'</td><td>'+doc.data().feedback_from+'</td></tr>');
+                }
+            }
+            else
+            {
+                $(".table tbody").append('<tr><td><i class ="material-icons">photo</i></td>'+
+                    '<td>'+doc.data().feedback_title+'</td><td>'+doc.data().feedback_description+'</td><td>'+doc.data().feedback_from+'</td></tr>');
+            }
     });
     $("#wait").css("display", "none");
   });

@@ -93,8 +93,32 @@ function property(propertyID)
             
             checkout = timeCheckOut +', '+ dateCheckOut;
         }
-            $(".table tbody").append("<tr><td><div class='thumbnail'><img class='portrait' src='"+doc.data().visitor_image_url+"' alt='Image'/></div></td>"+
-                                    "<td>"+doc.data().visitor_name+"</td><td>"+doc.data().visitor_purpose+"</td><td>"+checkin+"</td><td>"+checkout+"</td></tr>");
+
+        if(doc.data().visitor_image_url == "" || doc.data().visitor_image_url == null)
+        {
+            $(".table tbody").append("<tr><td><i class ='material-icons'>photo</i></td>"+
+                "<td>"+doc.data().visitor_name+"</td><td>"+doc.data().visitor_purpose+"</td><td>"+checkin+"</td><td>"+checkout+"</td></tr>");
+        }
+        else if(doc.data().visitor_image_url != "" || doc.data().visitor_image_url != null)
+        {
+            if(doc.data().visitor_image_url.includes("https://"))
+            {
+                $(".table tbody").append("<tr><td><div class='thumbnail'><img class='portrait' src='"+doc.data().visitor_image_url+"' alt='Image'/></div></td>"+
+                "<td>"+doc.data().visitor_name+"</td><td>"+doc.data().visitor_purpose+"</td><td>"+checkin+"</td><td>"+checkout+"</td></tr>");
+            }
+            else
+            {
+                $(".table tbody").append("<tr><td><i class ='material-icons'>photo</i></td>"+
+                "<td>"+doc.data().visitor_name+"</td><td>"+doc.data().visitor_purpose+"</td><td>"+checkin+"</td><td>"+checkout+"</td></tr>");
+            }
+        }
+        else
+        {
+            $(".table tbody").append("<tr><td><i class ='material-icons'>photo</i></td>"+
+            "<td>"+doc.data().visitor_name+"</td><td>"+doc.data().visitor_purpose+"</td><td>"+checkin+"</td><td>"+checkout+"</td></tr>");
+        }
+
+           
     });
     $("#wait").css("display", "none");
   });
