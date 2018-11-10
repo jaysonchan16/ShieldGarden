@@ -35,34 +35,67 @@ function loadDetails()
 
 function property(propertyID)
 {
-    var propertyName = db.collection("properties").doc(propertyID).collection("feedback");
+    var propertyName = db.collection("properties").doc(propertyID).collection("feedback").orderBy('feedback_date_posted','desc');
 
     // hardcode and pass the property name to the AddNewUser page and UpdateUser page
     propertyName.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             
+            var posted = doc.data().feedback_date_posted;
+            var dCheckIn;
+            var nCheckIn;
+            var monthCheckIn;
+            var dayCheckIn;
+            var timeCheckIn;
+            var dCheckInTime;
+            var dateCheckIn;
+            var yearCheckIn;
+
+            if(doc.data().feedback_date_posted == null || doc.data().feedback_date_posted == "") 
+            {   
+                posted = "-";
+            }
+            else
+            {
+                dCheckIn = new Date(doc.data().feedback_date_posted);
+
+                // var day = dCheckIn.getDate();
+                // var monthIndex = dCheckIn.getMonth();
+                // var year = dCheckIn.getFullYear();
+                // var date = day+'-'+monthIndex+'-'+year;
+                nCheckIn = dCheckIn.toDateString();
+                monthCheckIn = nCheckIn.substring(4,7);
+                dayCheckIn = nCheckIn.substring(8,10);
+                yearCheckIn = nCheckIn.substring(11,15);
+                dateCheckIn = dayCheckIn+' '+monthCheckIn+' '+yearCheckIn;
+                dCheckInTime = dCheckIn.toTimeString();
+                timeCheckIn = dCheckInTime.split(' ')[0];
+                
+                posted = timeCheckIn +', '+ dateCheckIn;
+            }
+
             if(doc.data().feedback_image_url == "" || doc.data().feedback_image_url == null)
             {
                 $(".table tbody").append('<tr><td><i class ="material-icons">photo</i></td>'+
-                    '<td>'+doc.data().feedback_title+'</td><td>'+doc.data().feedback_description+'</td><td>'+doc.data().feedback_from+'</td></tr>');
+                    '<td>'+doc.data().feedback_title+'</td><td>'+doc.data().feedback_description+'</td><td>'+doc.data().feedback_from+'</td><td>'+posted+'</td></tr>');
             }
             else if(doc.data().feedback_image_url != "" || doc.data().feedback_image_url != null)
             {
                 if(doc.data().feedback_image_url.includes("https://"))
                 {
                     $(".table tbody").append("<tr><td><div class='thumbnail'><img class='portrait' src='"+doc.data().feedback_image_url+"' alt='Image'/></div></td>"+
-                                    "<td>"+doc.data().feedback_title+"</td><td>"+doc.data().feedback_description+"</td><td>"+doc.data().feedback_from+"</td></tr>");
+                                    "<td>"+doc.data().feedback_title+"</td><td>"+doc.data().feedback_description+"</td><td>"+doc.data().feedback_from+"</td><td>"+posted+"</td></tr>");
                 }
                 else
                 {
                     $(".table tbody").append('<tr><td><i class ="material-icons">photo</i></td>'+
-                    '<td>'+doc.data().feedback_title+'</td><td>'+doc.data().feedback_description+'</td><td>'+doc.data().feedback_from+'</td></tr>');
+                    '<td>'+doc.data().feedback_title+'</td><td>'+doc.data().feedback_description+'</td><td>'+doc.data().feedback_from+'</td><td>'+posted+'</td></tr>');
                 }
             }
             else
             {
                 $(".table tbody").append('<tr><td><i class ="material-icons">photo</i></td>'+
-                    '<td>'+doc.data().feedback_title+'</td><td>'+doc.data().feedback_description+'</td><td>'+doc.data().feedback_from+'</td></tr>');
+                    '<td>'+doc.data().feedback_title+'</td><td>'+doc.data().feedback_description+'</td><td>'+doc.data().feedback_from+'</td><td>'+posted+'</td></tr>');
             }
     });
     $("#wait").css("display", "none");

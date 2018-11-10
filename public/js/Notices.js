@@ -52,7 +52,7 @@ function loadDetails()
 function property(propertyID)
 {
     $(".table tbody").html("");
-    var propertyName = db.collection("properties").doc(propertyID).collection("notices");
+    var propertyName = db.collection("properties").doc(propertyID).collection("notices").orderBy('notice_date_posted','desc');
 
     // hardcode and pass the property name to the AddNewUser page and UpdateUser page
     propertyName.get().then(function(querySnapshot) {
