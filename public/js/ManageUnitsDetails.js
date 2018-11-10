@@ -119,10 +119,6 @@ function Search()
                 $("#showemail").text(member_email);
                 $("#assignUnit").show();
             }
-            else{
-                $("#showblock").text("");
-                $("#showemail").text("");
-            }
             
         });
         //get property members
