@@ -45,7 +45,8 @@ function addnewnotice()
     if(title == "")
     {   
         error = 1;
-        $("#message").text("Please fill up the title field");
+        $("#modalTitle").html("Error Message");
+        $("#message").html("Please fill up the title field");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
         $("#messageModal").modal();
@@ -53,14 +54,16 @@ function addnewnotice()
     else if(description == "")
     {
         error = 1;
-        $("#message").text("Please fill up the description field");
+        $("#modalTitle").html("Error Message");
+        $("#message").html("Please fill up the description field");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
     }
     else if(selected_file == undefined)
     {
         error = 1;
-        $("#message").text("Please upload the picture!");
+        $("#modalTitle").html("Error Message");
+        $("#message").html("Please upload the picture!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
     }
@@ -89,7 +92,7 @@ function addnewnotice()
             }, function() {
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                     //get the image download url and then when open the website can automatically load the image from firestore
-                    console.log('File available at', downloadURL);
+                    //console.log('File available at', downloadURL);
                 
                     propertydocRef.add({
                         notice_description: description,
@@ -97,7 +100,8 @@ function addnewnotice()
                         notice_title:title,
                         notice_date_posted:today
                     }).then(function() {
-                        $("#message").text("Successfully added notice.");
+                        $("#modalTitle").html("Manage Notice");
+                        $("#message").html("Successfully added notice.");
                         $("#messageModal").modal();
                         $("#wait").css("display", "none");
                         // $("#Add").prop("disabled",false);
@@ -134,6 +138,9 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    // An error happened
+    $("#modalTitle").html("Error Message");
+    $("#message").html("Error logout");
+    $("#messageModal").modal();
+    $("#wait").css("display", "none");
   });
 }

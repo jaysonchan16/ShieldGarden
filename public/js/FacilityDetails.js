@@ -45,7 +45,8 @@ $(document).ready(function(){
     }); 
 
     $("#CancelDetails").off('click').on('click', function(){
-
+        $("#SaveDetails").hide();
+        $("#CancelDetails").hide();
     });
     // $('#addMore').on('click', function() {
     //     var data = $("#slottable tr:eq(1)").clone(true).appendTo("#slottable");

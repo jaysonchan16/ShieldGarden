@@ -48,7 +48,8 @@ function AddNewFacility()
     if(name == "")
     {
         error = 1;
-        $("#message").text("Please fill up the name field!");
+        $("#modalTitle").html("Manage Facility");
+        $("#message").html("Please fill up the name field!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
         $("#addMessageModal").modal();
@@ -56,7 +57,8 @@ function AddNewFacility()
     else if(description == "")
     {
         error = 1;
-        $("#message").text("Please fill up the description field!");
+        $("#modalTitle").html("Manage Facility");
+        $("#message").html("Please fill up the description field!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
         $("#addMessageModal").modal();
@@ -64,7 +66,8 @@ function AddNewFacility()
     else if(timedescription == "")
     {
         error = 1;
-        $("#message").text("Please fill up the time description field!");
+        $("#modalTitle").html("Manage Facility");
+        $("#message").html("Please fill up the time description field!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
         $("#addMessageModal").modal();
@@ -72,7 +75,8 @@ function AddNewFacility()
     else if(selected_file == undefined)
     {
         error = 1;
-        $("#message").text("Please upload the picture!");
+        $("#modalTitle").html("Manage Facility");
+        $("#message").html("Please upload the picture!");
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
         $("#addMessageModal").modal();
@@ -113,7 +117,8 @@ function AddNewFacility()
                             //facility_jpg_name:uploadTask.snapshot.metadata.name
                     }).then(function() {
                         var ID = propertydocRef.id;  //when create a new document it will automatically generated new id and then apply the generate id into the facility_id
-                        $("#message").text("Successfully added facility.");
+                        $("#modalTitle").html("Manage Facility");
+                        $("#message").html("Successfully added facility.");
                         $("#Add").prop("disabled",false);
                         $("#wait").css("display", "none");
                         $("#addMessageModal").modal();
@@ -151,6 +156,8 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    // An error happened
+    $("#modalTitle").html("Error Message");
+    $("#message").html("Cannot logout");
+    $("#addMessageModal").modal();
   });
 }

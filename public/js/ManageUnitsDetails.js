@@ -108,7 +108,7 @@ function Search()
 //users collection
     memberdocRef.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            console.log(doc.data());
+          //  console.log(doc.data());
             if(inputemail == doc.data().email)
             {
                 member_email = doc.data().email;
@@ -119,7 +119,10 @@ function Search()
                 $("#showemail").text(member_email);
                 $("#assignUnit").show();
             }
-          
+            else{
+                $("#showblock").text("");
+                $("#showemail").text("");
+            }
             
         });
         //get property members
@@ -160,7 +163,9 @@ function AssignUnit()
         querySnapshot.forEach(function(doc) {
             if(doc.data().email == member_email)
             {
-                alert("Data has inserted previously");
+                $("#message").text("Data has inserted previously");
+                $("#errorModal").modal();
+                //alert("Data has inserted previously");
                 error = 1;
                 $("#wait").css("display", "none");
             }
@@ -195,12 +200,14 @@ function AssignUnit()
                                 member_uid:saveUid
                             }).then(function(){
                                 propertydocOldRef.doc(deleteID).delete().then(function() {
-                                    alert("The member has changed the unit successfully");
-                                    $("#searchModal").modal("hide");
+                                    $("#message").text("The member has changed the unit successfully");
                                     $("#wait").css("display", "none");
+                                    $("#searchModal").modal("hide");
+                                    $("#errorModal").modal();
                                     loadDetails();
                                 }).catch(function(error) {
-                                    alert("Cannot changed unit!");
+                                    $("#message").text("Cannot changed unit!");
+                                    $("#errorModal").modal();
                                     $("#wait").css("display", "none");
                                 });
                             });
@@ -208,16 +215,18 @@ function AssignUnit()
                 }).catch(function(error) {
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    alert("Cannot changed unit!");
-                    $("#searchModal").modal("hide");
+                    $("#message").text("Cannot changed unit!");
                     $("#wait").css("display", "none");
+                    $("#searchModal").modal("hide");
+                    $("#errorModal").modal();
                 });
             }).catch(function(error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                alert("Cannot changed unit!");
-                $("#searchModal").modal("hide");
+                $("#message").text("Cannot changed unit!");
                 $("#wait").css("display", "none");
+                $("#searchModal").modal("hide");
+                $("#errorModal").modal();
             });
             // propertydocRef.set({
             //     member_name: member_name,
@@ -248,6 +257,8 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    // An error happened
+    $("#message").text("Cannot logout!");
+    $("#wait").css("display", "none");
+    $("#errorModal").modal();
   });
 }

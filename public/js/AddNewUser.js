@@ -37,7 +37,9 @@ function loadDetails()
                 loadUnits(propertyID);
             }
             else {
-                alert("Cannot find this user in database");
+                $("#modalTitle").html("Error Message");
+                $("#message").html("Cannot find this user in database");
+                $("#messageModal").modal();
                 // doc.data() will be undefined in this case
                 //console.log("No such document!");
             }
@@ -79,24 +81,33 @@ function addnewuser()
 
     if(memberName == "")
     {
-        alert("The member name cannot be blank!");
+        $("#modalTitle").html("Error Message");
+        $("#message").html("The member name cannot be blank!");
+        
         error = 1;
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
+        $("#messageModal").modal();
     }
     else if(memberEmail == "")
     {
-        alert("The member email cannot be blank!");
+        $("#modalTitle").html("Error Message");
+        $("#message").html("The member email cannot be blank!");
+        
         error = 1;
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
+        $("#messageModal").modal();
     }
     else if(contactNum == "")
     {
-        alert("The member contact number cannot be blank!");
+        $("#modalTitle").html("Error Message");
+        $("#message").html("The member contact number cannot be blank!");
+        
         error = 1;
         $("#wait").css("display", "none");
         $("#Add").prop("disabled",false);
+        $("#messageModal").modal();
     }
     else
     {
@@ -105,16 +116,21 @@ function addnewuser()
                 
                 if(memberName == doc.data().name)
                 {
-                    alert("This name has been used!")
+                    $("#modalTitle").html("Error Message");
+                    $("#message").html("This name has been used!");
                     error = 1;
                     $("#wait").css("display", "none");
                     $("#Add").prop("disabled",false);
+                    $("#messageModal").modal();
                 }
                 else if(memberEmail == doc.data().email)
                 {
+                    $("#modalTitle").html("Error Message");
+                    $("#message").html("This email has been used!");
                     error = 1;
                     $("#wait").css("display", "none");
                     $("#Add").prop("disabled",false);
+                    $("#messageModal").modal();
                 }
                 else
                 {
@@ -167,6 +183,9 @@ function addnewuser()
                                 member_uid:uid
                             })
                             .then(function() {
+                                // $("#modalTitle").html("Manage User");
+                                // $("#message").html("The data has been saved successfully!");
+                                // $("#messageModal").modal();
                                 alert("The data has been saved successfully!");
                                 $("#Add").prop("disabled",false);
                                 $("#wait").css("display", "none");
@@ -175,32 +194,44 @@ function addnewuser()
                             .catch(function(error) {
                                 var errorCode = error.code;
                                 var errorMessage = error.message;
-                                alert(errorMessage);
+                                
                                 $("#Add").prop("disabled",false);
                                 $("#wait").css("display", "none");
+                                $("#modalTitle").html("Error Message");
+                                $("#message").html("The data cannot save in database!");
+                                $("#messageModal").modal();
                             });
                     }).catch(function(){
                         var errorCode = error.code;
                         var errorMessage = error.message;
-                        alert(errorMessage);
+                        
                         $("#Add").prop("disabled",false);
                         $("#wait").css("display", "none");
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html("The data cannot save in database!");
+                        $("#messageModal").modal();
                     });             
                 })
                 .catch(function(error) {
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    alert(errorMessage);
+                    
                     $("#Add").prop("disabled",false);
                     $("#wait").css("display", "none");
+                    $("#modalTitle").html("Error Message");
+                    $("#message").html("The data cannot save in database!");
+                    $("#messageModal").modal();
                 });
             })
             .catch(function(error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                alert(errorMessage);
+                
                 $("#Add").prop("disabled",false);
                 $("#wait").css("display", "none");
+                $("#modalTitle").html("Error Message");
+                $("#message").html("The data cannot save in database!");
+                $("#messageModal").modal();
             });
         }
         
@@ -215,7 +246,9 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    // An error happened
+    $("#modalTitle").html("Error Message");
+    $("#message").html("Error for logout");
+    $("#messageModal").modal();
   });
 }
 

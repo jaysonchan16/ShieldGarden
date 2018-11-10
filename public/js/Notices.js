@@ -40,7 +40,8 @@ function loadDetails()
                property(propertyID);
             }
             else {
-                $("#message").text("Cannot get in database");
+                $("#modalTitle").html("Error Message");
+                $("#message").html("Cannot get in database");
                 $("#wait").css("display", "none");
                 $("#messageModal").modal();
             }
@@ -73,6 +74,11 @@ function property(propertyID)
             else
             {
                 dCheckIn = new Date(doc.data().notice_date_posted);
+
+                // var day = dCheckIn.getDate();
+                // var monthIndex = dCheckIn.getMonth();
+                // var year = dCheckIn.getFullYear();
+                // var date = day+'-'+monthIndex+'-'+year;
                 nCheckIn = dCheckIn.toDateString();
                 monthCheckIn = nCheckIn.substring(4,7);
                 dayCheckIn = nCheckIn.substring(8,10);
@@ -92,6 +98,14 @@ function property(propertyID)
   });
 }
 
+// function SortbyName(a,b)
+// {
+//     var amyDate = a.split("-");
+//     var aNewDate=new Date(amyDate[1]+","+amyDate[0]+","+amyDate[2]).getTime();
+//     var bmyDate = b.split("-");
+//     var bNewDate=new Date(bmyDate[1]+","+bmyDate[0]+","+bmyDate[2]).getTime();
+//     ((aNewDate < bNewDate) ? -1 : ((aNewDate > bNewDate) ? 1 : 0));
+// }
 function deletes(details)
 {
     deleteID = details.split(",")[0];
@@ -116,17 +130,20 @@ function deleteNotice()
     propertyRef.delete().then(function(){
     desertRef.delete().then(function() {
         $("#wait").css("display", "none");
-        $("#message").text("Delete Successfully");
+        $("#modalTitle").html("Manage Notice");
+        $("#message").html("Delete Successfully");
         $("#deleteModal").modal("toggle");
         $("#messageModal").modal();
       }).catch(function(error) {
-        $("#message").text("Delete Successfully");
+        $("#message").html("Error deleting the data");
+        $("#modalTitle").html("Error Message");
         $("#deleteModal").modal("toggle");
         $("#wait").css("display", "none");
         $("#messageModal").modal();
       });
     }).catch(function(error) {
-        $("#message").text("Delete Successfully");
+        $("#message").html("Error deleting the data");
+        $("#modalTitle").html("Error Message");
         $("#deleteModal").modal("toggle");
         $("#wait").css("display", "none");
         $("#messageModal").modal();
@@ -140,7 +157,8 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    alert("Error for logout!");
+    $("#modalTitle").html("Error Message");
+    $("#message").html("Cannot logout!");
     $("#wait").css("display", "none");
   });
 }

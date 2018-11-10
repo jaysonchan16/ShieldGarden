@@ -24,8 +24,8 @@ function loadDetails()
                property(propertyID);
             }
             else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
+                $("#message").html("Cannot get the data from database");
+                $("#messageModal").modal();
             }
         });
     });
@@ -115,6 +115,7 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    // An error happened
+    $("#message").html("Cannot logout");
+    $("#messageModal").modal();
   });
 }

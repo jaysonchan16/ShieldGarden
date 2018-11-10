@@ -25,7 +25,9 @@ function loadDetails()
             }
             else {
                 // doc.data() will be undefined in this case
-                console.log("No such document!");
+                $("#modalTitle").html("Error Message");
+                $("#message").text("Cannot get the data from database");
+                $("#wait").css("display", "none");
             }
         });
     });
@@ -60,6 +62,8 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    // An error happened
+    $("#modalTitle").html("Error Message");
+    $("#message").text("Cannot logout!");
+    $("#wait").css("display", "none");
   });
 }

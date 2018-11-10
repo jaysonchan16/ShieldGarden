@@ -44,8 +44,8 @@ function loadDetails()
                property(propertyID,unitID);
             }
             else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
+                $("#text").html("Cannot find the data in database");
+                $("#messageModal").modal();
             }
         });
     });
@@ -65,14 +65,17 @@ function property(propertyID,unitID)
                     $("#wait").css("display", "none");
                 })
             }).catch(function(error){
-                alert("Error getting data from firebase");
+                $("#text").html("Cannot find the data in database");
+                $("#messageModal").modal();
             })
         }   
         else {
-           alert("No such document in database!");  
+            $("#text").html("Cannot find the data in database");
+            $("#messageModal").modal();
         }
     }).catch(function(error){
-        alert("Error getting document:", error);
+        $("#text").html("Cannot find the data in database");
+        $("#messageModal").modal();
     });
     // hardcode and pass the property name to the AddNewUser page and UpdateUser page
     
@@ -109,6 +112,7 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    // An error happened
+    $("#text").html("Cannot logout");
+    $("#messageModal").modal();
   });
 }

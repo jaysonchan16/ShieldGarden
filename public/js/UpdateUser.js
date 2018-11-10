@@ -149,6 +149,19 @@ function loadDetails()
                     });
             });
         });
+    }).catch(function(error) {
+        $("#modalTitle").html("Error Message");
+        $("#message").html('Cannot find in database!');
+        $("#emaildiv").css("display","block");
+        $("#newusername").prop('disabled', true);
+        $("#emaildiv").css("display","block");
+        $("#newcontactdiv").prop('disabled', true);
+        $("#contactSelect").prop('disabled', true);
+        $("#userbutton").hide();
+        $("#newcontactdiv").show();
+        $("#countrySeparator").hide();
+        $("#wait").css("display", "none");
+        $("#messageModal").modal();
     });
 });
 }
@@ -205,7 +218,9 @@ function UpdateUser()
                 {
                     if(contactNum == "")
                     {
-                        alert("Please change at least one field!");
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html('Please change at least one field!');
+                        $("#messageModal").modal();
                     }
                     else
                     {
@@ -232,7 +247,8 @@ function UpdateUser()
                                     "phone_number":memberContactNumber,
                                     "unit_id":unitID
                                 }).then(function() {
-                                    alert("The data has been saved successfully!");
+                                    $("#modalTitle").html("Manage User");
+                                    $("#message").html('The data has been saved successfully!');
                                     $("#emaildiv").css("display","block");
                                     $("#newusername").prop('disabled', true);
                                     $("#emaildiv").css("display","block");
@@ -242,8 +258,10 @@ function UpdateUser()
                                     $("#newcontactdiv").show();
                                     $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
+                                    $("#messageModal").modal();
                                 }).catch(function(error) {
-                                    alert("Cannot update!");
+                                    $("#modalTitle").html("Error Message");
+                                    $("#message").html('Error for updating data!');
                                     $("#emaildiv").css("display","block");
                                     $("#newusername").prop('disabled', true);
                                     $("#emaildiv").css("display","block");
@@ -253,9 +271,11 @@ function UpdateUser()
                                     $("#newcontactdiv").show();
                                     $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
+                                    $("#messageModal").modal();
                                 });
                             }).catch(function(error) {
-                                alert("Cannot update!");
+                                $("#modalTitle").html("Error Message");
+                                $("#message").html('Error for updating data!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
@@ -265,9 +285,11 @@ function UpdateUser()
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
+                                $("#messageModal").modal();
                             });
                         }).catch(function(error) {
-                            alert("Cannot update!");
+                            $("#modalTitle").html("Error Message");
+                            $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
@@ -277,6 +299,7 @@ function UpdateUser()
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
+                            $("#messageModal").modal();
                         });
                     }
                 }
@@ -309,7 +332,8 @@ function UpdateUser()
                                 // .signInWithEmailAndPassword(findEmail, memberPassword)
                                 // .then(function(user) {
                                 //     user.updateEmail(memberEmail)
-                                    alert("The data has been saved successfully!");
+                                    $("#modalTitle").html("Manage User");
+                                    $("#message").html('The data has been saved successfully!');
                                     $("#emaildiv").css("display","block");
                                     $("#newusername").prop('disabled', true);
                                     $("#emaildiv").css("display","block");
@@ -319,11 +343,13 @@ function UpdateUser()
                                     $("#newcontactdiv").show();
                                     $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
+                                    $("#messageModal").modal();
                                 // }).catch(function(error) {
                                 //     alert("Cannot update!");
                                 //     $("#wait").css("display", "none");
                             }).catch(function(error) {
-                                alert("Cannot update!");
+                                $("#modalTitle").html("Error Message");
+                                $("#message").html('Error for updating data!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
@@ -333,9 +359,11 @@ function UpdateUser()
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
+                                $("#messageModal").modal();
                             });
                         }).catch(function(error) {
-                            alert("Cannot update!");
+                            $("#modalTitle").html("Error Message");
+                            $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
@@ -345,9 +373,11 @@ function UpdateUser()
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
+                            $("#messageModal").modal();
                         });
                     }).catch(function(error) {
-                        alert("Cannot update!");
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
@@ -357,12 +387,14 @@ function UpdateUser()
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
+                        $("#messageModal").modal();
                     });
                     // });
                 }
                 else if(memberEmail == "" && contactNum == "")
                 {
-                    alert("Please fill in at least one field!");
+                    $("#modalTitle").html("Error Message");
+                    $("#message").html('Please fill in at least one field!');
                     $("#emaildiv").css("display","block");
                     $("#newusername").prop('disabled', true);
                     $("#emaildiv").css("display","block");
@@ -372,6 +404,7 @@ function UpdateUser()
                     $("#newcontactdiv").show();
                     $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
+                    $("#messageModal").modal();
                 }
                 else
                 {
@@ -402,7 +435,8 @@ function UpdateUser()
                                     // .signInWithEmailAndPassword(findEmail, memberPassword)
                                     // .then(function(user) {
                                     //     user.updateEmail(memberEmail)
-                                        alert("The data has been saved successfully!");
+                                        $("#modalTitle").html("Manage User");
+                                        $("#message").html('The data has been saved successfully!');
                                         $("#emaildiv").css("display","block");
                                         $("#newusername").prop('disabled', true);
                                         $("#emaildiv").css("display","block");
@@ -412,11 +446,13 @@ function UpdateUser()
                                         $("#newcontactdiv").show();
                                         $("#countrySeparator").hide();
                                         $("#wait").css("display", "none");
+                                        $("#messageModal").modal();
                                     // }).catch(function(error) {
                                     //     alert("Cannot update!");
                                     //     $("#wait").css("display", "none");
                                 }).catch(function(error) {
-                                    alert("Cannot update!");
+                                    $("#modalTitle").html("Error Message");
+                                    $("#message").html('Error for updating data!');
                                     $("#emaildiv").css("display","block");
                                     $("#newusername").prop('disabled', true);
                                     $("#emaildiv").css("display","block");
@@ -426,9 +462,11 @@ function UpdateUser()
                                     $("#newcontactdiv").show();
                                     $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
+                                    $("#messageModal").modal();
                                 });
                             }).catch(function(error) {
-                                alert("Cannot update!");
+                                $("#modalTitle").html("Error Message");
+                                $("#message").html('Error for updating data!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
@@ -438,9 +476,11 @@ function UpdateUser()
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
+                                $("#messageModal").modal();
                             });
                         }).catch(function(error) {
-                            alert("Cannot update!");
+                            $("#modalTitle").html("Error Message");
+                            $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
@@ -450,6 +490,7 @@ function UpdateUser()
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
+                            $("#messageModal").modal();
                     // });
                 });
                 }
@@ -481,7 +522,8 @@ function UpdateUser()
                                 "phone_number":memberContactNumber,
                                 "unit_id":unitID
                             }).then(function() {
-                                alert("The data has been saved successfully!");
+                                $("#modalTitle").html("Manage User");
+                                $("#message").html('The data has been saved successfully!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
@@ -491,8 +533,10 @@ function UpdateUser()
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
+                                $("#messageModal").modal();
                             }).catch(function(error) {
-                                alert("Cannot update!");
+                                $("#modalTitle").html("Error Message");
+                                $("#message").html('Error for updating data!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
@@ -502,9 +546,11 @@ function UpdateUser()
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
+                                $("#messageModal").modal();
                             });
                         }).catch(function(error) {
-                            alert("Cannot update!");
+                            $("#modalTitle").html("Error Message");
+                            $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
@@ -514,9 +560,11 @@ function UpdateUser()
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
+                            $("#messageModal").modal();
                         });
                     }).catch(function(error) {
-                        alert("Cannot update!");
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
@@ -526,11 +574,13 @@ function UpdateUser()
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
+                        $("#messageModal").modal();
                     });
                 }
                 else if(memberName == "" && contactNum == "")
                 {   
-                    alert("Please fill in at least one field!");
+                    $("#modalTitle").html("Error Message");
+                    $("#message").html('Please fill in at least one field!');
                     $("#emaildiv").css("display","block");
                     $("#newusername").prop('disabled', true);
                     $("#emaildiv").css("display","block");
@@ -540,6 +590,7 @@ function UpdateUser()
                     $("#newcontactdiv").show();
                     $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
+                    $("#messageModal").modal();
                 }
                 else if(memberEmail == "" && contactNum == "")
                 {
@@ -566,7 +617,8 @@ function UpdateUser()
                                 "phone_number":contactNumber,
                                 "unit_id":unitID
                             }).then(function() {
-                                alert("The data has been saved successfully!");
+                                $("#modalTitle").html("Manage User");
+                                $("#message").html('The data has been saved successfully!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
@@ -576,8 +628,10 @@ function UpdateUser()
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
+                                $("#messageModal").modal();
                             }).catch(function(error) {
-                                alert("Cannot update!");
+                                $("#modalTitle").html("Error Message");
+                                $("#message").html('Error for updating data!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
@@ -587,9 +641,11 @@ function UpdateUser()
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
+                                $("#messageModal").modal();
                             });
                         }).catch(function(error) {
-                            alert("Cannot update!");
+                            $("#modalTitle").html("Error Message");
+                            $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
@@ -599,9 +655,11 @@ function UpdateUser()
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
+                            $("#messageModal").modal();
                         });
                     }).catch(function(error) {
-                        alert("Cannot update!");
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
@@ -611,6 +669,7 @@ function UpdateUser()
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
+                        $("#messageModal").modal();
                     });
                 }
                 else
@@ -638,7 +697,8 @@ function UpdateUser()
                                 "phone_number":memberContactNumber,
                                 "unit_id":unitID
                             }).then(function() {
-                                alert("The data has been saved successfully!");
+                                $("#modalTitle").html("Manage User");
+                                $("#message").html('The data has been saved successfully!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
@@ -648,8 +708,10 @@ function UpdateUser()
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
+                                $("#messageModal").modal();
                             }).catch(function(error) {
-                                alert("Cannot update!");
+                                $("#modalTitle").html("Error Message");
+                                $("#message").html('Error for updating data!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
@@ -659,9 +721,11 @@ function UpdateUser()
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
+                                $("#messageModal").modal();
                             });
                         }).catch(function(error) {
-                            alert("Cannot update!");
+                            $("#modalTitle").html("Error Message");
+                            $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
@@ -671,9 +735,11 @@ function UpdateUser()
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
+                            $("#messageModal").modal();
                         });
                     }).catch(function(error) {
-                        alert("Cannot update!");
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
@@ -683,6 +749,7 @@ function UpdateUser()
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
+                        $("#messageModal").modal();
                     });
                 }
             }
@@ -690,9 +757,18 @@ function UpdateUser()
             {
                 if(memberName == "" && memberEmail == "")
                 {
-                    alert("Please fill in at least one field!");
+                    $("#modalTitle").html("Error Message");
+                    $("#message").html('Please fill in at least one field!');
                     $("#emaildiv").css("display","block");
+                    $("#newusername").prop('disabled', true);
+                    $("#emaildiv").css("display","block");
+                    $("#newcontactdiv").prop('disabled', true);
+                    $("#contactSelect").prop('disabled', true);
+                    $("#userbutton").hide();
+                    $("#newcontactdiv").show();
+                    $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
+                    $("#messageModal").modal();
                 }
                 else if(memberName == "" && contactNum == "")
                 {   
@@ -723,7 +799,8 @@ function UpdateUser()
                                 // .signInWithEmailAndPassword(findEmail, memberPassword)
                                 // .then(function(user) {
                                 //     user.updateEmail(memberEmail)
-                                    alert("The data has been saved successfully!");
+                                    $("#modalTitle").html("Manage User");
+                                    $("#message").html('The data has been saved successfully!');
                                     $("#emaildiv").css("display","block");
                                     $("#newusername").prop('disabled', true);
                                     $("#emaildiv").css("display","block");
@@ -733,11 +810,13 @@ function UpdateUser()
                                     $("#newcontactdiv").show();
                                     $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
+                                    $("#messageModal").modal();
                                 // }).catch(function(error) {
                                 //     alert("Cannot update!");
                                 //     $("#wait").css("display", "none");
                             }).catch(function(error) {
-                                alert("Cannot update!");
+                                $("#modalTitle").html("Error Message");
+                                $("#message").html('Error for updating data!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
@@ -747,9 +826,11 @@ function UpdateUser()
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
+                                $("#messageModal").modal();
                             });
                         }).catch(function(error) {
-                            alert("Cannot update!");
+                            $("#modalTitle").html("Error Message");
+                            $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
@@ -759,9 +840,11 @@ function UpdateUser()
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
+                            $("#messageModal").modal();
                         });
                     }).catch(function(error) {
-                        alert("Cannot update!");
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
@@ -771,6 +854,7 @@ function UpdateUser()
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
+                        $("#messageModal").modal();
                 // });
             });
         }
@@ -799,7 +883,8 @@ function UpdateUser()
                         "phone_number":contactNumber,
                         "unit_id":unitID
                     }).then(function() {
-                        alert("The data has been saved successfully!");
+                        $("#modalTitle").html("Manage User");
+                        $("#message").html('The data has been saved successfully!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
@@ -809,8 +894,10 @@ function UpdateUser()
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
+                        $("#messageModal").modal();
                     }).catch(function(error) {
-                        alert("Cannot update!");
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
@@ -820,9 +907,11 @@ function UpdateUser()
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
+                        $("#messageModal").modal();
                     });
                 }).catch(function(error) {
-                    alert("Cannot update!");
+                    $("#modalTitle").html("Error Message");
+                    $("#message").html('Error for updating data!');
                     $("#newusername").prop('disabled', true);
                     $("#emaildiv").css("display","block");
                     $("#newcontactdiv").prop('disabled', true);
@@ -831,9 +920,11 @@ function UpdateUser()
                     $("#newcontactdiv").show();
                     $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
+                    $("#messageModal").modal();
                 });
             }).catch(function(error) {
-                alert("Cannot update!");
+                $("#modalTitle").html("Error Message");
+                $("#message").html('Error for updating data!');
                 $("#newusername").prop('disabled', true);
                 $("#emaildiv").css("display","block");
                 $("#newcontactdiv").prop('disabled', true);
@@ -842,6 +933,7 @@ function UpdateUser()
                 $("#newcontactdiv").show();
                 $("#countrySeparator").hide();
                 $("#wait").css("display", "none");
+                $("#messageModal").modal();
             });
         }
         else
@@ -873,7 +965,8 @@ function UpdateUser()
                         // .signInWithEmailAndPassword(findEmail, memberPassword)
                         // .then(function(user) {
                         //     user.updateEmail(memberEmail)
-                            alert("The data has been saved successfully!");
+                            $("#modalTitle").html("Manage User");
+                            $("#message").html('The data has been saved successfully!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
@@ -883,11 +976,13 @@ function UpdateUser()
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
+                            $("#messageModal").modal();
                         // }).catch(function(error) {
                         //     alert("Cannot update!");
                         //     $("#wait").css("display", "none");
                     }).catch(function(error) {
-                        alert("Cannot update!");
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
@@ -897,9 +992,11 @@ function UpdateUser()
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
+                        $("#messageModal").modal();
                     });
                 }).catch(function(error) {
-                    alert("Cannot update!");
+                    $("#modalTitle").html("Error Message");
+                    $("#message").html('Error for updating data!');
                     $("#emaildiv").css("display","block");
                     $("#newusername").prop('disabled', true);
                     $("#emaildiv").css("display","block");
@@ -909,9 +1006,11 @@ function UpdateUser()
                     $("#newcontactdiv").show();
                     $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
+                    $("#messageModal").modal();
                 });
             }).catch(function(error) {
-                alert("Cannot update!");
+                $("#modalTitle").html("Error Message");
+                $("#message").html('Error for updating data!');
                 $("#emaildiv").css("display","block");
                 $("#newusername").prop('disabled', true);
                 $("#emaildiv").css("display","block");
@@ -921,6 +1020,7 @@ function UpdateUser()
                 $("#newcontactdiv").show();
                 $("#countrySeparator").hide();
                 $("#wait").css("display", "none");
+                $("#messageModal").modal();
                 });
             // });
         }
@@ -954,7 +1054,8 @@ function UpdateUser()
                         // .signInWithEmailAndPassword(findEmail, memberPassword)
                         // .then(function(user) {
                         //     user.updateEmail(memberEmail)
-                            alert("The data has been saved successfully!");
+                            $("#modalTitle").html("Manage User");
+                            $("#message").html('The data has been saved successfully!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
@@ -964,11 +1065,13 @@ function UpdateUser()
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
+                            $("#messageModal").modal();
                         // }).catch(function(error) {
                         //     alert("Cannot update!");
                         //     $("#wait").css("display", "none");
                     }).catch(function(error) {
-                        alert("Cannot update!");
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
@@ -978,9 +1081,11 @@ function UpdateUser()
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
+                        $("#messageModal").modal();
                     });
                 }).catch(function(error) {
-                    alert("Cannot update!");
+                    $("#modalTitle").html("Error Message");
+                    $("#message").html('Error for updating data!');
                     $("#emaildiv").css("display","block");
                     $("#newusername").prop('disabled', true);
                     $("#emaildiv").css("display","block");
@@ -990,9 +1095,11 @@ function UpdateUser()
                     $("#newcontactdiv").show();
                     $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
+                    $("#messageModal").modal();
                 });
             }).catch(function(error) {
-                alert("Cannot update!");
+                $("#modalTitle").html("Error Message");
+                $("#message").html('Error for updating data!');
                 $("#emaildiv").css("display","block");
                 $("#newusername").prop('disabled', true);
                 $("#emaildiv").css("display","block");
@@ -1002,6 +1109,7 @@ function UpdateUser()
                 $("#newcontactdiv").show();
                 $("#countrySeparator").hide();
                 $("#wait").css("display", "none");
+                $("#messageModal").modal();
                 });
         }
         else
@@ -1014,8 +1122,10 @@ function UpdateUser()
             $("#userbutton").hide();
             $("#newcontactdiv").show();
             $("#countrySeparator").hide();
-            alert("Please fill at least one of the field");
+            $("#modalTitle").html("Error Message");
+            $("#message").html('Please fill in at least one field!');
             $("#wait").css("display", "none");
+            $("#messageModal").modal();
         }
 
         propertyMemberIDRef.get().then(function(doc) {
@@ -1044,8 +1154,10 @@ function UpdateUser()
                 }
                 else {
                     // doc.data() will be undefined in this case
-                    Alert("No data!");
+                    $("#modalTitle").html("Error Message");
+                    $("#message").html('Error for getting the data from database!');
                     $("#wait").css("display", "none");
+                    $("#messageModal").modal();
                 }
             });
     // });
@@ -1084,10 +1196,18 @@ function UpdateProperty()
                 member_uid:memberID
             }).then(function(){
                 propertyMemberIDRef.delete().then(function() {
-                    alert("Update Successfully!");
+                    // alert("Update Successfully!");
+                    unitID = assignedunit;
+                    $("#modalTitle").html("Manage User");
+                    $("#message").html('Update Successfully!');
                     $("#wait").css("display", "none");
-                    propertyMemberIDRef.get().then(function(doc) {
-                        if (doc.exists) {
+                    $("#messageModal").modal();
+                var NewpropertyMemberIDRef =  db.collection("properties").doc(propertyID).collection("units").doc(assignedunit).collection("unit_members");
+                NewpropertyMemberIDRef.get().then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                       
+                       if(doc.data().member_email == email)
+                       {
                             property = doc.data().member_property;
                             unit = doc.data().member_unit;
                 
@@ -1096,34 +1216,42 @@ function UpdateProperty()
                             $("#newusername").val(name);
                             $("#newemail").val(email);
                             $("#newcontact").val(contactNumber);
-                
-                            // $("#SaveProperty").prop('disabled', true);
-                            // $("#CancelProperty").prop('disabled', true);
+
                             $("#buttonProperty").hide();
                             $("#noedit").show();
                             $("#edit").hide();
-                            loadDetails();
+                            //loadDetails();
                             $("#wait").css("display", "none");
-                        }
-                        else {
-                            // doc.data() will be undefined in this case
-                            Alert("No data!");
-                            $("#wait").css("display", "none");
-                        }
+                       }
+                    })
+                }).catch(function()
+                    {
+                        // doc.data() will be undefined in this case
+                        $("#modalTitle").html("Error Message");
+                        $("#message").html('Error for getting the data from database!');
+                        $("#wait").css("display", "none");
+                        $("#messageModal").modal();
                     });
             }).catch(function(error) {
-                alert("Cannot update!");
+                $("#modalTitle").html("Error Message");
+                $("#message").html('Error updating data!');
                 $("#wait").css("display", "none");
+                $("#messageModal").modal();
             });
         }).catch(function(error) {
-            alert("Cannot update!");
+            $("#modalTitle").html("Error Message");
+            $("#message").html('Error updating data!');
             $("#wait").css("display", "none");
+            $("#messageModal").modal();
         });
     }).catch(function(error) {
-        alert("Cannot update!");
+        $("#modalTitle").html("Error Message");
+        $("#message").html('Error updating data!');
         $("#wait").css("display", "none");
+        $("#messageModal").modal();
     });
-    });
+});
+
     // if(assignedproperty == "")
     // {
        
@@ -1181,6 +1309,8 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    alert(error);
+    $("#modalTitle").html("Error Message");
+    $("#message").html('Error logout');
+    $("#messageModal").modal();
   });
 }

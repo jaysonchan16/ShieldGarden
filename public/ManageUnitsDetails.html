@@ -232,6 +232,57 @@
                     
                       </div>
                     </div>
+
+                    <div id="messageModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Manage Units</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div class="col-md-12">
+                              <div class="row">
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control borderSearch" placeholder="Search a user email" id="InputEmail" style="height: 42px;">
+                                </div>
+                                <div class="col-md-3">
+                                    <button style="margin-top:0px;background-color: grey;" type="button" id="SearchEmail" class="btn btn-primary">Search</button>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <span id="showblock"></span>
+                              </div>
+                              <div class="col-md-12">
+                                <span id="showemail"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="assignUnit" style="display:none;margin-right: 160px;">Assign User to this unit</button>
+                          </div>
+                        </div>
+                    
+                      </div>
+                    </div>
+
+                    <div id="errorModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" id="closeModal">&times;</button>
+                            <h4 class="modal-title" id="modalTitle">Manage Units</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div class="col-md-12">
+                              <span id="message"></span>
+                            </div>
+                          </div>
+                        </div>
+                    
+                      </div>
+                    </div>
+
                     <div id="wait"><img class="moveposition" src='img/spinner.gif' width="64" height="64" /><br><span class="moveposition" id="textColor">Loading..</span></div>
             
                 </div>
