@@ -33,6 +33,10 @@ $(document).ready(function(){
         sessionStorage.setItem("unitID",unitID);
         window.location = 'AddNewUser.html';
     });
+
+    $("#manageButton").off('click').on('click', function(){
+        loadDetails();
+    });
 });
 
 function loadDetails()
@@ -59,7 +63,9 @@ function loadDetails()
                property(propertyID,unitID);
             }
             else {
-                alert("Cannot find this user in database");
+                $("#errorTitle").html("Error Message");
+                $("#errorMessage").html("Cannot find this user in database");
+                $("#errorModal").modal();
                 // doc.data() will be undefined in this case
                 //console.log("No such document!");
             }
@@ -89,8 +95,8 @@ function property(propertyID,unitID)
         querySnapshot.forEach(function(doc){
             $(".table tbody").append("<tr><td class='name findButton' id='"+doc.data().p_member_email+","+doc.data().p_member_unit_id+"' onclick='details(this.id)'>"+doc.data().p_member_name+"</td><td>"+doc.data().p_member_email+
                         "</td><td>"+doc.data().p_member_number+"</td><td>"+doc.data().p_member_property+
-                        "</td><td>"+doc.data().p_member_unit_id+"</td><td class='name findButton' id='"+doc.id+","+doc.data().member_name+","+
-                        doc.data().member_email+"' onclick='deletes(this.id)'>Delete</td></tr>");
+                        "</td><td>"+doc.data().p_member_unit_id+"</td><td class='name findButton' id='"+doc.id+","+doc.data().p_member_name+","+
+                        doc.data().p_member_email+"' onclick='deletes(this.id)'>Delete</td></tr>");
                 });
                 $("#AddNewUser").prop("disabled",false);
                 $("#wait").css("display", "none");
@@ -119,9 +125,10 @@ function deleteUser()
 {
     $("#wait").css("display", "block");
     var propertyRef = db.collection("properties").doc(propertyID).collection("property_members");
+    var deleteUnitMemberRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
     var propertyDeleteID;
     var memberDeleteID;
-
+    console.log(deleteEmail);
     propertyRef.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc){
             if(deleteEmail == doc.data().p_member_email)
@@ -130,26 +137,41 @@ function deleteUser()
                 propertyDeleteID = doc.id;
             }
         })
+        var unitMemberID;
+        deleteUnitMemberRef.get().then(function(querySnapshot){
+            querySnapshot.forEach(function(doc){
+                    if(deleteEmail == doc.data().member_email)
+                    {
+                        unitMemberID = doc.id;
+                    }
+                });
 
-        db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(deleteID).delete().then(function(){
+        db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(unitMemberID).delete().then(function(){
             db.collection("properties").doc(propertyID).collection("property_members").doc(propertyDeleteID).delete().then(function(){
                 db.collection("users").doc(memberDeleteID).delete().then(function(){
-                    alert("Delete Successfully");
                     $("#deleteModal").modal("toggle");
-                    loadDetails();
-                }).catch(function(error) {
-                    alert("Error for removing!");
+                    $("#manageModal").modal();
                     $("#wait").css("display", "none");
+                }).catch(function(error) {
+                    $("#errorTitle").html("Error Message");
+                    $("#errorMessage").html("Error for removing");
+                    $("#wait").css("display", "none");
+                    $("#errorModal").modal();
                 });
             }).catch(function(error) {
-                alert("Error for removing!");
+                $("#errorTitle").html("Error Message");
+                $("#errorMessage").html("Error for removing");
                 $("#wait").css("display", "none");
+                $("#errorModal").modal();
             });
         }).catch(function(error) {
-            alert("Error for removing!");
+            $("#errorTitle").html("Error Message");
+            $("#errorMessage").html("Error for removing");
             $("#wait").css("display", "none");
+            $("#errorModal").modal();
     });
-});    
+}); 
+    });   
 }
 
 function logout()
@@ -159,6 +181,9 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    alert(error);
+    $("#errorTitle").html("Error Message");
+    $("#errorMessage").html("Error for logout");
+    $("#wait").css("display", "none");
+    $("#errorModal").modal();
   });
 }

@@ -27,11 +27,11 @@ $(document).ready(function(){
 
     $("#EditUser").off('click').on('click', function(){
         $("#newusername").val("");
-        $("#emaildiv").css("display","none");
+       // $("#emaildiv").css("display","none");
        // $("#newemail").val("");
         $("#newcontact").val("");
         $("#newpassword").val("");
-
+        $("#newemail").css("background-color","lightgrey");
         $("#newusername").prop('disabled', false);
        // $("#newemail").prop('disabled', false);
         $("#newcontact").prop('disabled', false);
@@ -75,6 +75,7 @@ $(document).ready(function(){
         
         $("#newusername").prop('disabled', true);
         $("#newemail").prop('disabled', true);
+        $("#newemail").css("background-color","white");
         $("#newcontact").prop('disabled', true);
         $("#contactSelect").prop('disabled', true);
         $("#newpassword").prop('disabled',true);
@@ -142,6 +143,7 @@ function loadDetails()
                             $("#assignedunit").val(doc.data().member_unit);
                             $("#newusername").val(doc.data().member_name);
                             $("#newemail").val(doc.data().member_email);
+                            $("#newemail").css("background-color","white");
                             $("#newcontactdiv").val(doc.data().member_number);
                             $("#member_name").text(doc.data().member_name);
                         }
@@ -154,13 +156,13 @@ function loadDetails()
         $("#message").html('Cannot find in database!');
         $("#emaildiv").css("display","block");
         $("#newusername").prop('disabled', true);
-        $("#emaildiv").css("display","block");
         $("#newcontactdiv").prop('disabled', true);
         $("#contactSelect").prop('disabled', true);
         $("#userbutton").hide();
         $("#newcontactdiv").show();
         $("#countrySeparator").hide();
         $("#wait").css("display", "none");
+        $("#newemail").css("background-color","white");
         $("#messageModal").modal();
     });
 });
@@ -250,6 +252,7 @@ function UpdateUser()
                                     $("#modalTitle").html("Manage User");
                                     $("#message").html('The data has been saved successfully!');
                                     $("#emaildiv").css("display","block");
+                                    $("#newemail").css("background-color","white");
                                     $("#newusername").prop('disabled', true);
                                     $("#emaildiv").css("display","block");
                                     $("#newcontactdiv").prop('disabled', true);
@@ -263,6 +266,7 @@ function UpdateUser()
                                     $("#modalTitle").html("Error Message");
                                     $("#message").html('Error for updating data!');
                                     $("#emaildiv").css("display","block");
+                                    $("#newemail").css("background-color","white");
                                     $("#newusername").prop('disabled', true);
                                     $("#emaildiv").css("display","block");
                                     $("#newcontactdiv").prop('disabled', true);
