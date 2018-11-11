@@ -59,7 +59,7 @@ function loadDetails()
         userdocRef.get().then(function(doc) {
             if (doc.exists) {
                 propertyID = doc.data().property_id;
-                unitID = doc.data().unit_id; 
+                //unitID = doc.data().unit_id; 
                property(propertyID,unitID);
             }
             else {
@@ -125,19 +125,21 @@ function deleteUser()
 {
     $("#wait").css("display", "block");
     var propertyRef = db.collection("properties").doc(propertyID).collection("property_members");
-    var deleteUnitMemberRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
+    
     var propertyDeleteID;
     var memberDeleteID;
-    console.log(deleteEmail);
     propertyRef.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc){
             if(deleteEmail == doc.data().p_member_email)
             {
                 memberDeleteID = doc.data().p_member_uid;
+                unitID = doc.data().p_member_unit_id;
                 propertyDeleteID = doc.id;
             }
         })
         var unitMemberID;
+        var deleteUnitMemberRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
+    
         deleteUnitMemberRef.get().then(function(querySnapshot){
             querySnapshot.forEach(function(doc){
                     if(deleteEmail == doc.data().member_email)
@@ -145,7 +147,6 @@ function deleteUser()
                         unitMemberID = doc.id;
                     }
                 });
-
         db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(unitMemberID).delete().then(function(){
             db.collection("properties").doc(propertyID).collection("property_members").doc(propertyDeleteID).delete().then(function(){
                 db.collection("users").doc(memberDeleteID).delete().then(function(){
