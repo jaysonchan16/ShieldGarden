@@ -248,17 +248,26 @@ function UpdateUser()
                         })
                         .then(function() {
                             propertyMemberRef.update({
-                                "p_member_name": name,
-                                "p_member_email": email,
-                                "p_member_number":memberContactNumber,
-                                "p_member_property":propertyName,
-                                "p_member_unit_id":unitID,
+                                p_member_name: name,
+                                p_member_email: email,
+                                p_member_number:memberContactNumber,
+                                p_member_property:propertyName,
+                                p_member_unit_id:unitID,
+                                p_member_uid:memberID
                             }).then(function() {
                                 userUpdateRef.update({
-                                    "name": name,
-                                    "email": email,
-                                    "phone_number":memberContactNumber,
-                                    "unit_id":unitID
+                                    admin: true,
+                                    app_platform: null,
+                                    app_version: null,
+                                    country_code: null,
+                                    email:email,
+                                    full_address:null,
+                                    name:name,
+                                    phone_model:null,
+                                    phone_number:memberContactNumber,
+                                    property_id:propertyID,
+                                    unit_id:unitID,
+                                    user_id:memberID
                                 }).then(function() {
                                     $("#modalTitle").html("Manage User");
                                     $("#message").html('The data has been saved successfully!');
@@ -337,17 +346,26 @@ function UpdateUser()
                     })
                     .then(function() {
                         propertyMemberRef.update({
-                            "p_member_name": name,
-                            "p_member_email": memberEmail,
-                            "p_member_number":contactNumber,
-                            "p_member_property":propertyName,
-                            "p_member_unit_id":unitID,
+                            p_member_name: name,
+                            p_member_email: memberEmail,
+                            p_member_number:contactNumber,
+                            p_member_property:propertyName,
+                            p_member_unit_id:unitID,
+                            p_member_uid:memberID
                         }).then(function() {
                             userUpdateRef.update({
-                                "name": name,
-                                "email": memberEmail,
-                                "phone_number":contactNumber,
-                                "unit_id":unitID
+                                admin: true,
+                                app_platform: null,
+                                app_version: null,
+                                country_code: null,
+                                email:memberEmail,
+                                full_address:null,
+                                name:name,
+                                phone_model:null,
+                                phone_number:contactNumber,
+                                property_id:propertyID,
+                                unit_id:unitID,
+                                user_id:memberID
                             }).then(function() {
                                 // firebase.auth()
                                 // .signInWithEmailAndPassword(findEmail, memberPassword)
@@ -450,17 +468,26 @@ function UpdateUser()
                     })
                      .then(function() {
                             propertyMemberRef.update({
-                                "p_member_name": name,
-                                "p_member_email": memberEmail,
-                                "p_member_number":memberContactNumber,
-                                "p_member_property":propertyName,
-                                "p_member_unit_id":unitID,
+                                p_member_name: name,
+                                p_member_email: memberEmail,
+                                p_member_number:memberContactNumber,
+                                p_member_property:propertyName,
+                                p_member_unit_id:unitID,
+                                p_member_uid:memberID
                             }).then(function() {
                                 userUpdateRef.update({
-                                    "name": name,
-                                    "email": memberEmail,
-                                    "phone_number":memberContactNumber,
-                                    "unit_id":unitID
+                                    admin: true,
+                                    app_platform: null,
+                                    app_version: null,
+                                    country_code: null,
+                                    email:memberEmail,
+                                    full_address:null,
+                                    name:name,
+                                    phone_model:null,
+                                    phone_number:memberContactNumber,
+                                    property_id:propertyID,
+                                    unit_id:unitID,
+                                    user_id:memberID
                                 }).then(function() {
                                     // firebase.auth()
                                     // .signInWithEmailAndPassword(findEmail, memberPassword)
@@ -549,17 +576,26 @@ function UpdateUser()
                     })
                     .then(function() {
                         propertyMemberRef.update({
-                            "p_member_name": name,
-                            "p_member_email": email,
-                            "p_member_number":memberContactNumber,
-                            "p_member_property":propertyName,
-                            "p_member_unit_id":unitID,
+                            p_member_name: name,
+                            p_member_email: email,
+                            p_member_number:memberContactNumber,
+                            p_member_property:propertyName,
+                            p_member_unit_id:unitID,
+                            p_member_uid:memberID
                         }).then(function() {
                             userUpdateRef.update({
-                                "name": name,
-                                "email": email,
-                                "phone_number":memberContactNumber,
-                                "unit_id":unitID
+                                admin: true,
+                                app_platform: null,
+                                app_version: null,
+                                country_code: null,
+                                email:email,
+                                full_address:null,
+                                name:name,
+                                phone_model:null,
+                                phone_number:memberContactNumber,
+                                property_id:propertyID,
+                                unit_id:unitID,
+                                user_id:memberID
                             }).then(function() {
                                 $("#modalTitle").html("Manage User");
                                 $("#message").html('The data has been saved successfully!');
@@ -654,17 +690,26 @@ function UpdateUser()
                     })
                     .then(function() {
                         propertyMemberRef.update({
-                            "p_member_name": memberName,
-                            "p_member_email": email,
-                            "p_member_number":contactNumber,
-                            "p_member_property":propertyName,
-                            "p_member_unit_id":unitID,
+                            p_member_name: memberName,
+                            p_member_email: email,
+                            p_member_number:contactNumber,
+                            p_member_property:propertyName,
+                            p_member_unit_id:unitID,
+                            p_member_uid:memberID
                         }).then(function() {
                             userUpdateRef.update({
-                                "name": memberName,
-                                "email": email,
-                                "phone_number":contactNumber,
-                                "unit_id":unitID
+                                admin: true,
+                                app_platform: null,
+                                app_version: null,
+                                country_code: null,
+                                email:email,
+                                full_address:null,
+                                name:memberName,
+                                phone_model:null,
+                                phone_number:contactNumber,
+                                property_id:propertyID,
+                                unit_id:unitID,
+                                user_id:memberID
                             }).then(function() {
                                 $("#modalTitle").html("Manage User");
                                 $("#message").html('The data has been saved successfully!');
@@ -742,17 +787,26 @@ function UpdateUser()
                     })
                     .then(function() {
                         propertyMemberRef.update({
-                            "p_member_name": memberName,
-                            "p_member_email": email,
-                            "p_member_number":memberContactNumber,
-                            "p_member_property":propertyName,
-                            "p_member_unit_id":unitID,
+                            p_member_name: memberName,
+                            p_member_email: email,
+                            p_member_number:memberContactNumber,
+                            p_member_property:propertyName,
+                            p_member_unit_id:unitID,
+                            p_member_uid:memberID
                         }).then(function() {
                             userUpdateRef.update({
-                                "name": memberName,
-                                "email": email,
-                                "phone_number":memberContactNumber,
-                                "unit_id":unitID
+                                admin: true,
+                                app_platform: null,
+                                app_version: null,
+                                country_code: null,
+                                email:email,
+                                full_address:null,
+                                name:memberName,
+                                phone_model:null,
+                                phone_number:memberContactNumber,
+                                property_id:propertyID,
+                                unit_id:unitID,
+                                user_id:memberID
                             }).then(function() {
                                 $("#modalTitle").html("Manage User");
                                 $("#message").html('The data has been saved successfully!');
@@ -850,17 +904,26 @@ function UpdateUser()
                     })
                     .then(function() {
                         propertyMemberRef.update({
-                            "p_member_name": name,
-                            "p_member_email": memberEmail,
-                            "p_member_number":memberContactNumber,
-                            "p_member_property":propertyName,
-                            "p_member_unit_id":unitID,
+                            p_member_name: name,
+                            p_member_email: memberEmail,
+                            p_member_number:contactNumber,
+                            p_member_property:propertyName,
+                            p_member_unit_id:unitID,
+                            p_member_uid:memberID
                         }).then(function() {
                             userUpdateRef.update({
-                                "name": name,
-                                "email": memberEmail,
-                                "phone_number":memberContactNumber,
-                                "unit_id":unitID
+                                admin: true,
+                                app_platform: null,
+                                app_version: null,
+                                country_code: null,
+                                email:memberEmail,
+                                full_address:null,
+                                name:name,
+                                phone_model:null,
+                                phone_number:memberContactNumber,
+                                property_id:propertyID,
+                                unit_id:unitID,
+                                user_id:memberID
                             }).then(function() {
                                 // firebase.auth()
                                 // .signInWithEmailAndPassword(findEmail, memberPassword)
@@ -945,17 +1008,26 @@ function UpdateUser()
             })
             .then(function() {
                 propertyMemberRef.update({
-                    "p_member_name": memberName,
-                    "p_member_email": email,
-                    "p_member_number":contactNumber,
-                    "p_member_property":propertyName,
-                    "p_member_unit_id":unitID,
+                    p_member_name: memberName,
+                    p_member_email: email,
+                    p_member_number:contactNumber,
+                    p_member_property:propertyName,
+                    p_member_unit_id:unitID,
+                    p_member_uid:memberID
                 }).then(function() {
                     userUpdateRef.update({
-                        "name": memberName,
-                        "email": email,
-                        "phone_number":contactNumber,
-                        "unit_id":unitID
+                        admin: true,
+                        app_platform: null,
+                        app_version: null,
+                        country_code: null,
+                        email:email,
+                        full_address:null,
+                        name:memberName,
+                        phone_model:null,
+                        phone_number:contactNumber,
+                        property_id:propertyID,
+                        unit_id:unitID,
+                        user_id:memberID
                     }).then(function() {
                         $("#modalTitle").html("Manage User");
                         $("#message").html('The data has been saved successfully!');
@@ -1031,17 +1103,26 @@ function UpdateUser()
             })
             .then(function() {
                 propertyMemberRef.update({
-                    "p_member_name": memberName,
-                    "p_member_email": memberEmail,
-                    "p_member_number":contactNumber,
-                    "p_member_property":propertyName,
-                    "p_member_unit_id":unitID,
+                    p_member_name: memberName,
+                    p_member_email: memberEmail,
+                    p_member_number:contactNumber,
+                    p_member_property:propertyName,
+                    p_member_unit_id:unitID,
+                    p_member_uid:memberID
                 }).then(function() {
                     userUpdateRef.update({
-                        "name": memberName,
-                        "email": memberEmail,
-                        "phone_number":contactNumber,
-                        "unit_id":unitID
+                        admin: true,
+                        app_platform: null,
+                        app_version: null,
+                        country_code: null,
+                        email:memberEmail,
+                        full_address:null,
+                        name:memberName,
+                        phone_model:null,
+                        phone_number:contactNumber,
+                        property_id:propertyID,
+                        unit_id:unitID,
+                        user_id:memberID
                     }).then(function() {
                         // firebase.auth()
                         // .signInWithEmailAndPassword(findEmail, memberPassword)
@@ -1128,17 +1209,26 @@ function UpdateUser()
             })
             .then(function() {
                 propertyMemberRef.update({
-                    "p_member_name": memberName,
-                    "p_member_email": memberEmail,
-                    "p_member_number":memberContactNumber,
-                    "p_member_property":propertyName,
-                    "p_member_unit_id":unitID,
+                    p_member_name: memberName,
+                    p_member_email: memberEmail,
+                    p_member_number:memberContactNumber,
+                    p_member_property:propertyName,
+                    p_member_unit_id:unitID,
+                    p_member_uid:memberID
                 }).then(function() {
                     userUpdateRef.update({
-                        "name": memberName,
-                        "email": memberEmail,
-                        "phone_number":memberContactNumber,
-                        "unit_id":unitID
+                        admin: true,
+                        app_platform: null,
+                        app_version: null,
+                        country_code: null,
+                        email:memberEmail,
+                        full_address:null,
+                        name:memberName,
+                        phone_model:null,
+                        phone_number:memberContactNumber,
+                        property_id:propertyID,
+                        unit_id:unitID,
+                        user_id:memberID
                     }).then(function() {
                         // firebase.auth()
                         // .signInWithEmailAndPassword(findEmail, memberPassword)
@@ -1415,7 +1505,7 @@ function deleteUser()
     var deleteUnitMemberRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
     var propertyDeleteID;
     var memberDeleteID;
-    
+
     propertyRef.get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc){
             if(findEmail == doc.data().p_member_email)
