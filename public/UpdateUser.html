@@ -503,8 +503,13 @@
                                 <button type="submit" class="btn" style="background-color:purple;" id="CancelProperty">Cancel</button>
                             </div>
                         </div>
+                    <div class="row" id="buttonDelete">
+                        <div class='col-md-4'>
+                            <button type="submit" class="btn btn-success" id="DeleteUser">Delete</button>
+                        </div>
                     </div>
-                      </div>
+                  </div>
+                </div>
 
                       <div id="messageModal" class="modal fade" role="dialog">
                         <div class="modal-dialog">
@@ -522,6 +527,25 @@
                       
                         </div>
                       </div>
+
+                      <div id="deleteModal" class="modal fade" role="dialog">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" id="deleteButton">&times;</button>
+                                <h4 class="modal-title" id="deleteTitle">Manage User</h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="col-md-12">
+                                  <span id="deleteMessage">Delete Successfully</span>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                               </div>
+                            </div>
+                        
+                          </div>
+                        </div>
                       <div id="wait"><img class="moveposition" src='img/spinner.gif' width="64" height="64" /><br><span class="moveposition" id="textColor">Loading..</span></div>
                   </div>
                 </div>

@@ -41,6 +41,7 @@ $(document).ready(function(){
         $("#newcontactdiv").hide();
         $("#displayPassword").show();
         $("#countrySeparator").show();
+        $("#DeleteUser").css("display","none");
         // $("#SaveUser").prop('disabled', false);
         // $("#CancelUser").prop('disabled', false);
     });
@@ -51,7 +52,7 @@ $(document).ready(function(){
 
         // $("#assignedproperty").prop('disabled', false);
         // $("#assignedunit").prop('disabled', false);
-
+        $("#DeleteUser").css("display","none");
         $("#assignedpropertydrop").html("<option>"+propertyName+"</option><option>No Property</option>");
         // $("#SaveProperty").prop('disabled', false);
         // $("#CancelProperty").prop('disabled', false);
@@ -72,7 +73,7 @@ $(document).ready(function(){
         $("#newusername").val(name);
         $("#newemail").val(email);
         $("#newcontact").val(contactNumber);
-        
+        $("#DeleteUser").css("display","block");
         $("#newusername").prop('disabled', true);
         $("#newemail").prop('disabled', true);
         $("#newemail").css("background-color","white");
@@ -90,7 +91,7 @@ $(document).ready(function(){
     $("#CancelProperty").off('click').on('click', function(){
         $("#assignedproperty").val(currentproperty);
         $("#assignedunit").val(currentunit);
-        
+        $("#DeleteUser").css("display","block");
         // $("#assignedproperty").prop('disabled', true);
         // $("#assignedunit").prop('disabled', true);
         // $("#SaveProperty").prop('disabled', true);
@@ -98,6 +99,14 @@ $(document).ready(function(){
         $("#buttonProperty").hide();
         $("#noedit").show();
         $("#edit").hide();
+    });
+
+    $("#DeleteUser").off('click').on('click', function(){
+        deleteUser();
+    });
+
+    $("#deleteButton").off('click').on('click', function(){
+        window.location = 'ManageUser.html';
     });
 });
 
@@ -144,6 +153,7 @@ function loadDetails()
                             $("#newusername").val(doc.data().member_name);
                             $("#newemail").val(doc.data().member_email);
                             $("#newemail").css("background-color","white");
+                            $("#DeleteUser").css("display","block");
                             $("#newcontactdiv").val(doc.data().member_number);
                             $("#member_name").text(doc.data().member_name);
                         }
@@ -161,6 +171,7 @@ function loadDetails()
         $("#userbutton").hide();
         $("#newcontactdiv").show();
         $("#countrySeparator").hide();
+        $("#DeleteUser").css("display","block");
         $("#wait").css("display", "none");
         $("#newemail").css("background-color","white");
         $("#messageModal").modal();
@@ -259,6 +270,7 @@ function UpdateUser()
                                     $("#contactSelect").prop('disabled', true);
                                     $("#userbutton").hide();
                                     $("#newcontactdiv").show();
+                                    $("#DeleteUser").css("display","block");
                                     $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
                                     $("#messageModal").modal();
@@ -273,6 +285,7 @@ function UpdateUser()
                                     $("#contactSelect").prop('disabled', true);
                                     $("#userbutton").hide();
                                     $("#newcontactdiv").show();
+                                    $("#DeleteUser").css("display","block");
                                     $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
                                     $("#messageModal").modal();
@@ -287,6 +300,8 @@ function UpdateUser()
                                 $("#contactSelect").prop('disabled', true);
                                 $("#userbutton").hide();
                                 $("#newcontactdiv").show();
+                                $("#DeleteUser").css("display","block");
+                                $("#newemail").css("background-color","white");
                                 $("#countrySeparator").hide();
                                 $("#wait").css("display", "none");
                                 $("#messageModal").modal();
@@ -301,6 +316,8 @@ function UpdateUser()
                             $("#contactSelect").prop('disabled', true);
                             $("#userbutton").hide();
                             $("#newcontactdiv").show();
+                            $("#DeleteUser").css("display","block");
+                            $("#newemail").css("background-color","white");
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
                             $("#messageModal").modal();
@@ -338,7 +355,9 @@ function UpdateUser()
                                 //     user.updateEmail(memberEmail)
                                     $("#modalTitle").html("Manage User");
                                     $("#message").html('The data has been saved successfully!');
+                                    $("#newemail").css("background-color","white");
                                     $("#emaildiv").css("display","block");
+                                    $("#DeleteUser").css("display","block");
                                     $("#newusername").prop('disabled', true);
                                     $("#emaildiv").css("display","block");
                                     $("#newcontactdiv").prop('disabled', true);
@@ -357,8 +376,10 @@ function UpdateUser()
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
+                                $("#newemail").css("background-color","white");
                                 $("#newcontactdiv").prop('disabled', true);
                                 $("#contactSelect").prop('disabled', true);
+                                $("#DeleteUser").css("display","block");
                                 $("#userbutton").hide();
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
@@ -371,7 +392,9 @@ function UpdateUser()
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
+                            $("#newemail").css("background-color","white");
                             $("#newcontactdiv").prop('disabled', true);
+                            $("#DeleteUser").css("display","block");
                             $("#contactSelect").prop('disabled', true);
                             $("#userbutton").hide();
                             $("#newcontactdiv").show();
@@ -384,9 +407,11 @@ function UpdateUser()
                         $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
+                        $("#newemail").css("background-color","white");
                         $("#emaildiv").css("display","block");
                         $("#newcontactdiv").prop('disabled', true);
                         $("#contactSelect").prop('disabled', true);
+                        $("#DeleteUser").css("display","block");
                         $("#userbutton").hide();
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
@@ -403,8 +428,10 @@ function UpdateUser()
                     $("#newusername").prop('disabled', true);
                     $("#emaildiv").css("display","block");
                     $("#newcontactdiv").prop('disabled', true);
+                    $("#DeleteUser").css("display","block");
                     $("#contactSelect").prop('disabled', true);
                     $("#userbutton").hide();
+                    $("#newemail").css("background-color","white");
                     $("#newcontactdiv").show();
                     $("#countrySeparator").hide();
                     $("#wait").css("display", "none");
@@ -443,7 +470,9 @@ function UpdateUser()
                                         $("#message").html('The data has been saved successfully!');
                                         $("#emaildiv").css("display","block");
                                         $("#newusername").prop('disabled', true);
+                                        $("#DeleteUser").css("display","block");
                                         $("#emaildiv").css("display","block");
+                                        $("#newemail").css("background-color","white");
                                         $("#newcontactdiv").prop('disabled', true);
                                         $("#contactSelect").prop('disabled', true);
                                         $("#userbutton").hide();
@@ -460,10 +489,12 @@ function UpdateUser()
                                     $("#emaildiv").css("display","block");
                                     $("#newusername").prop('disabled', true);
                                     $("#emaildiv").css("display","block");
+                                    $("#DeleteUser").css("display","block");
                                     $("#newcontactdiv").prop('disabled', true);
                                     $("#contactSelect").prop('disabled', true);
                                     $("#userbutton").hide();
                                     $("#newcontactdiv").show();
+                                    $("#newemail").css("background-color","white");
                                     $("#countrySeparator").hide();
                                     $("#wait").css("display", "none");
                                     $("#messageModal").modal();
@@ -475,10 +506,12 @@ function UpdateUser()
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
                                 $("#newcontactdiv").prop('disabled', true);
+                                $("#DeleteUser").css("display","block");
                                 $("#contactSelect").prop('disabled', true);
                                 $("#userbutton").hide();
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
+                                $("#newemail").css("background-color","white");
                                 $("#wait").css("display", "none");
                                 $("#messageModal").modal();
                             });
@@ -486,11 +519,13 @@ function UpdateUser()
                             $("#modalTitle").html("Error Message");
                             $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
+                            $("#DeleteUser").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
                             $("#newcontactdiv").prop('disabled', true);
                             $("#contactSelect").prop('disabled', true);
                             $("#userbutton").hide();
+                            $("#newemail").css("background-color","white");
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
                             $("#wait").css("display", "none");
@@ -528,10 +563,12 @@ function UpdateUser()
                             }).then(function() {
                                 $("#modalTitle").html("Manage User");
                                 $("#message").html('The data has been saved successfully!');
+                                $("#newemail").css("background-color","white");
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
                                 $("#newcontactdiv").prop('disabled', true);
+                                $("#DeleteUser").css("display","block");
                                 $("#contactSelect").prop('disabled', true);
                                 $("#userbutton").hide();
                                 $("#newcontactdiv").show();
@@ -541,8 +578,10 @@ function UpdateUser()
                             }).catch(function(error) {
                                 $("#modalTitle").html("Error Message");
                                 $("#message").html('Error for updating data!');
+                                $("#newemail").css("background-color","white");
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
+                                $("#DeleteUser").css("display","block");
                                 $("#emaildiv").css("display","block");
                                 $("#newcontactdiv").prop('disabled', true);
                                 $("#contactSelect").prop('disabled', true);
@@ -556,8 +595,10 @@ function UpdateUser()
                             $("#modalTitle").html("Error Message");
                             $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
+                            $("#DeleteUser").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
+                            $("#newemail").css("background-color","white");
                             $("#newcontactdiv").prop('disabled', true);
                             $("#contactSelect").prop('disabled', true);
                             $("#userbutton").hide();
@@ -571,11 +612,13 @@ function UpdateUser()
                         $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
+                        $("#newemail").css("background-color","white");
                         $("#emaildiv").css("display","block");
                         $("#newcontactdiv").prop('disabled', true);
                         $("#contactSelect").prop('disabled', true);
                         $("#userbutton").hide();
                         $("#newcontactdiv").show();
+                        $("#DeleteUser").css("display","block");
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                         $("#messageModal").modal();
@@ -585,7 +628,9 @@ function UpdateUser()
                 {   
                     $("#modalTitle").html("Error Message");
                     $("#message").html('Please fill in at least one field!');
+                    $("#newemail").css("background-color","white");
                     $("#emaildiv").css("display","block");
+                    $("#DeleteUser").css("display","block");
                     $("#newusername").prop('disabled', true);
                     $("#emaildiv").css("display","block");
                     $("#newcontactdiv").prop('disabled', true);
@@ -623,11 +668,13 @@ function UpdateUser()
                             }).then(function() {
                                 $("#modalTitle").html("Manage User");
                                 $("#message").html('The data has been saved successfully!');
+                                $("#newemail").css("background-color","white");
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
                                 $("#newcontactdiv").prop('disabled', true);
                                 $("#contactSelect").prop('disabled', true);
+                                $("#DeleteUser").css("display","block");
                                 $("#userbutton").hide();
                                 $("#newcontactdiv").show();
                                 $("#countrySeparator").hide();
@@ -637,8 +684,10 @@ function UpdateUser()
                                 $("#modalTitle").html("Error Message");
                                 $("#message").html('Error for updating data!');
                                 $("#emaildiv").css("display","block");
+                                $("#newemail").css("background-color","white");
                                 $("#newusername").prop('disabled', true);
                                 $("#emaildiv").css("display","block");
+                                $("#DeleteUser").css("display","block");
                                 $("#newcontactdiv").prop('disabled', true);
                                 $("#contactSelect").prop('disabled', true);
                                 $("#userbutton").hide();
@@ -652,6 +701,8 @@ function UpdateUser()
                             $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
+                            $("#DeleteUser").css("display","block");
+                            $("#newemail").css("background-color","white");
                             $("#emaildiv").css("display","block");
                             $("#newcontactdiv").prop('disabled', true);
                             $("#contactSelect").prop('disabled', true);
@@ -666,7 +717,9 @@ function UpdateUser()
                         $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
+                        $("#newemail").css("background-color","white");
                         $("#emaildiv").css("display","block");
+                        $("#DeleteUser").css("display","block");
                         $("#newcontactdiv").prop('disabled', true);
                         $("#contactSelect").prop('disabled', true);
                         $("#userbutton").hide();
@@ -705,7 +758,9 @@ function UpdateUser()
                                 $("#message").html('The data has been saved successfully!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
+                                $("#newemail").css("background-color","white");
                                 $("#emaildiv").css("display","block");
+                                $("#DeleteUser").css("display","block");
                                 $("#newcontactdiv").prop('disabled', true);
                                 $("#contactSelect").prop('disabled', true);
                                 $("#userbutton").hide();
@@ -717,7 +772,9 @@ function UpdateUser()
                                 $("#modalTitle").html("Error Message");
                                 $("#message").html('Error for updating data!');
                                 $("#emaildiv").css("display","block");
+                                $("#DeleteUser").css("display","block");
                                 $("#newusername").prop('disabled', true);
+                                $("#newemail").css("background-color","white");
                                 $("#emaildiv").css("display","block");
                                 $("#newcontactdiv").prop('disabled', true);
                                 $("#contactSelect").prop('disabled', true);
@@ -732,9 +789,11 @@ function UpdateUser()
                             $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
+                            $("#newemail").css("background-color","white");
                             $("#emaildiv").css("display","block");
                             $("#newcontactdiv").prop('disabled', true);
                             $("#contactSelect").prop('disabled', true);
+                            $("#DeleteUser").css("display","block");
                             $("#userbutton").hide();
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
@@ -748,7 +807,9 @@ function UpdateUser()
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
                         $("#newcontactdiv").prop('disabled', true);
+                        $("#newemail").css("background-color","white");
                         $("#contactSelect").prop('disabled', true);
+                        $("#DeleteUser").css("display","block");
                         $("#userbutton").hide();
                         $("#newcontactdiv").show();
                         $("#countrySeparator").hide();
@@ -766,8 +827,10 @@ function UpdateUser()
                     $("#emaildiv").css("display","block");
                     $("#newusername").prop('disabled', true);
                     $("#emaildiv").css("display","block");
+                    $("#newemail").css("background-color","white");
                     $("#newcontactdiv").prop('disabled', true);
                     $("#contactSelect").prop('disabled', true);
+                    $("#DeleteUser").css("display","block");
                     $("#userbutton").hide();
                     $("#newcontactdiv").show();
                     $("#countrySeparator").hide();
@@ -806,9 +869,11 @@ function UpdateUser()
                                     $("#modalTitle").html("Manage User");
                                     $("#message").html('The data has been saved successfully!');
                                     $("#emaildiv").css("display","block");
+                                    $("#newemail").css("background-color","white");
                                     $("#newusername").prop('disabled', true);
                                     $("#emaildiv").css("display","block");
                                     $("#newcontactdiv").prop('disabled', true);
+                                    $("#DeleteUser").css("display","block");
                                     $("#contactSelect").prop('disabled', true);
                                     $("#userbutton").hide();
                                     $("#newcontactdiv").show();
@@ -823,7 +888,9 @@ function UpdateUser()
                                 $("#message").html('Error for updating data!');
                                 $("#emaildiv").css("display","block");
                                 $("#newusername").prop('disabled', true);
+                                $("#newemail").css("background-color","white");
                                 $("#emaildiv").css("display","block");
+                                $("#DeleteUser").css("display","block");
                                 $("#newcontactdiv").prop('disabled', true);
                                 $("#contactSelect").prop('disabled', true);
                                 $("#userbutton").hide();
@@ -836,6 +903,7 @@ function UpdateUser()
                             $("#modalTitle").html("Error Message");
                             $("#message").html('Error for updating data!');
                             $("#emaildiv").css("display","block");
+                            $("#newemail").css("background-color","white");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
                             $("#newcontactdiv").prop('disabled', true);
@@ -850,9 +918,11 @@ function UpdateUser()
                         $("#modalTitle").html("Error Message");
                         $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
+                        $("#newemail").css("background-color","white");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
                         $("#newcontactdiv").prop('disabled', true);
+                        $("#DeleteUser").css("display","block");
                         $("#contactSelect").prop('disabled', true);
                         $("#userbutton").hide();
                         $("#newcontactdiv").show();
@@ -893,6 +963,8 @@ function UpdateUser()
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
                         $("#newcontactdiv").prop('disabled', true);
+                        $("#DeleteUser").css("display","block");
+                        $("#newemail").css("background-color","white");
                         $("#contactSelect").prop('disabled', true);
                         $("#userbutton").hide();
                         $("#newcontactdiv").show();
@@ -904,7 +976,9 @@ function UpdateUser()
                         $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
+                        $("#DeleteUser").css("display","block");
                         $("#emaildiv").css("display","block");
+                        $("#newemail").css("background-color","white");
                         $("#newcontactdiv").prop('disabled', true);
                         $("#contactSelect").prop('disabled', true);
                         $("#userbutton").hide();
@@ -920,6 +994,8 @@ function UpdateUser()
                     $("#emaildiv").css("display","block");
                     $("#newcontactdiv").prop('disabled', true);
                     $("#contactSelect").prop('disabled', true);
+                    $("#DeleteUser").css("display","block");
+                    $("#newemail").css("background-color","white");
                     $("#userbutton").hide();
                     $("#newcontactdiv").show();
                     $("#countrySeparator").hide();
@@ -931,7 +1007,9 @@ function UpdateUser()
                 $("#message").html('Error for updating data!');
                 $("#newusername").prop('disabled', true);
                 $("#emaildiv").css("display","block");
+                $("#DeleteUser").css("display","block");
                 $("#newcontactdiv").prop('disabled', true);
+                $("#newemail").css("background-color","white");
                 $("#contactSelect").prop('disabled', true);
                 $("#userbutton").hide();
                 $("#newcontactdiv").show();
@@ -974,11 +1052,13 @@ function UpdateUser()
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
                             $("#emaildiv").css("display","block");
+                            $("#DeleteUser").css("display","block");
                             $("#newcontactdiv").prop('disabled', true);
                             $("#contactSelect").prop('disabled', true);
                             $("#userbutton").hide();
                             $("#newcontactdiv").show();
                             $("#countrySeparator").hide();
+                            $("#newemail").css("background-color","white");
                             $("#wait").css("display", "none");
                             $("#messageModal").modal();
                         // }).catch(function(error) {
@@ -990,10 +1070,12 @@ function UpdateUser()
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
                         $("#emaildiv").css("display","block");
+                        $("#DeleteUser").css("display","block");
                         $("#newcontactdiv").prop('disabled', true);
                         $("#contactSelect").prop('disabled', true);
                         $("#userbutton").hide();
                         $("#newcontactdiv").show();
+                        $("#newemail").css("background-color","white");
                         $("#countrySeparator").hide();
                         $("#wait").css("display", "none");
                         $("#messageModal").modal();
@@ -1006,9 +1088,11 @@ function UpdateUser()
                     $("#emaildiv").css("display","block");
                     $("#newcontactdiv").prop('disabled', true);
                     $("#contactSelect").prop('disabled', true);
+                    $("#DeleteUser").css("display","block");
                     $("#userbutton").hide();
                     $("#newcontactdiv").show();
                     $("#countrySeparator").hide();
+                    $("#newemail").css("background-color","white");
                     $("#wait").css("display", "none");
                     $("#messageModal").modal();
                 });
@@ -1020,8 +1104,10 @@ function UpdateUser()
                 $("#emaildiv").css("display","block");
                 $("#newcontactdiv").prop('disabled', true);
                 $("#contactSelect").prop('disabled', true);
+                $("#DeleteUser").css("display","block");
                 $("#userbutton").hide();
                 $("#newcontactdiv").show();
+                $("#newemail").css("background-color","white");
                 $("#countrySeparator").hide();
                 $("#wait").css("display", "none");
                 $("#messageModal").modal();
@@ -1062,6 +1148,8 @@ function UpdateUser()
                             $("#message").html('The data has been saved successfully!');
                             $("#emaildiv").css("display","block");
                             $("#newusername").prop('disabled', true);
+                            $("#newemail").css("background-color","white");
+                            $("#DeleteUser").css("display","block");
                             $("#emaildiv").css("display","block");
                             $("#newcontactdiv").prop('disabled', true);
                             $("#contactSelect").prop('disabled', true);
@@ -1078,7 +1166,9 @@ function UpdateUser()
                         $("#message").html('Error for updating data!');
                         $("#emaildiv").css("display","block");
                         $("#newusername").prop('disabled', true);
+                        $("#newemail").css("background-color","white");
                         $("#emaildiv").css("display","block");
+                        $("#DeleteUser").css("display","block");
                         $("#newcontactdiv").prop('disabled', true);
                         $("#contactSelect").prop('disabled', true);
                         $("#userbutton").hide();
@@ -1093,7 +1183,9 @@ function UpdateUser()
                     $("#emaildiv").css("display","block");
                     $("#newusername").prop('disabled', true);
                     $("#emaildiv").css("display","block");
+                    $("#newemail").css("background-color","white");
                     $("#newcontactdiv").prop('disabled', true);
+                    $("#DeleteUser").css("display","block");
                     $("#contactSelect").prop('disabled', true);
                     $("#userbutton").hide();
                     $("#newcontactdiv").show();
@@ -1108,6 +1200,8 @@ function UpdateUser()
                 $("#newusername").prop('disabled', true);
                 $("#emaildiv").css("display","block");
                 $("#newcontactdiv").prop('disabled', true);
+                $("#newemail").css("background-color","white");
+                $("#DeleteUser").css("display","block");
                 $("#contactSelect").prop('disabled', true);
                 $("#userbutton").hide();
                 $("#newcontactdiv").show();
@@ -1122,6 +1216,8 @@ function UpdateUser()
             $("#newusername").prop('disabled', true);
             $("#emaildiv").css("display","block");
             $("#newcontact").prop('disabled', true);
+            $("#DeleteUser").css("display","block");
+            $("#newemail").css("background-color","white");
             $("#contactSelect").prop('disabled', true);
             $("#userbutton").hide();
             $("#newcontactdiv").show();
@@ -1146,9 +1242,11 @@ function UpdateUser()
 
                     $("#newusername").prop('disabled', true);
                     $("#emaildiv").css("display","block");
+                    $("#newemail").css("background-color","white");
                     //$("#newemail").prop('disabled', true);
                     $("#newcontactdiv").prop('disabled', true);
                     $("#contactSelect").prop('disabled', true);
+                    $("#DeleteUser").css("display","block");
                     // $("#SaveUser").prop('disabled', true);
                     // $("#CancelUser").prop('disabled', true);
                     $("#userbutton").hide();
@@ -1220,7 +1318,7 @@ function UpdateProperty()
                             $("#newusername").val(name);
                             $("#newemail").val(email);
                             $("#newcontact").val(contactNumber);
-
+                            $("#DeleteUser").css("display","block");
                             $("#buttonProperty").hide();
                             $("#noedit").show();
                             $("#edit").hide();
@@ -1232,24 +1330,28 @@ function UpdateProperty()
                     {
                         // doc.data() will be undefined in this case
                         $("#modalTitle").html("Error Message");
+                        $("#DeleteUser").css("display","block");
                         $("#message").html('Error for getting the data from database!');
                         $("#wait").css("display", "none");
                         $("#messageModal").modal();
                     });
             }).catch(function(error) {
                 $("#modalTitle").html("Error Message");
+                $("#DeleteUser").css("display","block");
                 $("#message").html('Error updating data!');
                 $("#wait").css("display", "none");
                 $("#messageModal").modal();
             });
         }).catch(function(error) {
             $("#modalTitle").html("Error Message");
+            $("#DeleteUser").css("display","block");
             $("#message").html('Error updating data!');
             $("#wait").css("display", "none");
             $("#messageModal").modal();
         });
     }).catch(function(error) {
         $("#modalTitle").html("Error Message");
+        $("#DeleteUser").css("display","block");
         $("#message").html('Error updating data!');
         $("#wait").css("display", "none");
         $("#messageModal").modal();
@@ -1306,6 +1408,60 @@ function UpdateProperty()
    
 }
 
+function deleteUser()
+{
+    $("#wait").css("display", "block");
+    var propertyRef = db.collection("properties").doc(propertyID).collection("property_members");
+    var deleteUnitMemberRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
+    var propertyDeleteID;
+    var memberDeleteID;
+    
+    propertyRef.get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc){
+            if(findEmail == doc.data().p_member_email)
+            {
+                memberDeleteID = doc.data().p_member_uid;
+                propertyDeleteID = doc.id;
+            }
+        })
+        var unitMemberID;
+        deleteUnitMemberRef.get().then(function(querySnapshot){
+            querySnapshot.forEach(function(doc){
+                    if(findEmail == doc.data().member_email)
+                    {
+                        unitMemberID = doc.id;
+                    }
+                });
+               
+        db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(unitMemberID).delete().then(function(){
+            db.collection("properties").doc(propertyID).collection("property_members").doc(propertyDeleteID).delete().then(function(){
+                db.collection("users").doc(memberDeleteID).delete().then(function(){
+                    $("#deleteMessage").html("Delete Successfully!");
+                    $("#deleteTitle").html("Manage User");
+                    $("#deleteModal").modal();
+                    $("#wait").css("display", "none");
+                }).catch(function(error) {
+                    $("#deleteTitle").html("Error Message");
+                    $("#deleteMessage").html("Error for removing");
+                    $("#wait").css("display", "none");
+                    $("#deleteModal").modal();
+                });
+            }).catch(function(error) {
+                $("#deleteTitle").html("Error Message");
+                $("#deleteMessage").html("Error for removing");
+                $("#wait").css("display", "none");
+                $("#deleteModal").modal();
+            });
+        }).catch(function(error) {
+            $("#deleteTitle").html("Error Message");
+            $("#deleteMessage").html("Error for removing");
+            $("#wait").css("display", "none");
+            $("#deleteModal").modal();
+    });
+}); 
+    });   
+}
+
 function logout()
 {
     firebase.auth().signOut()
@@ -1313,8 +1469,8 @@ function logout()
     window.location = 'login.html';
   })
   .catch(function(error) {
-    $("#modalTitle").html("Error Message");
-    $("#message").html('Error logout');
-    $("#messageModal").modal();
+    $("#deleteTitle").html("Error Message");
+    $("#deleteMessage").html('Error logout');
+    $("#deleteModal").modal();
   });
 }
