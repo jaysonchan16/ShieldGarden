@@ -181,7 +181,6 @@ function facilityData()
     $("#wait").css("display", "block");
     FacilityRef.get().then(function(doc) {
         if (doc.exists) {
-            console.log("1");
             $("#facilities_name").text(doc.data().facility_title);
             $("#applyimg").html('<img width="500" height="242" src="'+doc.data().facility_image_url+'"></img>');
             $("#namenoedit").val(doc.data().facility_title);
@@ -207,7 +206,6 @@ function facilityData()
 
 function add()
 {
-    console.log("1")
     $("#wait").css("display", "block");
     var addOne;
     if(slotId.length == 0)
@@ -303,7 +301,6 @@ function SlotData(num)
     }
     else
     {
-        console.log("2")
         $("#slottable tbody").html("");
         slotId=[];
         SlotFacilityRef.get().then(function(querySnapshot) {
@@ -348,7 +345,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                         facility_title:title
                     })
                     .then(function() {
-                        facilityData();
+                        loadDetails();
                         $("#modalTitle").html("Manage Facility");
                         $("#message").html("The data has been updated successfully!");
                         $("#messageModal").modal();
@@ -365,7 +362,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                         facility_title:title
                     })
                     .then(function() {
-                        facilityData();
+                        loadDetails();
                         $("#modalTitle").html("Manage Facility");
                         $("#message").html("The data has been updated successfully!");
                         $("#messageModal").modal();
@@ -383,7 +380,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     facility_title:title
                 })
                 .then(function() {
-                    facilityData();
+                    loadDetails();
                     $("#modalTitle").html("Manage Facility");
                     $("#message").html("The data has been updated successfully!");
                     $("#messageModal").modal();
@@ -391,8 +388,10 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             }
             else if(descriptionnoedit == "" && timedescriptionnoedit == "")
             {
-                facilityData();
-                alert("Please fill in at least one field!");
+                loadDetails();
+                $("#modalTitle").html("Manage Facility");
+                $("#message").html("The data has been updated successfully!");
+                $("#messageModal").modal();
             }
             else
             {
@@ -405,7 +404,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     facility_title:title
                 })
                 .then(function() {
-                    facilityData();
+                    loadDetails();
                     $("#modalTitle").html("Manage Facility");
                     $("#message").html("The data has been updated successfully!");
                     $("#messageModal").modal();
@@ -414,10 +413,8 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
         }
         else if(descriptionnoedit == "")
         {
-            console.log("7");
             if(titlenoedit == "" && descriptionnoedit == "")
             {
-                console.log("8");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: description,
@@ -427,7 +424,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     facility_title:title
                 })
                 .then(function() {
-                    facilityData();
+                    loadDetails();
                     $("#modalTitle").html("Manage Facility");
                     $("#message").html("The data has been updated successfully!");
                     $("#messageModal").modal();
@@ -435,13 +432,13 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             }
             else if(titlenoedit == "" && timedescriptionnoedit == "")
             {
-                console.log("9");
-                facilityData();
-                alert("Please fill in at least one field!");
+                loadDetails();
+                $("#modalTitle").html("Error Message");
+                $("#message").html("Please fill in at least one field!");
+                $("#messageModal").modal();
             }
             else if(descriptionnoedit == "" && timedescriptionnoedit == "")
             {
-                console.log("10");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: description,
@@ -451,7 +448,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     facility_title:titlenoedit
                 })
                 .then(function() {
-                    facilityData();
+                    loadDetails();
                     $("#modalTitle").html("Manage Facility");
                     $("#message").html("The data has been updated successfully!");
                     $("#messageModal").modal();
@@ -459,7 +456,6 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
             }
             else
             {
-                console.log("11");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: description,
@@ -469,7 +465,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     facility_title:titlenoedit
                 })
                 .then(function() {
-                    facilityData();
+                    loadDetails();
                     $("#modalTitle").html("Manage Facility");
                     $("#message").html("The data has been updated successfully!");
                     $("#messageModal").modal();
@@ -480,11 +476,13 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
         {
             if(titlenoedit == "" && descriptionnoedit == "")
             {
-                alert("Please fill in at least one field!");
+                loadDetails();
+                $("#modalTitle").html("Error Message");
+                $("#message").html("Please fill in at least one field!");
+                $("#messageModal").modal();
             }
             else if(titlenoedit == "" && timedescriptionnoedit == "")
             {
-                console.log("14");
                 FacilityRef.update({
                     facility_booking_enabled : true,
                     facility_description: descriptionnoedit,
@@ -494,7 +492,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     facility_title:title
                 })
                 .then(function() {
-                    facilityData();
+                    loadDetails();
                     $("#modalTitle").html("Manage Facility");
                     $("#message").html("The data has been updated successfully!");
                     $("#messageModal").modal();
@@ -511,7 +509,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     facility_title:titlenoedit
                 })
                 .then(function() {
-                    facilityData();
+                    loadDetails();
                     $("#modalTitle").html("Manage Facility");
                     $("#message").html("The data has been updated successfully!");
                     $("#messageModal").modal();
@@ -528,7 +526,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                     facility_title:titlenoedit
                 })
                 .then(function() {
-                    facilityData();
+                    loadDetails();
                     $("#modalTitle").html("Manage Facility");
                     $("#message").html("The data has been updated successfully!");
                     $("#messageModal").modal();
@@ -546,7 +544,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
                 facility_title:titlenoedit
             })
             .then(function() {
-                facilityData();
+                loadDetails();
                 $("#modalTitle").html("Manage Facility");
                 $("#message").html("The data has been updated successfully!");
                 $("#messageModal").modal();
@@ -554,7 +552,7 @@ function update(titlenoedit,descriptionnoedit,timedescriptionnoedit,downloadURL)
         }
         else
         {
-            facilityData();
+            loadDetails();
             $("#modalTitle").html("Manage Facility");
             $("#message").html("Please fill up at least one field!");
             $("#messageModal").modal();
