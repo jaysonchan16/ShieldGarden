@@ -22,6 +22,9 @@ $(document).ready(function(){
     }); 
 
     $("#addMore").off('click').on('click', function(){
+        $("#InputEmail").val("");
+        $("#showblock").text("");
+        $("#showemail").text("");
         $("#searchModal").modal();
     });
 
@@ -100,6 +103,7 @@ function loadDetails()
 function Search()
 {
     $("#wait").css("display", "block");
+
     var inputemail = $("#InputEmail").val();
     
     memberdocRef = db.collection("users");
@@ -139,74 +143,91 @@ function Search()
 function AssignUnit()
 {
     $("#wait").css("display", "block");
-    //copy one from the old data
-    var propertydocOldRef = db.collection("properties").doc(propertyID).collection("units").doc(unit_id).collection("unit_members");
-    var error = 0;
-    //check the new property got the unitID
-    var checkProperty = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
-    var userRef = db.collection("users").doc(member_id);
-    //update the property_members unit
-   //console.log(updateuserID);
-    var propertyMemberRef = db.collection("properties").doc(propertyID).collection("property_members").doc(updateuserID);
-    var deleteID;
-    var saveEmail;
-    var saveName;
-    var saveNumber;
-    var saveProperty;
-    var saveUid;
 
-    checkProperty.get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            if(doc.data().email == member_email)
+    if(unit_id == unitID){
+        $("#message").text("The member has already in the unit");
+        $("#wait").css("display", "none");
+        $("#searchModal").modal("hide");
+        $("#errorModal").modal();
+    }
+    else
+    {
+        //copy one from the old data
+        var propertydocOldRef = db.collection("properties").doc(propertyID).collection("units").doc(unit_id).collection("unit_members");
+        var error = 0;
+        //check the new property got the unitID
+        var checkProperty = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members");
+        var userRef = db.collection("users").doc(member_id);
+        //update the property_members unit
+    //console.log(updateuserID);
+        var propertyMemberRef = db.collection("properties").doc(propertyID).collection("property_members").doc(updateuserID);
+        var deleteID;
+        var saveEmail;
+        var saveName;
+        var saveNumber;
+        var saveProperty;
+        var saveUid;
+
+        checkProperty.get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                if(doc.data().email == member_email)
+                {
+                    $("#message").text("Data has inserted previously");
+                    $("#errorModal").modal();
+                    //alert("Data has inserted previously");
+                    error = 1;
+                    $("#wait").css("display", "none");
+                }
+            })
+            if(error == 0)
             {
-                $("#message").text("Data has inserted previously");
-                $("#errorModal").modal();
-                //alert("Data has inserted previously");
-                error = 1;
-                $("#wait").css("display", "none");
-            }
-        })
-        if(error == 0)
-        {
-            userRef.update({
-                "unit_id":unitID
-            }).then(function() {
-                propertyMemberRef.update({
-                    "p_member_unit_id":unitID
-                }).then(function(){
-                    propertydocOldRef.get().then(function(querySnapshot) {
-                        querySnapshot.forEach(function(doc) {
-                            if(member_email == doc.data().member_email)
-                            {
-                                deleteID = doc.id;
-                                saveEmail = doc.data().member_email;
-                                saveName = doc.data().member_name;
-                                saveNumber = doc.data().member_number;
-                                saveProperty = doc.data().member_property;
-                                saveUid = doc.data().member_uid;
-                            }
-                        });
-                        checkProperty.add({
-                                member_name: saveName,
-                                //member_password:memberPassword,
-                                member_email: saveEmail,
-                                member_number:saveNumber,
-                                member_property:saveProperty,
-                                member_unit:unitID,
-                                member_uid:saveUid
-                            }).then(function(){
-                                propertydocOldRef.doc(deleteID).delete().then(function() {
-                                    $("#message").text("The member has changed the unit successfully");
-                                    $("#wait").css("display", "none");
-                                    $("#searchModal").modal("hide");
-                                    $("#errorModal").modal();
-                                    loadDetails();
-                                }).catch(function(error) {
-                                    $("#message").text("Cannot changed unit!");
-                                    $("#errorModal").modal();
-                                    $("#wait").css("display", "none");
-                                });
+                userRef.update({
+                    "unit_id":unitID
+                }).then(function() {
+                    propertyMemberRef.update({
+                        "p_member_unit_id":unitID
+                    }).then(function(){
+                        propertydocOldRef.get().then(function(querySnapshot) {
+                            querySnapshot.forEach(function(doc) {
+                                if(member_email == doc.data().member_email)
+                                {
+                                    deleteID = doc.id;
+                                    saveEmail = doc.data().member_email;
+                                    saveName = doc.data().member_name;
+                                    saveNumber = doc.data().member_number;
+                                    saveProperty = doc.data().member_property;
+                                    saveUid = doc.data().member_uid;
+                                }
                             });
+                            checkProperty.add({
+                                    member_name: saveName,
+                                    //member_password:memberPassword,
+                                    member_email: saveEmail,
+                                    member_number:saveNumber,
+                                    member_property:saveProperty,
+                                    member_unit:unitID,
+                                    member_uid:saveUid
+                                }).then(function(){
+                                    propertydocOldRef.doc(deleteID).delete().then(function() {
+                                        $("#message").text("The member has changed the unit successfully");
+                                        $("#wait").css("display", "none");
+                                        $("#searchModal").modal("hide");
+                                        $("#errorModal").modal();
+                                        loadDetails();
+                                    }).catch(function(error) {
+                                        $("#message").text("Cannot changed unit!");
+                                        $("#errorModal").modal();
+                                        $("#wait").css("display", "none");
+                                    });
+                                });
+                        });
+                    }).catch(function(error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        $("#message").text("Cannot changed unit!");
+                        $("#wait").css("display", "none");
+                        $("#searchModal").modal("hide");
+                        $("#errorModal").modal();
                     });
                 }).catch(function(error) {
                     var errorCode = error.code;
@@ -216,34 +237,26 @@ function AssignUnit()
                     $("#searchModal").modal("hide");
                     $("#errorModal").modal();
                 });
-            }).catch(function(error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                $("#message").text("Cannot changed unit!");
-                $("#wait").css("display", "none");
-                $("#searchModal").modal("hide");
-                $("#errorModal").modal();
-            });
-            // propertydocRef.set({
-            //     member_name: member_name,
-            //     member_email: member_email,
-            //     //member_ContactNumber:memberContactNumber,
-            //     member_property:propertyName,
-            //     member_unit:unitID,
-            //     member_uid:member_id
-            // })
-            // .then(function() {
-            //     $("#searchModal").modal("toggle");
-            //     alert("The data has been saved successfully!");
-            //     loadDetails();
-            // })
-            // .catch(function(error) {
-            //     var errorCode = error.code;
-            //     var errorMessage = error.message;
-            // });   
-        }
-    })
-   
+                // propertydocRef.set({
+                //     member_name: member_name,
+                //     member_email: member_email,
+                //     //member_ContactNumber:memberContactNumber,
+                //     member_property:propertyName,
+                //     member_unit:unitID,
+                //     member_uid:member_id
+                // })
+                // .then(function() {
+                //     $("#searchModal").modal("toggle");
+                //     alert("The data has been saved successfully!");
+                //     loadDetails();
+                // })
+                // .catch(function(error) {
+                //     var errorCode = error.code;
+                //     var errorMessage = error.message;
+                // });   
+            }
+        })
+    }
 }
 
 function logout()
