@@ -127,8 +127,15 @@ function loadDetails()
 
         memberRef.get().then(function(querySnapshot){
             querySnapshot.forEach(function(query){
-                propertyMemberID = query.id;
-            });
+                if(findEmail == query.data().p_member_email)
+                {
+                    // console.log(findEmail);
+                    propertyMemberID = query.id;
+                    // console.log(propertyMemberID);
+                }
+             });
+            // console.log(propertyMemberID);
+            // console.log(propertyID);
                 propertyName.get().then(function(querySnapshot){
                     querySnapshot.forEach(function(snap){
                         $("#assignedunitdrop").append("<option>"+snap.id+"</option>");
@@ -181,6 +188,10 @@ function loadDetails()
 
 function UpdateUser()
 {
+    // console.log(propertyID);
+    // console.log(propertyMemberID);
+    // console.log(memberID);
+
      $("#wait").css("display", "block");
 
     var memberName = $("#newusername").val();
@@ -195,7 +206,12 @@ function UpdateUser()
     var error = 0;
     var propertyMemberRef = db.collection("properties").doc(propertyID).collection("property_members").doc(propertyMemberID);
     var userUpdateRef = db.collection("users").doc(memberID);
-    var propertyMemberIDRef =  propertydocRef = db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(propertydocRefID);
+    var propertyMemberIDRef =  db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(propertydocRefID);
+
+    // console.log(propertyID);
+    // console.log(propertyMemberID);
+    // console.log(memberID);
+    // console.log(propertyMemberRef);
 
     // userRef.get().then(function(querySnapshot) {
     //     querySnapshot.forEach(function(doc) {
@@ -1525,17 +1541,17 @@ function deleteUser()
                
         db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(unitMemberID).delete().then(function(){
             db.collection("properties").doc(propertyID).collection("property_members").doc(propertyDeleteID).delete().then(function(){
-                db.collection("users").doc(memberDeleteID).delete().then(function(){
+                //db.collection("users").doc(memberDeleteID).delete().then(function(){
                     $("#deleteMessage").html("Delete Successfully!");
                     $("#deleteTitle").html("Manage User");
                     $("#deleteModal").modal();
                     $("#wait").css("display", "none");
-                }).catch(function(error) {
+                /*}).catch(function(error) {
                     $("#deleteTitle").html("Error Message");
                     $("#deleteMessage").html("Error for removing");
                     $("#wait").css("display", "none");
                     $("#deleteModal").modal();
-                });
+                });*/
             }).catch(function(error) {
                 $("#deleteTitle").html("Error Message");
                 $("#deleteMessage").html("Error for removing");

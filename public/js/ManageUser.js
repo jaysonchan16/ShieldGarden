@@ -60,7 +60,7 @@ function loadDetails()
             if (doc.exists) {
                 propertyID = doc.data().property_id;
                 //unitID = doc.data().unit_id; 
-               property(propertyID,unitID);
+               property(propertyID);
             }
             else {
                 $("#errorTitle").html("Error Message");
@@ -73,7 +73,7 @@ function loadDetails()
     });
 }
 
-function property(propertyID,unitID)
+function property(propertyID)
 {
     $(".table tbody").html("");
     var propertyName = db.collection("properties").doc(propertyID);
@@ -84,16 +84,22 @@ function property(propertyID,unitID)
            // console.log("Document data:", doc.data());
             sessionStorage.setItem("propertyName",doc.data().property_name);
         } else {
-            console.log("No such document!");
+            $("#errorTitle").html("Error Message");
+            $("#errorMessage").html("Cannot get the document");
+            $("#wait").css("display", "none");
+            $("#errorModal").modal();
         }
     }).catch(function(error) {
         //console.log("Error getting document:", error);
-        alert(error);
+        $("#errorTitle").html("Error Message");
+        $("#errorMessage").html("Cannot get the document");
+        $("#wait").css("display", "none");
+        $("#errorModal").modal();
     });
     var membersRef = db.collection("properties").doc(propertyID).collection("property_members");
     membersRef.get().then(function(querySnapshot){
         querySnapshot.forEach(function(doc){
-            $(".table tbody").append("<tr><td class='name findButton' id='"+doc.data().p_member_email+","+doc.data().p_member_unit_id+"' onclick='details(this.id)'>"+doc.data().p_member_name+"</td><td>"+doc.data().p_member_email+
+            $(".table tbody").append("<tr><td class='name findButton' id='"+doc.data().p_member_email+","+doc.data().p_member_unit_id+","+doc.id+"' onclick='details(this.id)'>"+doc.data().p_member_name+"</td><td>"+doc.data().p_member_email+
                         "</td><td>"+doc.data().p_member_number+"</td><td>"+doc.data().p_member_property+
                         "</td><td>"+doc.data().p_member_unit_id+"</td><td class='name findButton' id='"+doc.id+","+doc.data().p_member_name+","+
                         doc.data().p_member_email+"' onclick='deletes(this.id)'>Delete</td></tr>");
@@ -107,6 +113,7 @@ function details(details)
 {
     var email = details.split(",")[0];
     var unitID = details.split(",")[1];
+    //var unitID = details.split(",")[2];
     sessionStorage.setItem("propertyID",propertyID);
     sessionStorage.setItem("unitID",unitID);
     sessionStorage.setItem("findEmail",email);
@@ -149,16 +156,16 @@ function deleteUser()
                 });
         db.collection("properties").doc(propertyID).collection("units").doc(unitID).collection("unit_members").doc(unitMemberID).delete().then(function(){
             db.collection("properties").doc(propertyID).collection("property_members").doc(propertyDeleteID).delete().then(function(){
-                db.collection("users").doc(memberDeleteID).delete().then(function(){
+              //  db.collection("users").doc(memberDeleteID).delete().then(function(){
                     $("#deleteModal").modal("toggle");
                     $("#manageModal").modal();
                     $("#wait").css("display", "none");
-                }).catch(function(error) {
+                /*}).catch(function(error) {
                     $("#errorTitle").html("Error Message");
                     $("#errorMessage").html("Error for removing");
                     $("#wait").css("display", "none");
                     $("#errorModal").modal();
-                });
+                });*/
             }).catch(function(error) {
                 $("#errorTitle").html("Error Message");
                 $("#errorMessage").html("Error for removing");

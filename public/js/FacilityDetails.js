@@ -97,6 +97,8 @@ function EditFacility()
     $("#timedescription").val("");
     $("#timepicker").show();
     $("#FacilityButton").show();
+    $("#start").val("");
+    $("#end").val("");
     // $("#SaveDetails").prop('disabled', false);
     // $("#DeleteDetails").prop('disabled', false);
     $("#nonedit").hide();
