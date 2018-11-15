@@ -151,6 +151,13 @@ function AssignUnit()
         $("#searchModal").modal("hide");
         $("#errorModal").modal();
     }
+    else if(unit_id == null || unit_id == "" || property_id == null || property_id =="")
+    {
+        $("#message").text("Cannot assigned the member which is already kicked out the unit or property");
+        $("#wait").css("display", "none");
+        $("#searchModal").modal("hide");
+        $("#errorModal").modal();
+    }
     else
     {
         //copy one from the old data
