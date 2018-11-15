@@ -25,6 +25,7 @@ $(document).ready(function(){
         $("#InputEmail").val("");
         $("#showblock").text("");
         $("#showemail").text("");
+        $("#assignUnit").hide();
         $("#searchModal").modal();
     });
 
