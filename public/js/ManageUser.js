@@ -100,8 +100,8 @@ function property(propertyID)
     membersRef.get().then(function(querySnapshot){
         querySnapshot.forEach(function(doc){
             $(".table tbody").append("<tr><td class='name findButton' id='"+doc.data().p_member_email+","+doc.data().p_member_unit_id+","+doc.id+"' onclick='details(this.id)'>"+doc.data().p_member_name+"</td><td>"+doc.data().p_member_email+
-                        "</td><td>"+doc.data().p_member_number+"</td><td>"+doc.data().p_member_property+
-                        "</td><td>"+doc.data().p_member_unit_id+"</td><td class='name findButton' id='"+doc.id+","+doc.data().p_member_name+","+
+                        "</td><td>"+doc.data().p_member_number+"</td><td>"+doc.data().p_member_unit_id+
+                        "</td><td class='name findButton' id='"+doc.id+","+doc.data().p_member_name+","+
                         doc.data().p_member_email+"' onclick='deletes(this.id)'>Delete</td></tr>");
                 });
                 $("#AddNewUser").prop("disabled",false);

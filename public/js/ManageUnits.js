@@ -61,7 +61,7 @@ function property(propertyID,unitID)
             address = doc.data().property_name;
             propertyName.get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    $(".table tbody").append("<tr><td class='name findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.id+"</td><td>"+address+"</td></tr>");
+                    $(".table tbody").append("<tr><td class='name findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.id+"</td></tr>");
                     $("#wait").css("display", "none");
                 })
             }).catch(function(error){
