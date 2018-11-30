@@ -93,7 +93,7 @@ function property(propertyID)
             if(doc.data().notice_image_url == "" || doc.data().notice_image_url == null)
             {
                 $(".table tbody").append("<tr><td><i class ='material-icons'>photo</i></td>"+
-                                    "<td>"+doc.data().notice_title+"</td><td>"+doc.data().notice_description+"</td><td>"+posted+"</td><td class='name findButton' id='"+doc.id+","+doc.data().notice_image_url+","+
+                                    "<td class='findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().notice_title+"</td><td>"+doc.data().notice_description+"</td><td>"+posted+"</td><td class='name findButton' id='"+doc.id+","+doc.data().notice_image_url+","+
                                     doc.data().notice_title+"' onclick='deletes(this.id)'>Delete</td></tr>");
             }
             else if(doc.data().notice_image_url != "" || doc.data().notice_image_url != null)
@@ -101,20 +101,20 @@ function property(propertyID)
                 if(doc.data().notice_image_url.includes("https://"))
                 {
                     $(".table tbody").append("<tr><td><div class='thumbnail'><img class='portrait' src='"+doc.data().notice_image_url+"' alt='Image'/></div></td>"+
-                                    "<td>"+doc.data().notice_title+"</td><td>"+doc.data().notice_description+"</td><td>"+posted+"</td><td class='name findButton' id='"+doc.id+","+doc.data().notice_image_url+","+
+                                    "<td class='findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().notice_title+"</td><td>"+doc.data().notice_description+"</td><td>"+posted+"</td><td class='name findButton' id='"+doc.id+","+doc.data().notice_image_url+","+
                                     doc.data().notice_title+"' onclick='deletes(this.id)'>Delete</td></tr>");
                 }
                 else
                 {
                     $(".table tbody").append("<tr><td><i class ='material-icons'>photo</i></td>"+
-                                    "<td>"+doc.data().notice_title+"</td><td>"+doc.data().notice_description+"</td><td>"+posted+"</td><td class='name findButton' id='"+doc.id+","+doc.data().notice_image_url+","+
+                                    "<td class='findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().notice_title+"</td><td>"+doc.data().notice_description+"</td><td>"+posted+"</td><td class='name findButton' id='"+doc.id+","+doc.data().notice_image_url+","+
                                     doc.data().notice_title+"' onclick='deletes(this.id)'>Delete</td></tr>");
                 }
             }
             else
             {
                 $(".table tbody").append("<tr><td><i class ='material-icons'>photo</i></td>"+
-                                    "<td>"+doc.data().notice_title+"</td><td>"+doc.data().notice_description+"</td><td>"+posted+"</td><td class='name findButton' id='"+doc.id+","+doc.data().notice_image_url+","+
+                                    "<td class='findButton' id='"+doc.id+"' onclick='details(this.id)'>"+doc.data().notice_title+"</td><td>"+doc.data().notice_description+"</td><td>"+posted+"</td><td class='name findButton' id='"+doc.id+","+doc.data().notice_image_url+","+
                                     doc.data().notice_title+"' onclick='deletes(this.id)'>Delete</td></tr>");
             }
 
@@ -176,6 +176,14 @@ function deleteNotice()
         $("#messageModal").modal();
     });
 }
+
+function details(ID)
+{
+    sessionStorage.setItem("NoticesID",ID);
+    sessionStorage.setItem("propertyID",propertyID);
+    window.location = 'NoticeDetails.html';
+}
+
 
 function logout()
 {
