@@ -140,101 +140,136 @@ function addnewuser()
     
         if(error == 0)
         {    
-            firebase.auth().createUserWithEmailAndPassword(memberEmail, memberPassword)
-            .then(function(firebaseUser){
-                var uid = firebaseUser.user.uid;
-                
-                var property = $("#assignedproperty option:selected").val();
-                var unit = $("#assignedunit option:selected").val();
-                var fullAddress = unit +", "+property;
-
-                var userdocRef = db.collection("users").doc(uid);
-                
-                userdocRef.set({
-                    admin: true,
-                    app_platform: null,
-                    app_version: null,
-                    country_code: null,
+            $.ajax({
+                type:"POST",
+                url:"https://us-central1-shieldgarden2018.cloudfunctions.net/createUser",
+                dataType: "json",
+                heaaders:{
+                    'Content-Type':  'application/json',       
+                    'Authorization': 'c49a1a3c56c54fb6018ad3f0af2565ccee6518ef'
+                },
+                data:{
+                    name: memberName,
                     email:memberEmail,
-                    full_address:null,
-                    name:memberName,
-                    phone_model:null,
-                    phone_number:memberContactNumber,
+                    password:memberPassword,
+                    phone:contactNum,
+                    country_code:contactSelect,
                     property_id:propertyID,
-                    unit_id:assignedUnit,
-                    user_id:uid
-                }).then(function()
-                {
-                    propertyMemberRef.add({
-                            p_member_email:memberEmail,
-                            p_member_name: memberName,
-                            p_member_uid: uid,
-                            p_member_unit_id:assignedUnit,
-                            p_member_number: memberContactNumber,
-                            p_member_property:property
-                        }).then(function(){
-                            propertydocRef.add({
-                                member_name: memberName,
-                                //member_password:memberPassword,
-                                member_email: memberEmail,
-                                member_number:memberContactNumber,
-                                member_property:property,
-                                member_unit:assignedUnit,
-                                member_uid:uid
-                            })
-                            .then(function() {
-                                // $("#modalTitle").html("Manage User");
-                                // $("#message").html("The data has been saved successfully!");
-                                // $("#messageModal").modal();
-                                alert("The data has been saved successfully!");
-                                $("#Add").prop("disabled",false);
-                                $("#wait").css("display", "none");
-                                firebase.auth().signOut();
-                            })
-                            .catch(function(error) {
-                                var errorCode = error.code;
-                                var errorMessage = error.message;
-                                
-                                $("#Add").prop("disabled",false);
-                                $("#wait").css("display", "none");
-                                $("#modalTitle").html("Error Message");
-                                $("#message").html("The data cannot save in database!");
-                                $("#messageModal").modal();
-                            });
-                    }).catch(function(){
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        
-                        $("#Add").prop("disabled",false);
-                        $("#wait").css("display", "none");
-                        $("#modalTitle").html("Error Message");
-                        $("#message").html("The data cannot save in database!");
-                        $("#messageModal").modal();
-                    });             
-                })
-                .catch(function(error) {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    
+                    unit_id:assignedUnit
+                },
+                success: function(resp,textstatus,jqXHR){
+                    console.log(resp);
+                    alert("The data has been saved successfully!");
+                    $("#Add").prop("disabled",false);
+                    $("#wait").css("display", "none");
+                    firebase.auth().signOut();
+                },
+                error: function(resp,textstatus,jqXHR){
+                    console.log(resp);
                     $("#Add").prop("disabled",false);
                     $("#wait").css("display", "none");
                     $("#modalTitle").html("Error Message");
                     $("#message").html("The data cannot save in database!");
                     $("#messageModal").modal();
-                });
+                },
             })
-            .catch(function(error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
+
+        //     firebase.auth().createUserWithEmailAndPassword(memberEmail, memberPassword)
+        //     .then(function(firebaseUser){
+        //         var uid = firebaseUser.user.uid;
                 
-                $("#Add").prop("disabled",false);
-                $("#wait").css("display", "none");
-                $("#modalTitle").html("Error Message");
-                $("#message").html("The data cannot save in database!");
-                $("#messageModal").modal();
-            });
-        }
+        //         var property = $("#assignedproperty option:selected").val();
+        //         var unit = $("#assignedunit option:selected").val();
+        //         var fullAddress = unit +", "+property;
+
+        //         var userdocRef = db.collection("users").doc(uid);
+                
+        //         userdocRef.set({
+        //             admin: true,
+        //             app_platform: null,
+        //             app_version: null,
+        //             country_code: null,
+        //             email:memberEmail,
+        //             full_address:null,
+        //             name:memberName,
+        //             phone_model:null,
+        //             phone_number:memberContactNumber,
+        //             property_id:propertyID,
+        //             unit_id:assignedUnit,
+        //             user_id:uid
+        //         }).then(function()
+        //         {
+        //             propertyMemberRef.add({
+        //                     p_member_email:memberEmail,
+        //                     p_member_name: memberName,
+        //                     p_member_uid: uid,
+        //                     p_member_unit_id:assignedUnit,
+        //                     p_member_number: memberContactNumber,
+        //                     p_member_property:property
+        //                 }).then(function(){
+        //                     propertydocRef.add({
+        //                         member_name: memberName,
+        //                         //member_password:memberPassword,
+        //                         member_email: memberEmail,
+        //                         member_number:memberContactNumber,
+        //                         member_property:property,
+        //                         member_unit:assignedUnit,
+        //                         member_uid:uid
+        //                     })
+        //                     .then(function() {
+        //                         // $("#modalTitle").html("Manage User");
+        //                         // $("#message").html("The data has been saved successfully!");
+        //                         // $("#messageModal").modal();
+        //                         alert("The data has been saved successfully!");
+        //                         $("#Add").prop("disabled",false);
+        //                         $("#wait").css("display", "none");
+        //                         firebase.auth().signOut();
+        //                     })
+        //                     .catch(function(error) {
+        //                         var errorCode = error.code;
+        //                         var errorMessage = error.message;
+                                
+        //                         $("#Add").prop("disabled",false);
+        //                         $("#wait").css("display", "none");
+        //                         $("#modalTitle").html("Error Message");
+        //                         $("#message").html("The data cannot save in database!");
+        //                         $("#messageModal").modal();
+        //                     });
+        //             }).catch(function(){
+        //                 var errorCode = error.code;
+        //                 var errorMessage = error.message;
+                        
+        //                 $("#Add").prop("disabled",false);
+        //                 $("#wait").css("display", "none");
+        //                 $("#modalTitle").html("Error Message");
+        //                 $("#message").html("The data cannot save in database!");
+        //                 $("#messageModal").modal();
+        //             });             
+        //         })
+        //         .catch(function(error) {
+        //             var errorCode = error.code;
+        //             var errorMessage = error.message;
+                    
+        //             $("#Add").prop("disabled",false);
+        //             $("#wait").css("display", "none");
+        //             $("#modalTitle").html("Error Message");
+        //             $("#message").html("The data cannot save in database!");
+        //             $("#messageModal").modal();
+        //         });
+        //     })
+        //     .catch(function(error) {
+        //         var errorCode = error.code;
+        //         var errorMessage = error.message;
+                
+        //         $("#Add").prop("disabled",false);
+        //         $("#wait").css("display", "none");
+        //         $("#modalTitle").html("Error Message");
+        //         $("#message").html("The data cannot save in database!");
+        //         $("#messageModal").modal();
+        //     });
+        // }
         
+        // });
         });
     }
 }

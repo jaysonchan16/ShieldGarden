@@ -1,0 +1,11 @@
+html,
+body {
+	margin: 0;
+	color: #7FFF00;
+	background: #00FFFF;
+	font: sans-serif;
+}
+
+body {
+	padding: 20px;
+}
